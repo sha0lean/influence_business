@@ -1,6 +1,7 @@
 require("dotenv").config()
 const jwt = require("jsonwebtoken");
 const {User} = require("../models");
+const crypto = require("crypto");
 
 
 
@@ -12,9 +13,14 @@ async function verifyToken(req,res,next){
         });
     } 
     try{
+        //We create the hash for our token
+        const sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET);
+        //We hash our token in order to retrieve its hash in the database
+        const tokenHashed = sha256Hasher.update(token).digest("hex");
+        global.token = tokenHashed
         const user = await User.findOne({
             where: {
-                token: token
+                token: tokenHashed
             }
         }).then((user) => {
             if(user){
@@ -35,7 +41,7 @@ async function verifyToken(req,res,next){
     }
     catch(err){
         return res.status(401).send({
-            message: "Invalid token"
+            message: "Invalid token : "
         })
     }
     

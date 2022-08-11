@@ -124,7 +124,6 @@ module.exports = {
                         });
                     }
                     else{
-
                         const userJson = user.toJSON();
                         const token = jwtSignUser(userJson);
                         global.token = token;
@@ -134,7 +133,6 @@ module.exports = {
                         });
                         
                     }
-                
                 })   
             }
         }catch(err){
@@ -144,4 +142,39 @@ module.exports = {
         };
         
     },
+    async logout (req,res){
+        try{
+            const token = global.token;
+            const user = await User.findOne({
+                where:{
+                    token: token
+                }
+            })
+            if(user){
+                const userJson = user.toJSON(); 
+                await User.update({
+                    token: jwtSignUser(userJson)
+                },
+                {
+                    where: {
+                        id_user: userJson.id_user
+                    }   
+                }).then(() => {
+                    res.status(200).send({
+                        message: "The user has been disconnected"
+                    })
+                })
+            }
+            else{
+                res.status(404).send({
+                    message: "The user has not been found"
+                })
+            }
+        }
+        catch(err){
+            res.status(500).send({
+                message: "Internal error"
+            })
+        }
+    }
 }
