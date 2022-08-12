@@ -23,12 +23,6 @@ app.use(bodyParser.json());
 
 require('./routes/routes.js')(app);
 
-require('dotenv').config()
-// console.log("===================") 
-console.log(process.env) 
-console.log(process.env.PORT) 
-// console.log("===================") 
-
 app.get('/', auth,(req, res) => {
     res.send({
         message: "Hello World"

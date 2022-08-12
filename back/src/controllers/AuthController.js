@@ -56,9 +56,14 @@ module.exports = {
             if(isUserAlreadyExist == false){
                 //Prevent the user from registering himself as admin
                 role_verify = role
-                if(role_verify === 'admin' || role_verify != 'expert' || role_verify != 'investor'){
+                console.log("role : ",role);
+                if('admin'.localeCompare(role_verify) === 0 &&  'expert'.localeCompare(role_verify) !== 0 && 'investor'.localeCompare(role_verify) !== 0){
+                    console.log("admin : ",'admin'.localeCompare(role_verify))
+                    console.log("expert : ",'expert'.localeCompare(role_verify))
+                    console.log("investor : ",'investor'.localeCompare(role_verify))
                     role_verify = 'entrepreneur'
                 }
+                console.log("role_verify : ",role_verify);
                 const newUser = await User.create({
                     email: email,
                     password: password,

@@ -6,7 +6,7 @@
 
 /**
  * This file contains a module which we export, so we can manipulate it easily, as we do for other modules.
- * port : Our API is listening on port 8000 ou 5000 ?, or in the environment variable port 
+ * port : Our API is listening on port 8000, or in the environment variable port 
  * database : which database we use (for instance, ours is called influenceurBusiness.db, we can see it in mysql workbench)
  * user and password : your credentials to log yourself in the database
  * options : we inform which type of database we use (mysql), which host do we use, and where is stored our database
