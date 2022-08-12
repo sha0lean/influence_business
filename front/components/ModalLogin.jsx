@@ -28,7 +28,7 @@ const ModalLogin = () => {
 
 
   return (
-    <div className='border-2 border-black mt-4 w-96 h-60 rounded-md modalChevron'>
+    <div className='border-2 border-black mt-4 w-96 h-60 rounded-md modalChevron bg-white'>
       <form onSubmit={handleSubmit} className='flex flex-col px-6 justify-center mt-10 gap-y-4'>
         <input type="email" placeholder='Email' className='input' value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder='Mot de passe' className='input' value={password} onChange={(e) => setPassword(e.target.value)} />

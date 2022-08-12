@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='relative flex items-center w-11/12 md:w-9/12 mx-auto mt-4'>
+      <div className='relative flex items-center w-11/12 md:w-9/12 mx-auto mt-4 border-b pb-2 border-b-black'>
         <Link href='/'>
          <h1 className='font-bold text-lg md:text-xl cursor-pointer hover:underline hover:underline-offset-2'>Influencer Business</h1>
         </Link>

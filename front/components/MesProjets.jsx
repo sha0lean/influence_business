@@ -18,11 +18,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 18,
     paddingLeft: '50px',
     paddingRight: '50px',
+    textAlign: 'center',
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 16,
     paddingLeft: '50px',
     paddingRight: '50px',
+    textAlign: 'center',
   },
 }));
 
@@ -36,23 +38,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, score ) {
-  return { name, score };
+function createData(name, score, status, notification ) {
+  return { name, score, status, notification };
 }
 
-const rows = [
-  createData('Projet naze', 50),
-  createData('Projet ok', 260),
-  createData('Bon projet', 550),
-  createData('Très bon projet', 700 ),
-];
 
+
+const rows = [
+  createData('Projet naze', 50, 'Incomplet', 0),
+  createData('Projet ok', 260, 'En cours', 1),
+  createData('Bon projet', 550, 'Terminé', 0),
+  createData('Très bon projet', 700, 'Certifié', 0),
+];
 
 const MesProjets = () => {
   return (
     <>
       <div className='flex items-center justify-between mt-10 lg:mt-16 '>
-        <h1 className='text-xl font-bold md:text-2xl lg:text-3xl underline'>Mes projets</h1>
+        <div className='relative'>
+          <h1 className='text-xl font-bold md:text-2xl lg:text-3xl underline'>Mes projets</h1>
+          <span className="bg-red-900 text-white w-fit mx-auto px-3 py-1 rounded-full absolute bottom-0 -left-9 font-bold">1</span>
+        </div>
         <div className='relative w-1/2 max-w-[550px]'>
           <input type='text' placeholder='Rechercher un projet' className='border-2 border-black w-full  rounded-md p-2' />
           <BiSearchAlt className='text-2xl lg:text-3xl absolute top-3 right-3 lg:top-2 lg:right-4 cursor-pointer' />
@@ -73,29 +79,46 @@ const MesProjets = () => {
 function CustomizedTables() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{ minWidth: 1000 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nom du projet</StyledTableCell>
             <StyledTableCell>Score</StyledTableCell>
+            <StyledTableCell>Status</StyledTableCell>
+            <StyledTableCell>Notifications</StyledTableCell>
             <StyledTableCell>Actions</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
+            
             <StyledTableRow key={row.name}>
               <StyledTableCell sx={{ width: 300 }} component="th" scope="row">
                 {row.name}
               </StyledTableCell>
               <StyledTableCell>{row.score}</StyledTableCell>
-              <StyledTableCell>
-                <div className='flex items-center gap-x-4'>
-                  <div className='flex w-fit items-center bg-black px-4 py-2 rounded-md'>
-                    <span className='text-white'>Actions</span>
-                    <BsChevronRight className='text-lg ml-2 text-white' />
+              <StyledTableCell>{row.status}</StyledTableCell>
+              {row.notification === 1 ? (
+                <StyledTableCell>
+                  <div className="bg-red-900 text-white w-fit mx-auto px-4 py-2 rounded-full">
+                    {row.notification}
                   </div>
-                  <button className='bg-red-700 p-2 rounded-md text-white'>Supprimer</button>
-                </div>
+                </StyledTableCell>
+              ) : (
+                <StyledTableCell>
+                  {row.notification}
+                </StyledTableCell>
+
+              )}
+              <StyledTableCell>
+                <Link href='/profile/projets/offres'>
+                  <div className='flex items-center gap-x-4 cursor-pointer'>
+                    <div className='flex w-fit items-center bg-black px-4 py-2 rounded-md'>
+                      <span className='text-white'>Actions</span>
+                      <BsChevronRight className='text-lg ml-2 text-white' />
+                    </div>
+                  </div>
+                </Link>
               </StyledTableCell>
             </StyledTableRow>
           ))}
