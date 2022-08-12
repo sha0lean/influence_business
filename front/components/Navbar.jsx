@@ -38,9 +38,7 @@ const Navbar = () => {
                 </Link>
               }
           */}
-          <Link href='/'>
-            <a className='px-4 py-2 border border-black rounded-md hover:bg-blue-400/40' onClick={handleModalLogin}>Se connecter</a>
-          </Link>
+          <button className='px-4 py-2 border border-black rounded-md hover:bg-blue-400/40' onClick={handleModalLogin}>Se connecter</button>
 
           {/* S'il y a modalLogin actif alors ça affiche le component <ModalLogin /> sinon retourn null, donc affiche rien */}
           {
@@ -54,9 +52,6 @@ const Navbar = () => {
             ) : null
           }
         </div>
-      </div>
-      <div className='w-11/12 md:w-9/12 mx-auto flex justify-center items-center text-center font-bold text-xl md:text-2xl mt-96'>
-        <h1 className='border-2 border-black rounded-md border-dashed px-8 py-4'>Veuillez vous connecter afin d'accéder à la plateforme</h1>
       </div>
     </>
   )

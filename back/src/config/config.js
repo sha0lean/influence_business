@@ -6,14 +6,14 @@
 
 /**
  * This file contains a module which we export, so we can manipulate it easily, as we do for other modules.
- * port : Our API is listening on port 8000, or in the environment variable port 
+ * port : Our API is listening on port 8000 ou 5000 ?, or in the environment variable port 
  * database : which database we use (for instance, ours is called influenceurBusiness.db, we can see it in mysql workbench)
  * user and password : your credentials to log yourself in the database
  * options : we inform which type of database we use (mysql), which host do we use, and where is stored our database
  */
  module.exports = {
 
-    port: process.env.PORT || 8000,
+    port: process.env.PORT || 5000,
     db: {
 
         database: process.env.DB_NAME,
@@ -25,7 +25,7 @@
             //database host
             host: process.env.HOST,
             //where the db is stored
-            storage: './erode.mysql'
+            storage: './influenceurbusiness.mysql'
         }
     },
     authentication: {

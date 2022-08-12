@@ -11,7 +11,9 @@ export default function Home() {
       </Head>
       <Navbar />
       <main>
-
+        <div className='w-11/12 md:w-9/12 mx-auto flex justify-center items-center text-center font-bold text-xl md:text-2xl mt-96'>
+          <h1 className='border-2 border-black rounded-md border-dashed px-8 py-4'>Veuillez vous connecter afin d'accéder à la plateforme</h1>
+        </div>
       </main>
     </div>
   )
