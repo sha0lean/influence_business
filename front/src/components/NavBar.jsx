@@ -13,7 +13,12 @@ function NavBar(){
                     <nav>
                         <Link to="/">Home</Link>
                         <Link to="/adminProfil">profil admin</Link>
+                        <Link to="/createProject">créatin d'un projet</Link>
+                        <Link to="/entrepreneurProfil">profil entrepreneur</Link>
+                        <Link to="/validateProject">validation projet</Link>
+                        <Link to="/login">se connecter</Link>
                     </nav>
+                    
             </div>
         </div>
     )
