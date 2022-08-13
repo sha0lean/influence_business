@@ -17,8 +17,8 @@ const corsOptions = {
     origin: 'http://localhost:3000'
 }
   
-app.use(cors(corsOptions))
-app.use(morgan("combined"))
+app.use(cors(corsOptions));
+app.use(morgan("combined"));
 app.use(bodyParser.json());
 
 require('./routes/routes.js')(app);

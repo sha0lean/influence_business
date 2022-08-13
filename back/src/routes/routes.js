@@ -3,6 +3,7 @@ const AuthController = require('../controllers/AuthController.js');
 const ModulesController =require('../controllers/ModulesController');
 const ProjectController =require('../controllers/ProjectController');
 const UserController =require('../controllers/UserController');
+const ContactController =require('../controllers/ContactController'); 
 const verifyToken = require("../middleware/auth.js");
 
 module.exports = (app) => {
@@ -12,4 +13,6 @@ module.exports = (app) => {
     app.post('/logout',verifyToken,AuthController.logout);
     app.post('/deleteProject',verifyToken,ProjectController.deleteProject);
     app.post('/deleteUser',verifyToken,UserController.deleteUser);
+    app.post('/updateModule',verifyToken,ModulesController.updateModule);
+    app.post('/contact',verifyToken,ContactController.contact)
 }

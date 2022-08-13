@@ -77,7 +77,7 @@ module.exports = {
         }
         catch(err){
             res.status(500).send({
-                message: "Internal error"
+                message: "Internal error" 
             })
         }
     },
@@ -138,7 +138,7 @@ module.exports = {
         }
         catch(err){
             res.status(500).send({
-                message: "Internal error : " + err
+                message: "Internal error"
             })
         }
     }

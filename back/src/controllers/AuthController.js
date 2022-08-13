@@ -43,7 +43,7 @@ module.exports = {
     // Register User
     async register (req, res) {
         try{
-            const {email,password,first_name,last_name,role} = req.body;            
+            const {email,password,first_name,last_name,role} = req.body;                        
             let isUserAlreadyExist = true
             const fetchUser = await User.findOne({
                 where: {
@@ -56,14 +56,17 @@ module.exports = {
             if(isUserAlreadyExist == false){
                 //Prevent the user from registering himself as admin
                 role_verify = role
-                console.log("role : ",role);
-                if('admin'.localeCompare(role_verify) === 0 &&  'expert'.localeCompare(role_verify) !== 0 && 'investor'.localeCompare(role_verify) !== 0){
-                    console.log("admin : ",'admin'.localeCompare(role_verify))
-                    console.log("expert : ",'expert'.localeCompare(role_verify))
-                    console.log("investor : ",'investor'.localeCompare(role_verify))
+                console.log("role_verify : ",'entrepreneur'.localeCompare(role_verify));
+                
+                if('expert'.localeCompare(role_verify) === 0){
+                    role_verify = 'expert'
+                }
+                else if('investor'.localeCompare(role_verify) === 0){
+                    role_verify = 'investor'
+                }
+                else{
                     role_verify = 'entrepreneur'
                 }
-                console.log("role_verify : ",role_verify);
                 const newUser = await User.create({
                     email: email,
                     password: password,
@@ -74,20 +77,21 @@ module.exports = {
                 const userJson = newUser.toJSON();
                 const token = jwtSignUser(userJson);
                 //We fill the tables specific to the role
-                switch(role){
-                    case 'investor':
-                        await Investor.create({
-                            id_user: userJson.id_user
-                        })
-                    case 'expert':
-                        await Expert.create({
-                            id_user: userJson.id_user
-                        })
-                    default:
-                        await Entrepreneur.create({
-                            id_user: userJson.id_user
-                        })
-                }   
+                if(role.localeCompare("investor") === 0){
+                    await Investor.create({
+                        id_user: userJson.id_user
+                    })
+                }
+                else if(role.localeCompare("expert") === 0){
+                    await Expert.create({
+                        id_user: userJson.id_user
+                    })
+                }
+                else{
+                    await Entrepreneur.create({
+                        id_user: userJson.id_user
+                    })
+                }
                 global.token = token;
                 res.status(200).json({
                     token : token,
@@ -101,8 +105,8 @@ module.exports = {
             }
         }
         catch(err){
-            res.status(400).send({
-                message: "error : " + err
+            res.status(500).send({
+                message: "Internal error"
             })
         }
     }, 

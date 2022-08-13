@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         project_type: {
             type: DataTypes.STRING(50)
         },
+        state_validation: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: 0
+        },
         id_entrepreneur: {
             type: DataTypes.INTEGER
         }
