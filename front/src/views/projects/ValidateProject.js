@@ -1,10 +1,10 @@
 import React from "react";
-import NavBar from "../components/NavBar.jsx";
+import NavBar from "../../components/NavBar.jsx";
 
-function ValidateProject(){
-    return(
+function ValidateProject() {
+    return (
         <div>
-            <NavBar/>
+            <NavBar />
             <h1>Validation de projet</h1>
         </div>
     )

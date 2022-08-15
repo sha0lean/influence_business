@@ -1,10 +1,10 @@
 import React from "react";
-import NavBar from "../components/NavBar.jsx";
+import NavBar from "../../components/NavBar.jsx";
 
-function AdminProfil(){
-    return(
+function AdminProfil() {
+    return (
         <div>
-            <NavBar/>
+            <NavBar />
             <h1>profil admin</h1>
         </div>
     )
