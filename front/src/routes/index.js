@@ -1,12 +1,13 @@
 import { useRoutes } from 'react-router-dom';
 
 // routes
-import MainRoutes from './MainRoutes';
-import AuthenticationRoutes from './AuthenticationRoutes';
+// import AuthenticationRoutes from './AuthenticationRoutes';
+
+import MainRoutes from './MainRoutes.js';
 
 // ==============================|| ROUTING RENDER ||============================== //
 
 export default function ThemeRoutes() {
-    return useRoutes([MainRoutes, AuthenticationRoutes]);
+    return useRoutes([MainRoutes]);
 }
 

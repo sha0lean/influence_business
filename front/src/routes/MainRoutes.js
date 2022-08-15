@@ -1,21 +1,21 @@
 // project imports
-import MainLayout from 'layout/MainLayout';
+import MainLayout from '../layouts/MainLayout.js';
 
 // routes auth
-import LoginPage from "./views/LoginPage.js"
-import Register from "./views/RegisterPage.js"
+import LoginPage from "../views/login/LoginPage.js"
+import Register from "../views/login/RegisterPage.js"
 
 // routes root
-import Home from "./views/Home.js"
-import Feed from "./views/Feed"
+import Home from "../views/Home.js"
+import Feed from "../views/Feed"
 
 // routes profiles
-import AdminProfile from "./views/Profile/AdminProfile.js"
-import EntrepreneurProfil from "./views/Profile/EntrepreneurProfil.js"
+import AdminProfil from "../views/profiles/AdminProfil.js"
+import EntrepreneurProfil from "../views/profiles/EntrepreneurProfil.js"
 
 // routes projects
-import CreateProject from "./views/CreateProject.js"
-import ValidateProject from "./views/ValidateProject.js"
+import CreateProject from "../views/projects/CreateProject.js"
+import ValidateProject from "../views/projects/ValidateProject.js"
 
 // import Profile from "./views/Profiles/index.js"
 
@@ -44,7 +44,7 @@ const MainRoutes = {
         },
         {
             path: 'AdminProfile',
-            element: <AdminProfile />
+            element: <AdminProfil />
         },
         {
             path: 'EntrepreneurProfil',
@@ -58,10 +58,7 @@ const MainRoutes = {
             path: 'validateProject',
             element: <ValidateProject />
         },
-        {
-            path: 'AdminProfile',
-            element: <AdminProfile />
-        },
+
     ]
 };
 

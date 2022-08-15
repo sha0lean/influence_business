@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from "react-router-dom";
 
 
-const pages = ['Feed', 'About', 'Profile'];
+const pages = ['Login', 'Register', 'Feed', 'AdminProfile', 'Profile', 'createProject', 'validateProject'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
