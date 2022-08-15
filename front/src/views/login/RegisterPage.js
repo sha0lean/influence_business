@@ -1,9 +1,17 @@
 import React, { useState } from "react";
+
+// components imports
 import NavBar from "../../components/NavBar.jsx";
-import { api } from "../../configApi.js";
+import Header from "../../components/Header.jsx";
+import Register from "../../components/logins/Register.jsx";
+
+// form imports
 import ButtonForm from "../../components/forms/ButtonForm.jsx";
 import InputField from "../../components/forms/InputField.jsx";
 import SelectField from "../../components/forms/SelectField.jsx";
+
+// api imports
+import { api } from "../../configApi.js";
 
 async function registerUser(credentials) {
     console.log("credentials : ", credentials)
@@ -68,7 +76,8 @@ function RegisterPage({ changeSetRole, setToken }) {
     const valuesOption = ["entrepreneur", "investor", "expert"];
     return (
         <div id="login-container">
-            <NavBar />
+            <Header />
+            <Register />
             <h1>Page d'inscription</h1>
             <form id="login-form" onSubmit={handleSubmit}>
                 <InputField name={"prénom"} type={"text"} placeholder={"Entrez votre prénom"} idName={"inputField-first-name"} onChange={handleFirstNameChange} />
@@ -78,6 +87,8 @@ function RegisterPage({ changeSetRole, setToken }) {
                 <InputField name={"password"} type={"password"} placeholder={"Entrez votre mot de passe"} idName={"inputField-password"} onChange={handlePasswordChange} />
                 <ButtonForm content={"S'inscrire"} />
             </form>
+            <br />
+            <NavBar />
 
         </div>
     )
