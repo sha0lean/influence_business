@@ -1,16 +1,18 @@
 // import { Table } from "@mui/material";
 import React from "react";
-import ProfileTabs from "../../components/ProfileTabs";
-import ProfileTable from "../../components/ProfileTable";
+import Navigation from "../../components/Navigation.jsx";
+import ProfileTabs from "../../components/ProfileTabs.jsx";
+// import ProfileTable from "../../components/ProfileTable.jsx";
+import { Container } from '@mui/system';
 
 const Profile = () => {
     return (
         <div className="App">
-            Here is the profile page
-            <ProfileTabs></ProfileTabs>
-            <ProfileTable></ProfileTable>
-            <br />
-            ----
+            <Navigation />
+            <Container maxwidth="xl">
+                <ProfileTabs />
+            </Container>
+            {/* <ProfileTable></ProfileTable> */}
         </div>
     );
 }

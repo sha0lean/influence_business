@@ -1,4 +1,4 @@
-// import React, {useCallback} from "react";
+// components imports
 import NavBar from "../../components/NavBar.jsx";
 import Header from "../../components/Header.jsx";
 import Login from "../../components/logins/Login.jsx";

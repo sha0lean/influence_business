@@ -10,6 +10,7 @@ import Home from "../views/Home.js"
 import Feed from "../views/Feed"
 
 // routes profiles
+import Profile from "../views/profiles/Profile.js"
 import AdminProfil from "../views/profiles/AdminProfil.js"
 import EntrepreneurProfil from "../views/profiles/EntrepreneurProfil.js"
 
@@ -41,6 +42,10 @@ const MainRoutes = {
         {
             path: 'register',
             element: <Register />
+        },
+        {
+            path: 'Profile',
+            element: <Profile />
         },
         {
             path: 'AdminProfile',
