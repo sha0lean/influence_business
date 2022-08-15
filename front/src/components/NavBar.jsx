@@ -2,28 +2,56 @@ import React from "react";
 import {
     Link
 } from "react-router-dom";
+import {api} from "../configApi.js";
 
-// import Home from "../views/Home.js"
-// import AdminProfil from "../views/AdminProfil.js";
+import Home from "../views/Home.js"
+import AdminProfil from "../views/AdminProfil.js";
+import {removeToken,getToken} from "./utils/useToken";
+import {removeRole} from "./utils/useRole";
 
-function NavBar() {
+
+
+async function logoutUser(credentials){
+    return fetch(api.url + "/logout", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+        .then(data => data.json());
+}
+
+
+function NavBar(){
+    const logout = async e => {
+        e.preventDefault();
+        
+        const response = await logoutUser({
+            token: getToken()
+        })
+        if(response.message === "The user has been disconnected"){
+            removeToken()
+            removeRole()
+            window.location.reload();
+        }
+        else{
+            alert("Mauvais identifiants")
+        }
+    }
     return (
         <div id="mainContainerNav">
             <div id="containerNav">
-                <nav>
-                    <Link to="/">Home</Link>
-                    <br />
-                    <Link to="/adminProfil">profil admin</Link>
-                    <br />
-                    <Link to="/createProject">créatin d'un projet</Link>
-                    <br />
-                    <Link to="/profilEntrepreneur">profil entrepreneur</Link>
-                    <br />
-                    <Link to="/validateProject">validation projet</Link>
-                    <br />
-                    <Link to="/connexion">se connecter</Link>
-                </nav>
-
+                    <nav>
+                        <Link to="/">Home</Link>
+                        <Link to="/adminProfil">profil admin</Link>
+                        <Link to="/createProject">créatin d'un projet</Link>
+                        <Link to="/profilEntrepreneur">profil entrepreneur</Link>
+                        <Link to="/validateProject">validation projet</Link>
+                        <Link to="/connexion">se connecter</Link>
+                        <button onClick={logout}>Se déconnecter</button>
+                    </nav>
+                    
             </div>
         </div>
     )

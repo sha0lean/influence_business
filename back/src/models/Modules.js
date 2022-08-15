@@ -11,28 +11,25 @@ module.exports = (sequelize, DataTypes) => {
             unique: false
         },
         slider1: {
-            type: DataTypes.STRING(250),
+            type: DataTypes.INTEGER,
             unique: false
         },
         slider2: {
-            type: DataTypes.STRING(250),
+            type: DataTypes.INTEGER,
             unique: false
         },
         slider3: {
-            type: DataTypes.STRING(250),
+            type: DataTypes.INTEGER,
             unique: false
         },
         slider4: {
-            type: DataTypes.STRING(250),
+            type: DataTypes.INTEGER,
             unique: false
         },
         slider5: {
-            type: DataTypes.STRING(250),
+            type: DataTypes.INTEGER,
             unique: false
-        },
-    }, {
-        //don't add the attributes createdAt and updatedAt
-        timestamps: false,
+        }
     })
 
     return  Modules;

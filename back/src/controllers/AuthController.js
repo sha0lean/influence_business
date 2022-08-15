@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { User, Investor, Expert, Entrepreneur } = require('../models')
+const { User,Investor,Expert,Entrepreneur } = require('../models')
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto")
 
@@ -15,13 +15,13 @@ function jwtSignUser(user) {
         lastname: user.last_name,
         role: user.role
     },
-        secretKey, {
+    secretKey,{
         expiresIn: "24h"
     })
-    if (token) {
+    if(token){
         // We create the hash sha256 using the TOKEN_KEY
-        const sha256Hasher = crypto.createHmac("sha256", process.env.JWT_SECRET);
-        if (sha256Hasher) {
+        const sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET);
+        if(sha256Hasher){
             //We hash our token
             const tokenHashed = sha256Hasher.update(token).digest("hex");
             user = User.update({
@@ -31,7 +31,7 @@ function jwtSignUser(user) {
                     email: user.email,
                 }
             })
-            if (user) {
+            if(user){
                 return token
             }
         }
@@ -41,30 +41,30 @@ function jwtSignUser(user) {
 module.exports = {
 
     // Register User
-    async register(req, res) {
-        try {
-            const { email, password, first_name, last_name, role } = req.body;
+    async register (req, res) {
+        try{
+            const {email,password,first_name,last_name,role} = req.body;                        
             let isUserAlreadyExist = true
             const fetchUser = await User.findOne({
                 where: {
                     email: email,
                 }
             })
-            if (!fetchUser) {
+            if(!fetchUser){
                 isUserAlreadyExist = false;
-            }
-            if (isUserAlreadyExist == false) {
+            }            
+            if(isUserAlreadyExist == false){
                 //Prevent the user from registering himself as admin
                 role_verify = role
-                console.log("role_verify : ", 'entrepreneur'.localeCompare(role_verify));
-
-                if ('expert'.localeCompare(role_verify) === 0) {
+                console.log("role_verify : ",'entrepreneur'.localeCompare(role_verify));
+                
+                if('expert'.localeCompare(role_verify) === 0){
                     role_verify = 'expert'
                 }
-                else if ('investor'.localeCompare(role_verify) === 0) {
+                else if('investor'.localeCompare(role_verify) === 0){
                     role_verify = 'investor'
                 }
-                else {
+                else{
                     role_verify = 'entrepreneur'
                 }
                 const newUser = await User.create({
@@ -72,115 +72,118 @@ module.exports = {
                     password: password,
                     first_name: first_name,
                     last_name: last_name,
-                    role: role_verify
+                    role: role_verify        
                 })
                 const userJson = newUser.toJSON();
                 const token = jwtSignUser(userJson);
                 //We fill the tables specific to the role
-                if (role.localeCompare("investor") === 0) {
+                if(role.localeCompare("investor") === 0){
                     await Investor.create({
                         id_user: userJson.id_user
                     })
                 }
-                else if (role.localeCompare("expert") === 0) {
+                else if(role.localeCompare("expert") === 0){
                     await Expert.create({
                         id_user: userJson.id_user
                     })
                 }
-                else {
+                else{
                     await Entrepreneur.create({
                         id_user: userJson.id_user
                     })
                 }
                 global.token = token;
                 res.status(200).json({
-                    token: token,
+                    token : token,
+                    role: userJson.role,
                     message: 'Register successful'
                 });
             }
-            else {
+            else{
                 res.status(500).send({
                     message: "Invalid Information"
                 })
             }
         }
-        catch (err) {
+        catch(err){
             res.status(500).send({
                 message: "Internal error"
             })
         }
-    },
+    }, 
 
     // Login User
-    async login(req, res) {
-        try {
+    async login (req, res) {
+    console.log("body : ",req.body);
+       try{
             const { email, password } = req.body;
             const user = await User.findOne({
                 where: {
                     email: email,
                 }
-            })
+            }) 
             if (!user) {
                 res.status(401).send({
                     message: 'Invalid information'
                 });
             }
-            else {
+            else{
                 await user.comparePassword(password).then(isMatch => {
                     if (!isMatch) {
                         res.status(401).send({
                             message: 'Invalid information'
                         });
                     }
-                    else {
+                    else{
                         const userJson = user.toJSON();
                         const token = jwtSignUser(userJson);
                         global.token = token;
                         res.status(200).send({
                             token: token,
+                            role: userJson.role,
                             message: "Your credentials are correct"
                         });
-
+                        
                     }
-                })
+                })   
             }
-        } catch (err) {
+        }catch(err){
             res.status(500).send({
                 message: 'Internal error'
             });
         };
-
+        
     },
-    async logout(req, res) {
-        try {
+    async logout (req,res){
+        try{
             const token = global.token;
             const user = await User.findOne({
-                where: {
+                where:{
                     token: token
                 }
             })
-            if (user) {
-                const userJson = user.toJSON();
+            if(user){
+                const userJson = user.toJSON(); 
                 await User.update({
                     token: jwtSignUser(userJson)
                 },
-                    {
-                        where: {
-                            id_user: userJson.id_user
-                        }
-                    }).then(() => {
-                        res.status(200).send({
-                            message: "The user has been disconnected"
-                        })
+                {
+                    where: {
+                        id_user: userJson.id_user
+                    }   
+                }).then(() => {
+                    res.status(200).send({
+                        message: "The user has been disconnected"
                     })
+                })
             }
-            else {
+            else{
                 res.status(404).send({
                     message: "The user has not been found"
                 })
             }
         }
-        catch (err) {
+        catch(err){
             res.status(500).send({
                 message: "Internal error"
             })

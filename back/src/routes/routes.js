@@ -10,9 +10,13 @@ module.exports = (app) => {
     app.post('/register', AuthController.register);
     app.post('/login',AuthController.login);
     app.post('/createProject',verifyToken,ProjectController.createProject);
+    app.post('/getProject',verifyToken,ProjectController.getProject);
+    app.post('/getProjects',verifyToken,ProjectController.getProjects);
     app.post('/logout',verifyToken,AuthController.logout);
     app.post('/deleteProject',verifyToken,ProjectController.deleteProject);
     app.post('/deleteUser',verifyToken,UserController.deleteUser);
     app.post('/updateModule',verifyToken,ModulesController.updateModule);
-    app.post('/contact',verifyToken,ContactController.contact)
+    app.post('/contact',verifyToken,ContactController.contact);
+    app.post('/getProjectsAdmin',verifyToken,ProjectController.getAllProjects);
+    app.post('/validateProject',verifyToken,ProjectController.validateProject);
 }

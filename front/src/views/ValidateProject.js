@@ -1,13 +1,13 @@
 import React from "react";
 import NavBar from "../components/NavBar.jsx";
 
-function Home(){
+function ValidateProject(){
     return(
         <div>
             <NavBar/>
-            <h1>Home</h1>
+            <h1>Validation de projet</h1>
         </div>
     )
 }
 
-export default Home;
+export default ValidateProject;

@@ -1,13 +1,13 @@
 import React from "react";
 import NavBar from "../components/NavBar.jsx";
 
-function Home(){
+function EntrepreneurProfil(){
     return(
         <div>
             <NavBar/>
-            <h1>Home</h1>
+            <h1>Profil entrepreneur</h1>
         </div>
     )
 }
 
-export default Home;
+export default EntrepreneurProfil;
