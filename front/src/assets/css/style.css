@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input {
+    @apply bg-red-50;
+}
+
+.input:focus{
+    @apply bg-yellow-50;
+}
+
+.label{
+    @apply text-purple-600;
+}
