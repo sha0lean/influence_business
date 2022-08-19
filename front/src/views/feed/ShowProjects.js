@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from "react";
-import NavBar from "../../components/NavBar.jsx";
 import {api} from "../../configApi.js";
 import {
     Link
@@ -41,7 +40,6 @@ function ShowProjects({getToken}){
     }, []);
     return(
         <div>
-            <NavBar/>
             <h1>Affichage des projets</h1>
             <div id="containerProjects">
                 {projects.map((project) => (

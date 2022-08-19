@@ -10,10 +10,9 @@ import ExpertProfil from "../views/expert/ExpertProfil.js"
 import InvestorProfil from "../views/investor/InvestorProfil.js"
 import ShowProject from "../views/feed/ShowProject.js"
 import ShowProjects from "../views/feed/ShowProjects.js"
-import MainLayout from "../layout/MainLayout.js"
-import { setToken, getToken, removeToken } from "../utils/localStorage/useToken.js";
-import { setRole, getRole, removeRole } from "../utils/localStorage/useRole.js";
-import ProtectedRouteInvestor from "../utils/routesProtection/investorRoutesProtection";
+import {setToken, getToken,removeToken} from "../utils/localStorage/useToken.js";
+import {setRole,getRole,removeRole} from "../utils/localStorage/useRole.js";
+import ProtectedRouteInvestor from "../utils/routesProtection/investorRoutesProtection"; 
 import ProtectedRouteAdmin from "../utils/routesProtection/adminRoutesProtection"
 import ProtectedRouteEntrepreneur from "../utils/routesProtection/entrepreneurRoutesProtection"
 import ProtectedRouteAuthentification from "../utils/routesProtection/authentificationRoutesProtection"
@@ -24,94 +23,93 @@ const changeSetRole = (value) => {
 }
 
 const MainRoutes = {
-  path: "",
-  element: <MainLayout />,
-  children: [
-    {
-      path: "/",
-      element: <Home />
-    },
-    {
-      path: "connexion",
-      element: <ProtectedRouteAuthentification token={getToken()} />,
-      children: [
+    path: "",
+    children: [
         {
-          path: "",
-          element: <LoginPage changeSetRole={changeSetRole} setToken={setToken} />
-        }
-      ]
-    },
-    {
-      path: "inscription",
-      element: <ProtectedRouteAuthentification token={getToken()} />,
-      children: [
-        {
-          path: "",
-          element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken} />
-        }
-      ]
-    },
-    {
-      path: "adminProfil",
-      element: <ProtectedRouteAdmin token={getToken()} />,
-      children: [
-        {
-          path: "",
-          element: <AdminProfil getToken={getToken()} />
-        }
-      ]
-    },
-    {
-      path: "profilEntrepreneur",
-      element: <ProtectedRouteEntrepreneur token={getToken()} />,
-      children: [
-        {
-          path: "",
-          element: <EntrepreneurProfil />
+          path: "/",
+          element: <Home/>
         },
         {
-          path: "creationProjet",
-          element: <CreateProject getToken={getToken()} />
+            path: "connexion",
+            element: <ProtectedRouteAuthentification token={getToken()}/>,
+            children: [
+              {
+                path: "",
+                element:  <LoginPage changeSetRole={changeSetRole} setToken={setToken}/>      
+              }
+            ]
         },
         {
-          path: "validateProject",
-          element: <ValidateProject />
+          path: "inscription",
+          element: <ProtectedRouteAuthentification token={getToken()}/>,
+          children: [
+            {
+              path: "",
+              element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken}/>
+            }
+          ]
         },
         {
-          path: "projets",
-          element: <ShowProjects getToken={getToken()} />
+          path: "adminProfil",
+          element: <ProtectedRouteAdmin token={getToken()}/>,
+          children: [
+            {
+              path: "",
+              element: <AdminProfil getToken={getToken()}/>
+            }
+          ]
+        }, 
+        {
+          path: "profilEntrepreneur",
+          element: <ProtectedRouteEntrepreneur token={getToken()}/>,
+          children: [
+            {
+              path: "",
+              element: <EntrepreneurProfil/>
+            },
+            {
+              path: "creationProjet",
+              element: <CreateProject getToken={getToken()}/>
+            },
+            {
+              path: "validateProject",
+              element: <ValidateProject/>
+            },
+            {
+              path: "projets",
+              element: <ShowProjects getToken={getToken()}/>
+            },
+            {
+              path: "projet/:id",
+              element: <ShowProject getToken={getToken()}/>
+            }
+          ]
         },
         {
-          path: "projet/:id",
-          element: <ShowProject getToken={getToken()} />
-        }
-      ]
-    },
-    {
-      path: "profilExpert",
-      element: <ProtectedRouteExpert token={getToken()} />,
-      children: [
+          path: "profilExpert",
+          element: <ProtectedRouteExpert token={getToken()}/>,
+          children: [
+            {
+              path: "",
+              element: <ExpertProfil/>
+            }
+          ]
+        },
         {
-          path: "",
-          element: <ExpertProfil />
-        }
-      ]
-    },
-    {
-      path: "profilInvestisseur",
-      element: <ProtectedRouteInvestor token={getToken()} />,
-      children: [
+          path: "profilInvestisseur",
+          element: <ProtectedRouteInvestor token={getToken()}/>,
+          children: [
+            {
+              element: <InvestorProfil/>
+            }
+          ]
+        },
         {
-          element: <InvestorProfil />
+          path: "*",
+          element: <Missing/>
         }
-      ]
-    },
-    {
-      path: "*",
-      element: <Missing />
-    }
 
-  ]
+    ]
 }
 
 export default MainRoutes;

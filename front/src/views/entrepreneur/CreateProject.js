@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import NavBar from "../../components/NavBar.jsx";
 import {api} from "../../configApi.js";
 import ButtonForm from "../../components/ButtonForm.jsx";
 import InputField from "../../components/InputField.jsx";
@@ -94,7 +93,6 @@ function CreateProject({getToken}){
     }
     return(
         <div>
-            <NavBar/>
             <h1>Nouveau projet</h1>
             <form id="createProject-form" onSubmit={handleSubmit}>
                 <CheckBox valuesOption={["test1","test2"]} idName={"checkField-projectType"} classNameInput={"checkField-projectType"} onChange={handleProjectType}/>

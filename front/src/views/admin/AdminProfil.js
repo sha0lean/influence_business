@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from "react";
-import NavBar from "../../components/NavBar.jsx";
 import {api} from "../../configApi.js";
 import axios from "axios";
 async function fetchProjects(credentials){
@@ -59,7 +58,6 @@ function AdminProfil({getToken}){
     }
     return(
         <div>
-            <NavBar/>
             <h1>profil admin</h1>
             <div id="containerProjects">
                 {projects.map((project) => (

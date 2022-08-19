@@ -1,5 +1,4 @@
 import React, {useState,  useEffect } from "react";
-import NavBar from "../../components/NavBar.jsx";
 import {api} from "../../configApi.js";
 import ButtonForm from "../../components/ButtonForm.jsx";
 import InputField from "../../components/InputField.jsx";
@@ -60,7 +59,6 @@ function LoginPage({changeSetRole,setToken}){
     }
     return(
         <div id="login-container">
-            <NavBar/>
             <h1>Page de connexion</h1>
             <form id="login-form" onSubmit={handleSubmit}>
                 <InputField name={"email"} type={"email"} idName={"inputField-email"} placeholder={"Entrez votre email"} onChange={handleEmailChange}/>

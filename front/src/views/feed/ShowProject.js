@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from "react";
-import NavBar from "../../components/NavBar.jsx";
 import {api} from "../../configApi.js";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
@@ -40,7 +39,6 @@ function ShowProject({getToken}){
     },[])
     return(
         <div>
-            <NavBar/>
             <h1>Affichage du projet</h1>
             <p>{data.first_name}</p>
             <p>{data.last_name}</p>
