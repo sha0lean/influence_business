@@ -5,10 +5,10 @@ import {
 import {api} from "../configApi.js";
 
 import Home from "../views/Home.js"
-import AdminProfil from "../views/AdminProfil.js";
-import {removeToken,getToken} from "./utils/useToken";
-import {removeRole} from "./utils/useRole";
+import AdminProfil from "../views/admin/AdminProfil.js";
 
+import {getToken,removeToken} from "../utils/localStorage/useToken.js";
+import {removeRole} from "../utils/localStorage/useRole.js";
 
 
 async function logoutUser(credentials){
@@ -45,7 +45,7 @@ function NavBar(){
                     <nav>
                         <Link to="/">Home</Link>
                         <Link to="/adminProfil">profil admin</Link>
-                        <Link to="/createProject">créatin d'un projet</Link>
+                        <Link to="/profilEntrepreneur/creationProjet">créatin d'un projet</Link>
                         <Link to="/profilEntrepreneur">profil entrepreneur</Link>
                         <Link to="/validateProject">validation projet</Link>
                         <Link to="/connexion">se connecter</Link>

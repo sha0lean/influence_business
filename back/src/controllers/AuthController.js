@@ -114,7 +114,6 @@ module.exports = {
 
     // Login User
     async login (req, res) {
-    console.log("body : ",req.body);
        try{
             const { email, password } = req.body;
             const user = await User.findOne({

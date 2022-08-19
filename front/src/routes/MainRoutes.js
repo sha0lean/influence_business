@@ -1,70 +1,117 @@
-// project imports
-import MainLayout from '../layouts/MainLayout.js';
-
-// routes auth
-import LoginPage from "../views/login/LoginPage.js"
-import Register from "../views/login/RegisterPage.js"
-
-// routes root
 import Home from "../views/Home.js"
-import Feed from "../views/Feed"
-
-// routes profiles
-import Profile from "../views/profiles/Profile.js"
-import AdminProfil from "../views/profiles/AdminProfil.js"
-import EntrepreneurProfil from "../views/profiles/EntrepreneurProfil.js"
-
-// routes projects
-import CreateProject from "../views/projects/CreateProject.js"
-import ValidateProject from "../views/projects/ValidateProject.js"
-
-// import Profile from "./views/Profiles/index.js"
-
-// ==============================|| MAIN ROUTING ||============================== //
+import AdminProfil from "../views/admin/AdminProfil.js"
+import CreateProject from "../views/entrepreneur/CreateProject.js"
+import EntrepreneurProfil from "../views/entrepreneur/EntrepreneurProfil.js"
+import ValidateProject from "../views/admin/ValidateProject.js"
+import LoginPage from "../views/authentification/LoginPage.js"
+import RegisterPage from "../views/authentification/RegisterPage.js";
+import Missing from "../views/Missing.js"
+import ExpertProfil from "../views/expert/ExpertProfil.js"
+import InvestorProfil from "../views/investor/InvestorProfil.js"
+import ShowProject from "../views/feed/ShowProject.js"
+import ShowProjects from "../views/feed/ShowProjects.js"
+import MainLayout from "../layout/MainLayout.js"
+import { setToken, getToken, removeToken } from "../utils/localStorage/useToken.js";
+import { setRole, getRole, removeRole } from "../utils/localStorage/useRole.js";
+import ProtectedRouteInvestor from "../utils/routesProtection/investorRoutesProtection";
+import ProtectedRouteAdmin from "../utils/routesProtection/adminRoutesProtection"
+import ProtectedRouteEntrepreneur from "../utils/routesProtection/entrepreneurRoutesProtection"
+import ProtectedRouteAuthentification from "../utils/routesProtection/authentificationRoutesProtection"
+import ProtectedRouteExpert from "../utils/routesProtection/authentificationRoutesProtection"
+let token = getToken();
+const changeSetRole = (value) => {
+  setRole(value);
+}
 
 const MainRoutes = {
-    path: '/',
-    // : on imbrique tout dans "MainLayout"
-    element: <MainLayout />,
-    children: [
+  path: "",
+  element: <MainLayout />,
+  children: [
+    {
+      path: "/",
+      element: <Home />
+    },
+    {
+      path: "connexion",
+      element: <ProtectedRouteAuthentification token={getToken()} />,
+      children: [
         {
-            path: '/',
-            element: <Home />
+          path: "",
+          element: <LoginPage changeSetRole={changeSetRole} setToken={setToken} />
+        }
+      ]
+    },
+    {
+      path: "inscription",
+      element: <ProtectedRouteAuthentification token={getToken()} />,
+      children: [
+        {
+          path: "",
+          element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken} />
+        }
+      ]
+    },
+    {
+      path: "adminProfil",
+      element: <ProtectedRouteAdmin token={getToken()} />,
+      children: [
+        {
+          path: "",
+          element: <AdminProfil getToken={getToken()} />
+        }
+      ]
+    },
+    {
+      path: "profilEntrepreneur",
+      element: <ProtectedRouteEntrepreneur token={getToken()} />,
+      children: [
+        {
+          path: "",
+          element: <EntrepreneurProfil />
         },
         {
-            path: 'feed',
-            element: <Feed />
+          path: "creationProjet",
+          element: <CreateProject getToken={getToken()} />
         },
         {
-            path: 'login',
-            element: <LoginPage />
+          path: "validateProject",
+          element: <ValidateProject />
         },
         {
-            path: 'register',
-            element: <Register />
+          path: "projets",
+          element: <ShowProjects getToken={getToken()} />
         },
         {
-            path: 'Profile',
-            element: <Profile />
-        },
+          path: "projet/:id",
+          element: <ShowProject getToken={getToken()} />
+        }
+      ]
+    },
+    {
+      path: "profilExpert",
+      element: <ProtectedRouteExpert token={getToken()} />,
+      children: [
         {
-            path: 'AdminProfile',
-            element: <AdminProfil />
-        },
+          path: "",
+          element: <ExpertProfil />
+        }
+      ]
+    },
+    {
+      path: "profilInvestisseur",
+      element: <ProtectedRouteInvestor token={getToken()} />,
+      children: [
         {
-            path: 'EntrepreneurProfil',
-            element: <EntrepreneurProfil />
-        },
-        {
-            path: 'createProject',
-            element: <CreateProject />
-        },
-        {
-            path: 'validateProject',
-            element: <ValidateProject />
-        },
+          element: <InvestorProfil />
+        }
+      ]
+    },
+    {
+      path: "*",
+      element: <Missing />
+    }
 
-    ]
-};
+  ]
+}
 
 export default MainRoutes;
