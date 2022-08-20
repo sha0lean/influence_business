@@ -3,6 +3,8 @@ import Home from "../views/Home.js"
 import Missing from "../views/Missing.js"
 
 // authentification
+import Login from "../views/authentification/Login.js"
+import Register from "../views/authentification/Register.js";
 import LoginPage from "../views/authentification/LoginPage.js"
 import RegisterPage from "../views/authentification/RegisterPage.js";
 
@@ -49,7 +51,7 @@ const MainRoutes = {
       children: [
         {
           path: "",
-          element: <LoginPage changeSetRole={changeSetRole} setToken={setToken} />
+          element: <Login changeSetRole={changeSetRole} setToken={setToken} />
         }
       ]
     },
@@ -59,7 +61,7 @@ const MainRoutes = {
       children: [
         {
           path: "",
-          element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken} />
+          element: <Register changeSetRole={changeSetRole} setToken={setToken} />
         }
       ]
     },
