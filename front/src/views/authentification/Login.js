@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 
 export default function Login() {
     return (
@@ -109,7 +109,11 @@ export default function Login() {
                                                             onClick={e => e.preventDefault()}
                                                             className=""
                                                         >
-                                                            <small>Créer un compte</small>
+                                                            <small>
+                                                                <Link to="/inscription">
+                                                                    Créer un compte
+                                                                </Link>
+                                                            </small>
                                                         </a>
                                                     </div>
                                                 </div>

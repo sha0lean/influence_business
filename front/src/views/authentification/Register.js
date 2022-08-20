@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { api } from "../../configApi.js";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 import ButtonForm from "../../components/ButtonForm.jsx";
 import InputField from "../../components/InputField.jsx";
@@ -195,7 +196,11 @@ function Register({ changeSetRole, setToken }) {
                                                             onClick={e => e.preventDefault()}
                                                             className=""
                                                         >
-                                                            <small>Déjà membre ?</small>
+                                                            <small>
+                                                                <Link to="/connexion">
+                                                                    Déjà membre ?
+                                                                </Link>
+                                                            </small>
                                                         </a>
                                                     </div>
                                                 </div>
