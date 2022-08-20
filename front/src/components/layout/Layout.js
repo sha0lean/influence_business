@@ -1,9 +1,11 @@
 import React from "react";
 import NavBar from "../NavBar.jsx";
-const Layout = ({children}) => {
+import '../../assets/css/style.css';
+
+const Layout = ({ children }) => {
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <main>{children}</main>
         </div>
     )

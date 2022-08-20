@@ -1,25 +1,27 @@
+/* eslint-disable no-unreachable */
 import { Navigate, Outlet } from "react-router-dom";
-import {getRole} from "../localStorage/useRole.js";
-const ProtectedRouteAuthentification = ({token,children}) => {
-    if(token && getRole()){
-      switch(getRole()){
-        case "admin":
-          return <Navigate to="/adminProfil" replace/>
-          break;
-        case "expert":
-          return <Navigate to="/profilExpert" replace/>
-          break;
-        case "investor":
-          return <Navigate to="/profilInvestisseur" replace/>
-          break;
-        case "entrepreneur": 
-          return <Navigate to="/profilEntrepreneur" replace/>
-          break;
-        default: 
-          return <Navigate to="/" replace/>
-      }
-    }
-    return children ? children: <Outlet/>;
-  }
+import { getRole } from "../localStorage/useRole.js";
 
-  export default ProtectedRouteAuthentification;
+const ProtectedRouteAuthentification = ({ token, children }) => {
+  if (token && getRole()) {
+    switch (getRole()) {
+      case "admin":
+        return <Navigate to="/adminProfil" replace />
+        break;
+      case "expert":
+        return <Navigate to="/profilExpert" replace />
+        break;
+      case "investor":
+        return <Navigate to="/profilInvestisseur" replace />
+        break;
+      case "entrepreneur":
+        return <Navigate to="/profilEntrepreneur" replace />
+        break;
+      default:
+        return <Navigate to="/" replace />
+    }
+  }
+  return children ? children : <Outlet />;
+}
+
+export default ProtectedRouteAuthentification;
