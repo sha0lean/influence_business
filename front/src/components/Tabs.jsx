@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css"
 import Tab1 from "./Tab1";
+import Tab2 from "./Tab2";
 
 // interactive way to change color ↓
 // https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/tabs/icons
@@ -79,15 +80,7 @@ const Tabs = () => {
                                     <Tab1 />
                                 </div>
                                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                    <p>
-                                        Completely synergize resource taxing relationships via
-                                        premier niche markets. Professionally cultivate one-to-one
-                                        customer service with robust ideas.
-                                        <br />
-                                        <br />
-                                        Dynamically innovate resource-leveling customer service for
-                                        state of the art customer service.
-                                    </p>
+                                    <Tab2 />
                                 </div>
                                 <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                                     <p>
