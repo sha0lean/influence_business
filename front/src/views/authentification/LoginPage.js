@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { api } from "../../configApi.js";
+import { api } from "/src/configApi.js";
 import axios from "axios";
 
 // forms
-import ButtonForm from "../../components/forms/ButtonForm.jsx";
-import InputField from "../../components/forms/InputField.jsx";
+import ButtonForm from "components/forms/ButtonForm.jsx";
+import InputField from "components/forms/InputField.jsx";
 
 async function loginUser(credentials) {
     try {

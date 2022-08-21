@@ -3,7 +3,7 @@ import React from "react";
 function Table() {
     return (
         <div className="flex">
-            <div class="w-2/3 mx-auto shadow-md sm:rounded-lg">
+            <div class="mx-auto shadow-md sm:rounded-lg">
                 <table class=" w-full text-sm text-left text-gray-500 ">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                         <tr>

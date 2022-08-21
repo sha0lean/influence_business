@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { api } from "../../configApi.js";
+import { api } from "/src/configApi.js";
 import axios from "axios";
 
 //forms
-import ButtonForm from "../../components/forms/ButtonForm.jsx";
-import InputField from "../../components/forms/InputField.jsx";
-import SelectField from "../../components/forms/SelectField.jsx";
+import ButtonForm from "components/forms/ButtonForm.jsx";
+import InputField from "components/forms/InputField.jsx";
+import SelectField from "components/forms/SelectField.jsx";
 
 async function registerUser(credentials) {
     try {

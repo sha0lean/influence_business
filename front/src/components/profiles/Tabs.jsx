@@ -1,7 +1,6 @@
 import React from "react";
-import "../../App.css"
-import Tab1 from "./Tab1";
-import Tab2 from "./Tab2";
+import Tab1 from "./Tab1.jsx";
+import Tab2 from "./Tab2.jsx";
 
 // interactive way to change color ↓
 // https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/tabs/icons
@@ -31,7 +30,7 @@ const Tabs = () => {
                                 href="#link1"
                                 role="tablist"
                             >
-                                <i className="fas fa-space-shuttle text-base mr-1"></i> Profil
+                                <i className="fas fa-space-shuttle text-base mr-1"></i> Projets
                             </a>
                         </li>
                         <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -50,7 +49,7 @@ const Tabs = () => {
                                 href="#link2"
                                 role="tablist"
                             >
-                                <i className="fas fa-cog text-base mr-1"></i>  Projets
+                                <i className="fas fa-cog text-base mr-1"></i>  Projets en attente
                             </a>
                         </li>
                         <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -103,8 +102,6 @@ const Tabs = () => {
 
 export default function TabsRender() {
     return (
-        <>
-            <Tabs />;
-        </>
+        <Tabs />
     );
 }

@@ -27,9 +27,10 @@ import InvestorProfil from "../views/investor/InvestorProfil.js"
 
 // projects
 import CreateProject from "../views/entrepreneur/CreateProject.js"
+import TestCreateProject from "../views/entrepreneur/TestCreateProject.js";
 import ValidateProject from "../views/admin/ValidateProject.js"
-import ShowProject from "../views/feed/ShowProject.js"
-import ShowProjects from "../views/feed/ShowProjects.js"
+import ShowProject from "../views/projects/ShowProject.js"
+import ShowProjects from "../views/projects/ShowProjects.js"
 import FeedComponent from "../components/feed/FeedComponent.jsx";
 
 
@@ -49,6 +50,10 @@ const MainRoutes = {
     {
       path: "feed",
       element: <FeedComponent />,
+    },
+    {
+      path: "TestCreateProject",
+      element: <TestCreateProject />
     },
     {
       path: "connexion",

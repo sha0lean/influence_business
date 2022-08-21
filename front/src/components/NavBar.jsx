@@ -37,14 +37,14 @@ export default function Navbar() {
     }
     return (
         <div className="sticky top-0 left-0 w-full shadow-md">
-            <div className="items-center justify-between bg-white py-4 px-7 md:flex md:px-10">
+            <div className="items-center justify-between bg-white py-4 px-7 lg:flex md:px-10">
                 {/* LOGO TOP LEFT */}
-                <div className="flex mx-4 cursor-pointer items-center justify-between font-[Poppins] text-2xl font-bold text-gray-800">
+                <div className="flex mx-4 cursor-pointer items-center justify-between font-[Poppins] text-xl font-bold text-gray-800">
                     <a
                         href="home"
                         className="text-gray-800 duration-300 hover:text-gray-400"
                     >
-                        <span className="mr-1 pt-2 text-3xl text-indigo-600">
+                        <span className="mr-1 pt-2 text-2xl text-indigo-600">
                             <Link to="/">    Influencer Business
                             </Link>
                         </span>
@@ -52,7 +52,7 @@ export default function Navbar() {
                     {/* HAMBURGER BUTTON SPAN SVG */}
                     <span
                         onClick={() => setOpen(!open)}
-                        className=" right-8 top-6 text-3xl md:hidden"
+                        className=" right-8 top-6 text-xl md:hidden"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -81,27 +81,32 @@ export default function Navbar() {
                     }
                 >
                     {/* MENU avec"href" obligatoires */}
-                    <li className="py-2 text-xl md:my-0 md:ml-8">
+                    <li className="py-2 text-md md:my-0 md:ml-8">
                         <a href="null" className="text-gray-800 duration-300 hover:text-gray-400">
                             <Link to="/feed">feed</Link>
                         </a>
                     </li>
-                    <li className="py-2 text-xl md:my-0 md:ml-8">
+                    <li className="py-2 text-md md:my-0 md:ml-8">
                         <a href="null" className="text-gray-800 duration-300 hover:text-gray-400">
-                            <Link to="/">test profil</Link>
+                            <Link to="/">test profile</Link>
                         </a>
                     </li>
-                    <li className="py-2 text-xl md:my-0 md:ml-8">
+                    <li className="py-2 text-md md:my-0 md:ml-8">
+                        <a href="null" className="text-gray-800 duration-300 hover:text-gray-400">
+                            <Link to="/TestCreateProject">test create project</Link>
+                        </a>
+                    </li>
+                    <li className="py-2 text-md md:my-0 md:ml-8">
                         <a href="null" className="text-gray-800 duration-300 hover:text-gray-400">
                             <Link to="/adminProfil">profil</Link>
                         </a>
                     </li>
-                    <li className="py-2 text-xl md:my-0 md:ml-8">
+                    <li className="py-2 text-md md:my-0 md:ml-8">
                         <a href="null" className="text-gray-800 duration-300 hover:text-gray-400">
                             <Link to="/profilEntrepreneur/creationProjet">créer projet</Link>
                         </a>
                     </li>
-                    <li className="py-2 text-xl md:my-0 md:ml-8">
+                    <li className="py-2 text-md md:my-0 md:ml-8">
                         <a href="null" className="text-gray-800 duration-300 hover:text-gray-400">
                             <Link to="/validateProject">validation</Link>
                         </a>
@@ -115,7 +120,7 @@ export default function Navbar() {
                     >
                         Se déconnecter
                     </button>
-                    <li className="py-2 text-xl md:my-0 md:ml-8">
+                    <li className="py-2 text-md md:my-0 md:ml-8">
                         <a href="null" className="text-gray-800 duration-300 hover:text-gray-400">
                             <Link to="/inscription">inscription</Link>
                         </a>

@@ -1,8 +1,8 @@
-import React, { useState, useEffect} from "react";
-import {api} from "../../configApi.js";
+import React, { useState, useEffect } from "react";
+import { api } from "/src/configApi.js";
 import axios from "axios";
-async function fetchProjects(credentials){
-    try{
+async function fetchProjects(credentials) {
+    try {
         return await axios.post(api.url + "/getProjectsAdmin", credentials, {
             timeout: 2000,
             headers: {
@@ -10,15 +10,15 @@ async function fetchProjects(credentials){
                 "Content-Type": "application/json;charset=UTF-8",
             },
         })
-        .then(({data}) => {
-            return data;
-        })
+            .then(({ data }) => {
+                return data;
+            })
     }
-    catch(err){
+    catch (err) {
         alert("temps de requête dépassé.");
     }
 }
-async function validateProject(credentials){
+async function validateProject(credentials) {
     return fetch(api.url + "/validateProject", {
         method: 'POST',
         headers: {
@@ -28,35 +28,35 @@ async function validateProject(credentials){
     })
         .then(data => data.json());
 }
-function AdminProfil({getToken}){
-    const [projects,setProjects] = useState([])
+function AdminProfil({ getToken }) {
+    const [projects, setProjects] = useState([])
     useEffect(() => {
         fetchProjects({
             token: getToken
         }).then((res) => {
-            if(res.message === "Projects found"){
+            if (res.message === "Projects found") {
                 setProjects(res.projects)
             }
-            else{
+            else {
                 window.location.href = "/"
             }
         })
-    },[])
+    }, [])
     const validationProject = (event, param) => {
         validateProject({
             id_project: param,
             token: getToken
         }).then((res) => {
 
-            if(res.message === "The project has been updated"){
+            if (res.message === "The project has been updated") {
                 window.location.reload(false);
             }
-            else{
+            else {
                 alert("Une erreur est survenue, veuillez réessayer");
             }
-        })        
+        })
     }
-    return(
+    return (
         <div>
             <h1>profil admin</h1>
             <div id="containerProjects">
