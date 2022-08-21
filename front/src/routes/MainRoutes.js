@@ -30,6 +30,7 @@ import CreateProject from "../views/entrepreneur/CreateProject.js"
 import ValidateProject from "../views/admin/ValidateProject.js"
 import ShowProject from "../views/feed/ShowProject.js"
 import ShowProjects from "../views/feed/ShowProjects.js"
+import FeedComponent from "../components/FeedComponent.jsx";
 
 
 
@@ -44,6 +45,10 @@ const MainRoutes = {
     {
       path: "/",
       element: <Home />
+    },
+    {
+      path: "feed",
+      element: <FeedComponent />,
     },
     {
       path: "connexion",
