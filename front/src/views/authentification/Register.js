@@ -3,9 +3,10 @@ import { api } from "../../configApi.js";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import ButtonForm from "../../components/ButtonForm.jsx";
-import InputField from "../../components/InputField.jsx";
-import SelectField from "../../components/SelectField.jsx";
+// forms
+import ButtonForm from "../../components/forms/ButtonForm.jsx";
+import InputField from "../../components/forms/InputField.jsx";
+import SelectField from "../../components/forms/SelectField.jsx";
 
 
 async function registerUser(credentials) {

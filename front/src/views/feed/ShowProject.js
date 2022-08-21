@@ -1,9 +1,10 @@
-import React, { useState, useEffect} from "react";
-import {api} from "../../configApi.js";
+import React, { useState, useEffect } from "react";
+import { api } from "../../configApi.js";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
-async function fetchProject(credentials){
-    try{
+
+async function fetchProject(credentials) {
+    try {
         return await axios.post(api.url + "/getProject", credentials, {
             timeout: 2000,
             headers: {
@@ -11,16 +12,16 @@ async function fetchProject(credentials){
                 "Content-Type": "application/json;charset=UTF-8",
             },
         })
-        .then(({data}) => {
-            return data;
-        })
+            .then(({ data }) => {
+                return data;
+            })
     }
-    catch(err){
+    catch (err) {
         alert("temps de requête dépassé.");
     }
 }
 
-function ShowProject({getToken}){
+function ShowProject({ getToken }) {
     const [data, setData] = useState([]);
     const params = useParams();
     useEffect(() => {
@@ -28,16 +29,16 @@ function ShowProject({getToken}){
             id_project: params.id,
             token: getToken
         }).then((res) => {
-            if(res.message === "Project found"){
+            if (res.message === "Project found") {
                 setData(res)
                 console.log(res);
             }
-            else{
+            else {
                 window.location.href = "/profilEntrepreneur"
             }
         })
-    },[])
-    return(
+    }, [])
+    return (
         <div>
             <h1>Affichage du projet</h1>
             <p>{data.first_name}</p>

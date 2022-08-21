@@ -1,12 +1,12 @@
-import React, { useState, useEffect} from "react";
-import {api} from "../../configApi.js";
+import React, { useState, useEffect } from "react";
+import { api } from "../../configApi.js";
 import {
     Link
 } from "react-router-dom"
 import axios from "axios"
 
-async function fetchProjects(credentials){
-    try{
+async function fetchProjects(credentials) {
+    try {
         return await axios.post(api.url + "/getProjects", credentials, {
             timeout: 2000,
             headers: {
@@ -14,31 +14,31 @@ async function fetchProjects(credentials){
                 "Content-Type": "application/json;charset=UTF-8",
             },
         })
-        .then(({data}) => {
-            return data;
-        })
+            .then(({ data }) => {
+                return data;
+            })
     }
-    catch(err){
+    catch (err) {
         alert("temps de requête dépassé.");
     }
 }
 
-function ShowProjects({getToken}){
+function ShowProjects({ getToken }) {
     const [projects, setProjects] = useState([]);
     useEffect(() => {
         fetchProjects({
             token: getToken
         }).then((res) => {
-            if(res.message === "Project found"){
-                console.log("res data : ",res.data);
+            if (res.message === "Project found") {
+                console.log("res data : ", res.data);
                 setProjects(res.data)
             }
-            else{
+            else {
                 window.location.href = "/profilEntrepreneur"
             }
         })
     }, []);
-    return(
+    return (
         <div>
             <h1>Affichage des projets</h1>
             <div id="containerProjects">

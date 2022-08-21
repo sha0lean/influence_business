@@ -1,5 +1,5 @@
 import React from "react";
-import "../App.css"
+import "../../App.css"
 import Tab1 from "./Tab1";
 import Tab2 from "./Tab2";
 
