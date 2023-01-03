@@ -1,14 +1,11 @@
 import React from "react";
 
 
-function InputField({name,type,placeholder,onChange,idName,required}){
+function InputField({label, name,type,placeholder,onChange,idName}){
     return (
         <div class="inputField">
-            <div id="containerLabel">
-                <label className="lato" for={name}>{name}</label>
-                {required && <span class="required">*</span>}
-            </div>
-            <input className="lato" onChange={onChange} type={type} name={name} placeholder={placeholder} id={idName}/>
+             <input className="lato" onChange={onChange} type={type} name={name} placeholder={placeholder} id={idName}/>
+            <label className="lato" for={name}>{label}</label>
         </div>
     )
 }

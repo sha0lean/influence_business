@@ -6,6 +6,9 @@ import InputField from "../../components/InputField.jsx";
 import SelectField from "../../components/SelectField.jsx";
 import axios from "axios";
 import "../../assets/scss/register.scss"
+import {
+    Link
+} from "react-router-dom";
 async function registerUser(credentials){
     try{
         return await axios.post(api.url + "/register", credentials, {
@@ -66,7 +69,7 @@ function RegisterPage({changeSetRole,setToken}){
         })
 
 
-        if(response.message === "Register successful"){
+        if(response.message === "Inscription valide"){
 
             setToken(response.token);
             changeSetRole(response.role);
@@ -74,37 +77,48 @@ function RegisterPage({changeSetRole,setToken}){
         }
         else{
             setErrorMessage(response.message)
-            console.log("errorMessage : ",errorMessage)
-
         }
     }
     const valuesOption = ["entrepreneur","investor","expert"];
     return(
         <div id="mainContainerRegister">
-            <h1>Page d'inscription</h1>
+            <h1 className="lato">Page d'inscription</h1>
             <div id="registerContainer">
                 <form id="containerFormRegister" onSubmit={handleSubmit}>
                     <div id="containerFirstLastName">
                         <div id="containerFirstName">
-                            <InputField  name={"firstname"} type={"text"} placeholder={"Entrez votre prénom"} required={true} idName={"inputField-first-name"} onChange={handleFirstNameChange}/>
+                            <InputField  label={"Prénom"} name={"firstname"} type={"text"} placeholder={"Prénom"}  idName={"inputField-first-name"}   onChange={handleFirstNameChange}/>
                         </div>
                         <div id="containerLastName">
-                            <InputField name={"lastname"} type={"text"} placeholder={"Entrez votre nom"} required={true} idName={"inputField-last-name"} onChange={handleLastNameChange}/>
+                            <InputField  label={"Nom"} name={"lastname"} type={"text"} placeholder={"Nom"}  idName={"inputField-last-name"}  onChange={handleLastNameChange}/>
                         </div>
                     </div>
                     <div id="containerEmailPassword">
                         <div id="containerEmail">
-                            <InputField  name={"email"} type={"email"} placeholder={"Entrez votre email"} required={true} idName={"inputField-email"} onChange={handleEmailChange}/>
+                            <InputField  label={"Adresse mail"} name={"email"} type={"email"} placeholder={"Adresse mail"}  idName={"inputField-email"}  onChange={handleEmailChange}/>
                         </div>
                         <div id="containerPassword">
-                            <InputField  name={"password"} type={"password"} placeholder={"Entrez votre mot de passe"} required={true} idName={"inputField-password"} onChange={handlePasswordChange}/>
+                            <InputField label={"Mot de passe"} name={"password"} type={"password"} placeholder={"Mot de passe"}  idName={"inputField-password"}  onChange={handlePasswordChange}/>
+                            <img src={require("../../assets/images/oeil.png")} alt="logo oeil"/>
                         </div>
                     </div>
-                    <div id="selectRole">
-                        <SelectField className="lato" name={"selectRole"} idName={"selectField-role"} valuesOption={valuesOption} onChange={handleRoleChange}/>
+                    <div id="containerSelectRole">
+                        <SelectField name={"selectRole"} idName={"selectField-role"} valuesOption={valuesOption} onChange={handleRoleChange}/>
                     </div>
-                    <ButtonForm className="lato" content={"S'inscrire"}/>
+                    <ButtonForm  content={"S'inscrire"}/>
                     {errorMessage && <p>{errorMessage}</p>}
+                    <div id="containerDemarcation">
+                        <hr/>
+                        <p className="lato">OU</p>
+                    </div>
+                    <div id="containerGoogle">
+                        <img src={require("../../assets/images/google.png")} alt="logo google"/>
+                        <p className="lato">S'inscrire avec google</p>
+                    </div>
+                    <div id="containerLinkedin">
+                        <img src={require("../../assets/images/linkedin.png")} alt="logo linkedin"/>
+                        <p className="lato">S'inscrire avec linkedin</p>
+                    </div>
                 </form>
             </div>
         </div>

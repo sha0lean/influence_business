@@ -70,13 +70,6 @@ module.exports = {
                 else{
                     role_verify = 'entrepreneur'
                 }                
-                
-                console.log("email : ",email)
-                console.log("password : ",password)
-                console.log("first_name : ",first_name)
-                console.log("last_name : ",last_name)
-
-
                 const newUser = await User.create({
                     email: email,
                     password: password,
@@ -89,15 +82,19 @@ module.exports = {
                 const userJson = newUser.toJSON();
                 const token = jwtSignUser(userJson);
                 //We fill the tables specific to the role
+                let roleToJson = "entrepreneur";
                 if(role.localeCompare("investor") === 0){
                     const investor = await Investor.create({
                         id_user: userJson.id_user
                     })
                     if(investor){
-                        await Role.create({
+                        roleToJson = await Role.create({
                             id_user: userJson.id_user,
                             role_name: "investor"
                         })
+                        if(roleJson){
+                            roleJson = roleToJson.toJSON();
+                        }
                     }
 
                 }
@@ -106,39 +103,47 @@ module.exports = {
                         id_user: userJson.id_user
                     })
                     if(expert){
-                        await Role.create({
+                        roleToJson = await Role.create({
                             id_user: userJson.id_user,
                             role_name: "expert"
                         })
+                        if(roleToJson){
+                            roleJson = roleToJson.toJSON();
+                        }
                     }
                 }
                 else{
+                    
                     const entrepreneur = await Entrepreneur.create({
                         id_user: userJson.id_user
                     })
                     if(entrepreneur){
-                        await Role.create({
+
+                        roleToJson = await Role.create({
                             id_user: userJson.id_user,
                             role_name: "entrepreneur"
                         })
+                        if(roleToJson){
+                            roleJson = roleToJson.toJSON();
+                        }
                     }
                 }
                 global.token = token;
                 res.status(200).json({
                     token : token,
-                    role: userJson.role,
-                    message: 'Register successful'
+                    role: roleJson.role_name,
+                    message: 'Inscription valide'
                 });
             }
             else{
                 res.status(500).send({
-                    message: "Email déjà utilisé"
+                    message: "Informations invalides. Veuillez réessayer"
                 })
             }
         }
         catch(err){
             res.status(500).send({
-                message: "Internal error : " + err
+                message: "Erreur interne. Veuillez réessayer : " + err 
             })
         }
     }, 
@@ -154,14 +159,14 @@ module.exports = {
             }) 
             if (!user) {
                 res.status(401).send({
-                    message: 'Invalid information'
+                    message: "Informations invalides. Veuillez réessayer"
                 });
             }
             else{
                 await user.comparePassword(password).then(isMatch => {
                     if (!isMatch) {
                         res.status(401).send({
-                            message: 'Invalid information'
+                            message: "Informations invalides. Veuillez réessayer"
                         });
                     }
                     else{
@@ -171,7 +176,7 @@ module.exports = {
                         res.status(200).send({
                             token: token,
                             role: userJson.role,
-                            message: "Your credentials are correct"
+                            message: "Vos identifiants sont corrects"
                         });
                         
                     }
@@ -179,7 +184,7 @@ module.exports = {
             }
         }catch(err){
             res.status(500).send({
-                message: 'Internal error'
+                message: "Erreur interne. Veuillez réessayer" 
             });
         };
         
@@ -215,7 +220,7 @@ module.exports = {
         }
         catch(err){
             res.status(500).send({
-                message: "Internal error"
+                message: "Erreur interne. Veuillez réessayer" 
             })
         }
     }
