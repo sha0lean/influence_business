@@ -19,4 +19,7 @@ module.exports = (app) => {
     app.post('/contact',verifyToken,ContactController.contact);
     app.post('/getProjectsAdmin',verifyToken,ProjectController.getAllProjects);
     app.post('/validateProject',verifyToken,ProjectController.validateProject);
+    app.post('/forgot-password',AuthController.forgotPassword)
+    app.post('/reset-password/:id_user/:token',AuthController.resetPassword);
+    app.get('/reset-password/:id_user/:token',AuthController.resetPasswordForm);
 }

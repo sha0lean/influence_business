@@ -10,7 +10,8 @@ const {sequelize} = require("./models")
 
 
 const app = express();
-
+app.set("view engine","ejs")
+app.use(express.urlencoded({extended: false}));
 //corsOptions is used to allow specific addresses to interact with your API
 const corsOptions = {
     //The origin is at which address is your frontend server

@@ -2,7 +2,8 @@ require('dotenv').config()
 const { User,Investor,Expert,Entrepreneur,Role } = require('../models')
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto")
-
+const bcrypt = require('bcrypt');
+let nodemailer = require("nodemailer");
 // -- Functions -- //
 // jwt token
 
@@ -12,8 +13,7 @@ function jwtSignUser(user) {
     const token = jwt.sign({
         username: user.email,
         firstname: user.first_name,
-        lastname: user.last_name,
-        role: user.role
+        lastname: user.last_name
     },
     secretKey,{
         expiresIn: "24h"
@@ -37,6 +37,7 @@ function jwtSignUser(user) {
         }
     }
 }
+
 
 module.exports = {
 
@@ -221,6 +222,143 @@ module.exports = {
         catch(err){
             res.status(500).send({
                 message: "Erreur interne. Veuillez réessayer" 
+            })
+        }
+    },
+    async forgotPassword(req,res){
+        const {email} = req.body;
+        try{
+            const user = await User.findOne({
+                where: {
+                    email: email
+                }
+            })
+            if(!user){
+                console.log("L'utilisateur n'a pas été trouvé")
+                res.status(404).send({
+                    message: "L'utilisateur n'a pas été trouvé"
+                })
+            }
+            else{
+                const token = jwtSignUser(user);
+                console.log("token : ",token)
+                const link = `http://localhost:5000/reset-password/${user.id_user}/${token}`;
+                var transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth: {
+                      user: "influenceur.business@gmail.com",
+                      pass: "bmxjrpsnoxuxxkcf",
+                    },
+                  });
+              
+                  var mailOptions = {
+                    from: "influenceur.business@gmail.com",
+                    to: user.toJSON().email,
+                    subject: "Réinitialisation de mot de passe",
+                    text: link,
+                  };
+              
+                  transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                      console.log(error);
+                    } else {
+                      console.log("Email sent: " + info.response);
+                    }
+                  });
+                  console.log(link);                
+            }
+        }
+        catch(err){
+            console.log("Erreur interne")
+            res.status(500).send({
+                message: "Une erreur est survenue. Veuillez réessayer"
+            })
+        }
+    },
+    async resetPasswordForm(req,res){
+        const {id_user,token} = req.params;
+        //Verification of the token
+        try{
+            const sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET);
+            if(sha256Hasher){
+                const tokenHashed = sha256Hasher.update(token).digest("hex");
+                const user = await User.findOne({
+                    where:{
+                        token: tokenHashed
+                    }
+                })
+                if(user){
+                    const userJson = user.toJSON();
+                    res.render("index",{email:userJson.email})
+                }
+                else{
+                    res.status(404).send({
+                        message: "L'utilisateur n'a pas été trouvé"
+                    })
+                    
+                }
+            }
+            else{
+                res.status(500).send({
+                    message: "Une erreur interne est survenue" 
+                })
+            }
+            
+        }
+        catch(err){
+            res.status(500).send({
+                message: "Une erreur interne est survenue"
+            })
+        }
+    },
+    async resetPassword(req,res){
+        const {id_user,token} = req.params;
+        const {password} = req.body;
+
+        //Verification of the token
+        try{
+            const sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET);
+            if(sha256Hasher){
+                const tokenHashed = sha256Hasher.update(token).digest("hex");
+                const user = await User.findOne({
+                    where:{
+                        token: tokenHashed
+                    }
+                })
+                if(user){
+                    const userJson = user.toJSON();
+                    await User.update({
+                        password: password
+                    },
+                    {
+                        where: {
+                            id_user: userJson.id_user
+                        },
+                        individualHooks: true
+                    })
+                    res.status(200).send({
+                        message: "Votre mot de passe a été réinitialisé"
+                    })
+                    
+                    
+                }
+                else{
+                    res.status(404).send({
+                        message: "L'utilisateur n'a pas été trouvé"
+                    })
+                    
+                }
+            }
+            else{
+                res.status(500).send({
+                    message: "Une erreur interne est survenue" 
+                })
+            }
+            
+        }
+        catch(err){
+            res.status(500).send({
+                message: "Une erreur interne est survenue : " + err
             })
         }
     }

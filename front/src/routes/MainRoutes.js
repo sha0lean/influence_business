@@ -1,6 +1,7 @@
 import Home from "../views/Home.js"
 import LoginPage from "../views/authentication/LoginPage.js"
 import RegisterPage from "../views/authentication/RegisterPage.js";
+import ForgotPassword from "../views/authentication/ForgotPassword.js";
 import ProtectedRouteAuthentication from "../utils/routesProtection/authenticationRoutesProtection";
 import {setToken, getToken,removeToken} from "../utils/localStorage/useToken.js";
 import {setRole,getRole,removeRole} from "../utils/localStorage/useRole.js";
@@ -35,6 +36,16 @@ const MainRoutes = {
                 {
                     path: "",
                     element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken}/>
+                }
+            ]
+        },
+        {
+            path: "forgot-password",
+            element: <ProtectedRouteAuthentication token={getToken()}/>,
+            children: [
+                {
+                    path: "",
+                    element: <ForgotPassword/>
                 }
             ]
         }
