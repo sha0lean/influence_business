@@ -6,14 +6,14 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        id_user: {
+        id_role: {
             type: DataTypes.INTEGER,
-            unique: false
+            unique: true
         }
     }, {
         //don't add the attributes createdAt and updatedAt
         timestamps: false,
     })
 
-    return  Entrepreneur;
+    return Entrepreneur;
 };

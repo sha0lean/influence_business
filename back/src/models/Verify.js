@@ -8,10 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         id_admin: {
             type: DataTypes.INTEGER,
-            unique: false
+            unique: true
         },
         id_modules: {
             type: DataTypes.INTEGER,
+            unique: true
+        },
+        validation: {
+            type: DataTypes.BOOLEAN,
             unique: false
         }
     }, {
@@ -19,5 +23,5 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     })
 
-    return  Verify;
+    return Verify;
 };

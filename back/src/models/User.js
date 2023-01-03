@@ -1,3 +1,4 @@
+// Model
 // Imports
 const bcrypt = require('bcrypt');
 
@@ -13,9 +14,6 @@ function hashPassword(user, options) {
         user.setDataValue('password', hash);
     });
 }
-
-
-// Model
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         id_user: {
@@ -32,15 +30,15 @@ module.exports = (sequelize, DataTypes) => {
             unique: false
         },
         email: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.STRING(250),
             unique: true
         },
         password: {
-            type: DataTypes.STRING(250),
+            type: DataTypes.STRING(50),
             unique: false
         },
-        role: {
-            type: DataTypes.STRING(50),
+        work_status: {
+            type: DataTypes.STRING(250),
             unique: false
         },
         token: {
@@ -51,9 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         hooks: {
             beforeCreate: hashPassword,
             beforeUpdate: hashPassword
-        },
-        //don't add the attributes createdAt and updatedAt
-        timestamps: false,
+        }
     })
 
     User.prototype.comparePassword = function(password) {

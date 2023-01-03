@@ -6,33 +6,38 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
+        id_modules: {
+            type: DataTypes.INTEGER,
+            unique: true
+        },
+        id_entrepreneur: {
+            type: DataTypes.INTEGER,
+            unique: true
+        },
         enterprise_status: {
             type: DataTypes.STRING(50),
             unique: false
         },
         description: {
-            type: DataTypes.TEXT('long')
+            type: DataTypes.TEXT('long'),
+            unique: false
         },
         advancement: {
-            type: DataTypes.TEXT('long')
+            type: DataTypes.STRING(50),
+            unique: false
         },
         motivation_IB: {
-            type: DataTypes.TEXT('long')
+            type: DataTypes.TEXT('long'),
+            unique: false
         },
         project_type: {
-            type: DataTypes.STRING(50)
+            type: DataTypes.STRING(50),
+            unique: false
         },
-        state_validation: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: 0
-        },
-        id_entrepreneur: {
-            type: DataTypes.INTEGER
-        }
     }, {
         //don't add the attributes createdAt and updatedAt
         timestamps: false,
     })
 
-    return  Project;
+    return Project;
 };

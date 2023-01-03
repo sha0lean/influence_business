@@ -1,24 +1,18 @@
 // Model
 module.exports = (sequelize, DataTypes) => {
-    const Propose = sequelize.define('Propose', {
-        id_propose: {
+    const Role = sequelize.define('Role', {
+        id_role: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        id_project: {
-            type: DataTypes.INTEGER,
+        role_name: {
+            type: DataTypes.STRING(50),
             unique: false
         },
-        price: {
+        id_user: {
             type: DataTypes.INTEGER,
-            unique: false
-        },
-        id_investisor: {
-            type: DataTypes.INTEGER
-        },
-        id_entrepreneur: {
-            type: DataTypes.INTEGER
+            unique: true
         }
         
     }, {
@@ -26,5 +20,5 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     })
 
-    return  Propose;
+    return Role;
 };

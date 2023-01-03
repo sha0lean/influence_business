@@ -6,10 +6,6 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        id_project: {
-            type: DataTypes.INTEGER,
-            unique: false
-        },
         slider1: {
             type: DataTypes.INTEGER,
             unique: false
@@ -30,7 +26,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             unique: false
         }
+    }, {
+        //don't add the attributes createdAt and updatedAt
+        timestamps: false,
     })
 
-    return  Modules;
+    return Modules;
 };
