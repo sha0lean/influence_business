@@ -7,7 +7,6 @@ import {setToken, getToken,removeToken} from "../utils/localStorage/useToken.js"
 import {setRole,getRole,removeRole} from "../utils/localStorage/useRole.js";
 
 let token = getToken();
-console.log(token);
 const changeSetRole = (value) => {
   setRole(value);
 }

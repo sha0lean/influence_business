@@ -10,13 +10,19 @@
         padding-bottom: 20px;
         margin-bottom: 20px;
         #containerFormLogin{
+            #errorMessage{
+                color: red;
+                font-size: 12px;
+                margin-left: 10%;
+                font-weight: bold;
+            }
             #containerLogin{
                 display: flex;
                 justify-content: space-between;
                 flex-direction: row;
                 margin-top: 10px;
                 p{
-                    font-size: 10px;
+                    font-size: 12px;
                     margin-top: 25px;
                 }
                 .button-form{
@@ -36,18 +42,18 @@
                     flex-direction: column;
                     width: 80%;
                     margin-left: 10%;
-                    margin-top: 20px;
+                    margin-top: 12px;
                     label{
                         font-size: 10px;
                         color: #afbdcf;
-                        padding: 12px;
-                        padding-left: 15px;
+                        padding: 15px 15px 15px 15px;
                         position: absolute;
                         transition:0.2s ease all; 
                         -moz-transition:0.2s ease all; 
                         -webkit-transition:0.2s ease all;
                         pointer-events: none;
                     }
+                    
                     input::placeholder{
                         opacity: 0;
                     }
@@ -63,30 +69,33 @@
                         margin-left: 5px;
                         color:#2296EB;
                     }
-                    
-                    
                     input{
                         border: 1px solid #E2E2E2;
                         border-style:solid;
-                        padding: 10px 0 10px 5px;
+                        padding: 10px 10px 10px 10px;
+                        font-size: 12px;
+                        height: 20px;
                     }
-                    
-                 
+                    input[type="text"]:focus {
+                        border-color: #2296EB;
+                        outline: none;
+                    }
                 }
             }
             
         }
         #containerNoAccount{
             p{
-                font-size: 10px;
+                font-size: 14px;
             }
             button{
                 background-color: #005AD4;
                 color: white;
                 border-radius: 2px;
-                font-size: 12px;
-                width: 45%;
-                padding: 10px;
+                font-size: 14px;
+                padding: 5px;
+                width: 50%;
+                margin-left: 25%;
                 margin-top: 10px;
                 cursor: pointer;
             }
@@ -123,6 +132,166 @@
                 transform: translateY(-4px);
                 margin-left: 7px;
             
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 500px){
+    #mainContainerLogin{
+        h1{
+            font-size: 25px;
+        }
+        #loginContainer{
+            #containerFormLogin{
+                #errorMessage{
+                    font-size: 14px;
+                }
+                #containerLogin{
+                    p{
+                        font-size: 16px;
+                    }
+                    .button-form{
+                        font-size: 16px;
+                    }
+                }
+                #containerEmail,#containerPassword{
+                    .inputField{
+                        label{
+                            font-size: 14px;
+                        }
+                        input:not(:placeholder-shown) + label{
+                            transform: translateY(-16px);
+                            padding: 0px 5px 0px 5px;
+                            margin-left: 5px;
+                        }
+                        input{
+                            padding: 12px 12px 12px 12px;
+                            font-size: 14px;
+                        }
+                    }
+                }
+                
+            }
+            #containerNoAccount{
+                p{
+                    font-size: 16px;
+                }
+                button{
+                    font-size: 16px;
+                    padding: 10px;
+                    width: 50%;
+                }
+            }
+            #containerDemarcation{
+                p{
+                    font-size: 20px;
+                    transform: translateY(-48px);
+                }
+            }
+            #containerGoogle, #containerLinkedin{
+                padding: 15px 0 0 20px;
+                img{
+                    max-height: 25px;
+                    width: auto;
+                    height: auto;
+                    max-width: 12%;  
+                    transform: translateY(2px);
+                }
+                p{
+                    font-size: 14px;
+                    transform: translateY(-7px);
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1000px){
+    #mainContainerLogin{
+        h1{
+            font-size: 30px;
+        }
+        #loginContainer{
+            width: 60%;
+            margin-left: 20%;
+            #containerFormLogin{
+                #errorMessage{
+                    font-size: 18px;
+                }
+                #containerLogin{
+                    width: 80%;
+                    margin-left: 10%;
+                    p{
+                        font-size: 20px;
+                    }
+                    .button-form{
+                        font-size: 20px;
+                    }
+                }
+                #containerEmail,#containerPassword{
+                    .inputField{
+                        margin-top: 30px;
+                        label{
+                            font-size: 20px;
+                            transform: translateY(12px);
+                        }
+                        input:not(:placeholder-shown) + label{
+                            transform: translateY(-23px);
+                        }
+                        input{
+                            padding: 25px 25px 25px 25px;
+                            font-size: 20px;
+                            height: 30px;
+                        }
+                        input:focus + label{
+                            transform: translateY(-10px);
+                        }
+                        
+
+                    }
+                }
+                
+            }
+            #containerNoAccount{
+                margin-top: 30px;
+                p{
+                    font-size: 20px;
+                    margin-left: 10%;
+                }
+                button{
+                    font-size: 20px;
+                    padding: 15px;
+                    width: 45%;
+                    margin-left: 27.5%;
+                }
+            }
+            #containerDemarcation{
+                width: 80%;
+                margin-left: 10%;
+                margin-top: 30px;
+                p{
+                    font-size: 25px;
+                    transform: translateY(-55px);
+                    margin-left: 23%;
+                }
+            }
+            #containerGoogle, #containerLinkedin{
+                width: 50%;
+                padding: 20px 0 0 25px;
+                img{
+                    max-height: 30px;
+                    width: auto;
+                    height: auto;
+                    max-width: 15%;  
+                    transform: translateY(5px);
+                }
+                p{
+                    font-size: 20px;
+                    transform: translateY(-10px);
+                    margin-left: 15px;
+                }
             }
         }
     }

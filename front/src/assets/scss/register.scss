@@ -1,6 +1,8 @@
 #mainContainerRegister{
+    overflow-y: hidden;
+    overflow-x: hidden;
     h1{
-        font-size: 20px;
+        font-size: 25px;
         text-align: center;
     }
     #registerContainer{
@@ -11,16 +13,23 @@
         margin-bottom: 20px;
         
         #containerFormRegister{
-            
+            #errorMessage{
+                color: red;
+                font-size: 14px;
+                font-weight: bold;
+                width: 80%;
+                margin-left: 10%;
+            }
             .button-form{
                 background-color: #005AD4;
                 color: white;
                 border-radius: 2px;
                 font-size: 14px;
                 padding: 5px;
-                width: 80%;
-                margin-left: 10%;
+                width: 50%;
+                margin-left: 25%;
                 margin-top: 10px;
+                font-weight: bold;
                 cursor: pointer;
             }
             #containerFirstLastName{
@@ -32,18 +41,18 @@
                     flex-direction: column;
                     width: 80%;
                     margin-left: 10%;
-                    margin-top: 10px;
+                    margin-top: 12px;
                     label{
                         font-size: 10px;
                         color: #afbdcf;
-                        padding: 12px;
-                        padding-left: 15px;
+                        padding: 15px 15px 15px 15px;
                         position: absolute;
                         transition:0.2s ease all; 
                         -moz-transition:0.2s ease all; 
                         -webkit-transition:0.2s ease all;
                         pointer-events: none;
                     }
+                    
                     input::placeholder{
                         opacity: 0;
                     }
@@ -62,7 +71,9 @@
                     input{
                         border: 1px solid #E2E2E2;
                         border-style:solid;
-                        padding: 10px 0 10px 5px;
+                        padding: 10px 10px 10px 10px;
+                        font-size: 12px;
+                        height: 20px;
                     }
                     input[type="text"]:focus {
                         border-color: #2296EB;
@@ -83,7 +94,8 @@
                         width: 20px;
                         position: absolute;
                         right: 20%;
-                        margin-top: 20px;
+                        margin-top: 23px;
+                        cursor: pointer;
                     }
                 }
                 .inputField{
@@ -91,12 +103,11 @@
                     flex-direction: column;
                     width: 80%;
                     margin-left: 10%;
-                    margin-top: 20px;
+                    margin-top: 12px;
                     label{
                         font-size: 10px;
                         color: #afbdcf;
-                        padding: 12px;
-                        padding-left: 15px;
+                        padding: 15px 15px 15px 15px;
                         position: absolute;
                         transition:0.2s ease all; 
                         -moz-transition:0.2s ease all; 
@@ -122,7 +133,9 @@
                     input{
                         border: 1px solid #E2E2E2;
                         border-style:solid;
-                        padding: 10px 0 10px 5px;
+                        padding: 10px 10px 10px 10px;
+                        font-size: 12px;
+                        height: 20px;
                     }
                     input[type="text"]:focus {
                         outline: none;
@@ -138,9 +151,13 @@
                     display: flex;
                     flex-direction: column;
                     margin-top: 10px;
+                    label{
+                        font-size: 14px;
+                    }
                     .selectField{
                         margin-top: 3px;
                         width: 120px;
+                        font-size: 16px;
                         option{
                             font-size: 16px;
                         }
@@ -154,10 +171,9 @@
                 margin-left: 10%;
                 hr{
                     border: 1px solid black;
-                    
                 }
                 p{
-                    font-size: 16px;
+                    font-size: 14px;
                     position: absolute;
                     color: black;
                     transform: translateY(-40px);
@@ -180,11 +196,11 @@
                     width: auto;
                     height: auto;
                     max-width: 10%;  
-                    transform: translateY(5px);
+                    transform: translateY(8px);
   
                 }
                 p{
-                    font-size: 12px;
+                    font-size: 14px;
                     transform: translateY(-4px);
                     margin-left: 7px;
                 
@@ -199,16 +215,24 @@
 @media screen and (min-width: 500px){
     #mainContainerRegister{
         h1{
-            font-size: 25px;
+            font-size: 30px;
         }
         #registerContainer{
             margin-left: 15%;
             #containerFormRegister{
+                #errorMessage{
+                    color: red;
+                    font-size: 14px;
+                    font-weight: bold;
+                    width: 100%;
+                    margin-left: 0%;
+                }
                 .button-form{
-                    font-size: 16px;
+                    font-size: 18px;
                     width: 30%;
                     margin-left: 30%;
                     margin-top: 20px;
+                    padding: 10px 10px 10px 10px;
                 }
                 #containerFirstLastName{
                     display: flex;
@@ -220,8 +244,25 @@
                     .inputField{
                         width: 80%;
                         margin-left: 0;
+                        label{
+                            font-size: 16px;
+                            padding: 25px 25px 25px 25px;
+                        }
+                        input:not(:placeholder-shown) + label{
+                            transform: translateY(-18px);
+                        }
+                        input:focus + label{
+                            transform: translateY(-10px);
+                        }
+                        input{
+                            padding: 20px 20px 20px 20px;
+                            font-size: 16px;
+                            height: 25px;
+                        }
                     }
                 }
+                
+                
                 #containerEmailPassword{
                     display: flex;
                     flex-direction: row;
@@ -233,11 +274,49 @@
                     .inputField{
                         width: 80%;
                         margin-left: 0;
-                        margin-top: 20px;
+                        label{
+                            font-size: 16px;
+                            padding: 25px 25px 25px 25px;
+                        }
+                        input:not(:placeholder-shown) + label{
+                            transform: translateY(-18px);
+                        }
+                        input:focus + label{
+                            transform: translateY(-10px);
+                        }
+                        input{
+                            padding: 20px 20px 20px 20px;
+                            font-size: 16px;
+                            height: 25px;
+                        }
                     }
                     #containerPassword{
                         img{
+                            height: 25px;
+                            width: 25px;
                             right: 15%;
+                            margin-top: 33px;
+                        }
+                    }
+                }
+                #containerSelectRole{
+                    width: 100%;
+                    margin-left: 0%;
+                    .selectFieldContainer{
+                        display: flex;
+                        flex-direction: column;
+                        margin-top: 10px;
+                        label{
+                            font-size: 18px;
+                        }
+                        .selectField{
+                            margin-top: 3px;
+                            width: 150px;
+                            font-size: 20px;
+                            option{
+                                font-size: 20px;
+                            }
+                           
                         }
                     }
                 }
@@ -247,12 +326,27 @@
                     margin-left: 0px;
                     hr{
                         border: 1px solid black;
-                        
+                    }
+                    p{
+                        font-size: 20px;
+                        transform: translateY(-45px);
+                        margin-left: 33%;
+                    }
+                }
+                #containerGoogle, #containerLinkedin{
+                    width: 60%;
+                    margin: 20px 0px 0px 0%;
+                    padding: 10px 0 0 15px;
+                    img{
+                        max-height: 25px;
+                        width: auto;
+                        height: auto;
+                        max-width: 15%;  
+                        transform: translateY(9px);
                     }
                     p{
                         font-size: 16px;
-                        transform: translateY(-40px);
-                        margin-left: 35%;
+                        transform: translateY(-3px);
                     }
                 } 
             } 
@@ -260,6 +354,116 @@
         }
         
     }
-    
-    
+}   
+
+
+@media screen and (min-width: 1000px){
+    #mainContainerRegister{
+        h1{
+            font-size: 40px;
+        }
+        #registerContainer{
+            #containerFormRegister{
+                #errorMessage{
+                    font-size: 20px;
+                }
+                .button-form{
+                    margin-top: 0px;
+                    font-size: 20px;
+                    padding: 12px 12px 12px 12px;
+                }
+                #containerFirstLastName{
+                    .inputField{
+                        label{
+                            font-size: 20px;
+                            padding: 30px 30px 30px 30px;
+                        }
+                        input:not(:placeholder-shown) + label{
+                            transform: translateY(-23px);
+                        }
+                        input:focus + label{
+                            transform: translateY(-13px);
+                        }
+                        input{
+                            padding: 25px 25px 25px 25px;
+                            font-size: 20px;
+                            height: 30px;
+                        }
+                    }
+                }
+                
+                
+                #containerEmailPassword{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    margin-top: 10px;
+                    #containerEmail,#containerPassword{
+                        width: 100%;
+                    }
+                    .inputField{
+                        label{
+                            font-size: 20px;
+                            padding: 30px 30px 30px 30px;
+                        }
+                        input:not(:placeholder-shown) + label{
+                            transform: translateY(-23px);
+                        }
+                        input:focus + label{
+                            transform: translateY(-13px);
+                        }
+                        input{
+                            padding: 25px 25px 25px 25px;
+                            font-size: 20px;
+                            height: 30px;
+                        }
+                    }
+                    #containerPassword{
+                        img{
+                            height: 30px;
+                            width: 30px;
+                            right: 15%;
+                            margin-top: 40px;
+                        }
+                    }
+                }
+                #containerSelectRole{
+                    .selectFieldContainer{
+                        margin-top: 20px;
+                        label{
+                            font-size: 20px;
+                        }
+                    }
+                }
+                #containerDemarcation{
+                    margin-top: 20px;
+                    width: 90%;
+                    margin-left: 0px;
+                    hr{
+                        border: 1px solid black;
+                    }
+                    p{
+                        font-size: 20px;
+                        transform: translateY(-45px);
+                        margin-left: 35%;
+                    }
+                }
+                #containerGoogle, #containerLinkedin{
+                    width: 60%;
+                    img{
+                        max-height: 30px;
+                        max-width: 20%;  
+                        transform: translateY(12px);
+                    }
+                    p{
+                        font-size: 20px;
+                        transform: translateY(-5px);
+                        margin-left: 10px;
+                    }
+                } 
+            } 
+            
+        }
+        
+    }
 }

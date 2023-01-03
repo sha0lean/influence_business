@@ -56,7 +56,6 @@ function LoginPage({changeSetRole,setToken}){
             }
             else{
                 setErrorMessage(response.message)
-                console.log("errorMessage : ",errorMessage)
             }
         }
         else{
@@ -66,7 +65,7 @@ function LoginPage({changeSetRole,setToken}){
     
     return(
         <div id="mainContainerLogin">
-            <h1 className="lato">Page de connexion</h1>
+            <h1 className="lato">Formulaire de connexion</h1>
             <div id="loginContainer">
                 <form id="containerFormLogin" onSubmit={handleSubmit}>
                     <div id="containerEmail">
@@ -75,6 +74,7 @@ function LoginPage({changeSetRole,setToken}){
                     <div id="containerPassword">
                         <InputField  label={"Mot de passe"} name={"password"} type={"password"} placeholder={"Password"}  idName={"inputField-password"}   onChange={handlePasswordChange}/>
                     </div>
+                    {errorMessage && <p className="lato" id="errorMessage">{errorMessage}</p>}
                     <div id="containerLogin">
                         <p className="lato">
                             Mot de passe oublié ?

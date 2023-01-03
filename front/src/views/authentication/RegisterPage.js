@@ -26,7 +26,17 @@ async function registerUser(credentials){
         return err.response.data
     }
 }
+function hiddenShowPassword(){
+    const img = document.querySelector("#containerPassword img");
+    const input = document.querySelector("#containerPassword .inputField input");
+    if(input.getAttribute("type") === "password"){
+        input.setAttribute("type","text");
+    }
+    else{
+        input.setAttribute("type","password");
 
+    }
+}
 
 function RegisterPage({changeSetRole,setToken}){
     const [errorMessage,setErrorMessage] = useState(null)
@@ -82,7 +92,7 @@ function RegisterPage({changeSetRole,setToken}){
     const valuesOption = ["entrepreneur","investor","expert"];
     return(
         <div id="mainContainerRegister">
-            <h1 className="lato">Page d'inscription</h1>
+            <h1 className="lato">Formulaire d'inscription</h1>
             <div id="registerContainer">
                 <form id="containerFormRegister" onSubmit={handleSubmit}>
                     <div id="containerFirstLastName">
@@ -98,15 +108,15 @@ function RegisterPage({changeSetRole,setToken}){
                             <InputField  label={"Adresse mail"} name={"email"} type={"email"} placeholder={"Adresse mail"}  idName={"inputField-email"}  onChange={handleEmailChange}/>
                         </div>
                         <div id="containerPassword">
+                            <img src={require("../../assets/images/oeil.png")} alt="logo oeil" onMouseDown={(hiddenShowPassword)} onMouseUp={(hiddenShowPassword)}/>
                             <InputField label={"Mot de passe"} name={"password"} type={"password"} placeholder={"Mot de passe"}  idName={"inputField-password"}  onChange={handlePasswordChange}/>
-                            <img src={require("../../assets/images/oeil.png")} alt="logo oeil"/>
                         </div>
                     </div>
                     <div id="containerSelectRole">
                         <SelectField name={"selectRole"} idName={"selectField-role"} valuesOption={valuesOption} onChange={handleRoleChange}/>
                     </div>
+                    {errorMessage && <p className="lato" id="errorMessage">{errorMessage}</p>}
                     <ButtonForm  content={"S'inscrire"}/>
-                    {errorMessage && <p>{errorMessage}</p>}
                     <div id="containerDemarcation">
                         <hr/>
                         <p className="lato">OU</p>

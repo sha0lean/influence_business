@@ -138,13 +138,13 @@ module.exports = {
             }
             else{
                 res.status(500).send({
-                    message: "Informations invalides. Veuillez réessayer"
+                    message: "Cet email existe déjà. Veuillez en utiliser un autre"
                 })
             }
         }
         catch(err){
             res.status(500).send({
-                message: "Erreur interne. Veuillez réessayer : " + err 
+                message: "Une erreur interne est survenue. Veuillez réessayer"  
             })
         }
     }, 
@@ -160,14 +160,14 @@ module.exports = {
             }) 
             if (!user) {
                 res.status(401).send({
-                    message: "Informations invalides. Veuillez réessayer"
+                    message: "L'utilisateur n'a pas été trouvé. Veuillez réessayer"
                 });
             }
             else{
                 await user.comparePassword(password).then(isMatch => {
                     if (!isMatch) {
                         res.status(401).send({
-                            message: "Informations invalides. Veuillez réessayer"
+                            message: "L'utilisateur n'a pas été trouvé. Veuillez réessayer"
                         });
                     }
                     else{
@@ -185,7 +185,7 @@ module.exports = {
             }
         }catch(err){
             res.status(500).send({
-                message: "Erreur interne. Veuillez réessayer" 
+                message: "Une erreur interne est survenue. Veuillez réessayer" 
             });
         };
         
@@ -221,7 +221,7 @@ module.exports = {
         }
         catch(err){
             res.status(500).send({
-                message: "Erreur interne. Veuillez réessayer" 
+                message: "Une erreur interne est survenue. Veuillez réessayer" 
             })
         }
     },
@@ -234,14 +234,12 @@ module.exports = {
                 }
             })
             if(!user){
-                console.log("L'utilisateur n'a pas été trouvé")
                 res.status(404).send({
                     message: "L'utilisateur n'a pas été trouvé"
                 })
             }
             else{
                 const token = jwtSignUser(user);
-                console.log("token : ",token)
                 const link = `http://localhost:5000/reset-password/${user.id_user}/${token}`;
                 var transporter = nodemailer.createTransport({
                     service: "gmail",
@@ -262,14 +260,11 @@ module.exports = {
                     if (error) {
                       console.log(error);
                     } else {
-                      console.log("Email sent: " + info.response);
                     }
                   });
-                  console.log(link);                
             }
         }
         catch(err){
-            console.log("Erreur interne")
             res.status(500).send({
                 message: "Une erreur est survenue. Veuillez réessayer"
             })
@@ -300,14 +295,14 @@ module.exports = {
             }
             else{
                 res.status(500).send({
-                    message: "Une erreur interne est survenue" 
+                    message: "Une erreur interne est survenue. Veuillez réessayer" 
                 })
             }
             
         }
         catch(err){
             res.status(500).send({
-                message: "Une erreur interne est survenue"
+                message: "Une erreur interne est survenue. Veuillez réessayer"
             })
         }
     },
@@ -351,14 +346,14 @@ module.exports = {
             }
             else{
                 res.status(500).send({
-                    message: "Une erreur interne est survenue" 
+                    message: "Une erreur interne est survenue. Veuillez réessayer" 
                 })
             }
             
         }
         catch(err){
             res.status(500).send({
-                message: "Une erreur interne est survenue : " + err
+                message: "Une erreur interne est survenue. Veuillez réessayer"
             })
         }
     }
