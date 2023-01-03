@@ -1,0 +1,50 @@
+#mainContainerRegister{
+    h1{
+        font-size: 20px;
+        text-align: center;
+    }
+    #registerContainer{
+        width: 80%;
+        margin-left: 10%;
+        #containerFormRegister{
+            #containerFirstLastName{
+                #containerFirstName,#containerLastName{
+                    display: flex;
+                    #inputField-first-name,#inputField-last-name{
+                        margin-left: 3px;
+                    }
+                    .required{
+                        color: red;  
+                    }
+                }
+                .inputField{
+                    display: flex;
+                    flex-direction: column;
+                    label{
+                        font-size: 14px;
+                    }
+                    input{
+                        border: 1px solid black;
+                    }
+                }
+            }
+            #containerEmailPassword{
+                
+                #containerEmail,#containerPassword{
+                    display: flex;
+                    .required{
+                        color: red;
+                    }
+                }
+                .inputField{
+                    display: flex;
+                    flex-direction: column;
+                    label{
+                        font-size: 14px;
+                    }
+                }
+               
+            }
+        }
+    }
+}

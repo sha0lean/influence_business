@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { User,Investor,Expert,Entrepreneur } = require('../models')
+const { User,Investor,Expert,Entrepreneur,Role } = require('../models')
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto")
 
@@ -43,21 +43,24 @@ module.exports = {
     // Register User
     async register (req, res) {
         try{
-            const {email,password,first_name,last_name,role} = req.body;                        
+
+            const {email,password,first_name,last_name,role} = req.body;   
             let isUserAlreadyExist = true
+
+            //Problème
+
             const fetchUser = await User.findOne({
                 where: {
                     email: email,
                 }
             })
             if(!fetchUser){
+
                 isUserAlreadyExist = false;
             }            
             if(isUserAlreadyExist == false){
                 //Prevent the user from registering himself as admin
-                role_verify = role
-                console.log("role_verify : ",'entrepreneur'.localeCompare(role_verify));
-                
+                role_verify = role                
                 if('expert'.localeCompare(role_verify) === 0){
                     role_verify = 'expert'
                 }
@@ -66,31 +69,59 @@ module.exports = {
                 }
                 else{
                     role_verify = 'entrepreneur'
-                }
+                }                
+                
+                console.log("email : ",email)
+                console.log("password : ",password)
+                console.log("first_name : ",first_name)
+                console.log("last_name : ",last_name)
+
+
                 const newUser = await User.create({
                     email: email,
                     password: password,
                     first_name: first_name,
                     last_name: last_name,
-                    role: role_verify        
+                    work_status: false
                 })
+               
+                
                 const userJson = newUser.toJSON();
                 const token = jwtSignUser(userJson);
                 //We fill the tables specific to the role
                 if(role.localeCompare("investor") === 0){
-                    await Investor.create({
+                    const investor = await Investor.create({
                         id_user: userJson.id_user
                     })
+                    if(investor){
+                        await Role.create({
+                            id_user: userJson.id_user,
+                            role_name: "investor"
+                        })
+                    }
+
                 }
                 else if(role.localeCompare("expert") === 0){
-                    await Expert.create({
+                    const expert = await Expert.create({
                         id_user: userJson.id_user
                     })
+                    if(expert){
+                        await Role.create({
+                            id_user: userJson.id_user,
+                            role_name: "expert"
+                        })
+                    }
                 }
                 else{
-                    await Entrepreneur.create({
+                    const entrepreneur = await Entrepreneur.create({
                         id_user: userJson.id_user
                     })
+                    if(entrepreneur){
+                        await Role.create({
+                            id_user: userJson.id_user,
+                            role_name: "entrepreneur"
+                        })
+                    }
                 }
                 global.token = token;
                 res.status(200).json({
@@ -101,13 +132,13 @@ module.exports = {
             }
             else{
                 res.status(500).send({
-                    message: "Invalid Information"
+                    message: "Email déjà utilisé"
                 })
             }
         }
         catch(err){
             res.status(500).send({
-                message: "Internal error"
+                message: "Internal error : " + err
             })
         }
     }, 
