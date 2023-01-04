@@ -1,0 +1,300 @@
+#mainContainerNavIntern{
+    #containerNavIntern{
+        padding-bottom: 5px;
+        border-bottom: 1px solid black;
+        nav{
+            display: flex;
+            width: 90%;
+            margin-left: 5%;
+            margin-top: 10px;
+            
+            #containerPartLeftNav{
+                display: flex;
+                width: 100%;
+                a{
+                    font-size: 8px;
+                    color: black;
+                    transform: translateY(4px);
+                    text-decoration: none;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                }
+                a:nth-child(2){
+                    margin-left: 10px;
+                }
+                #containerLogo{
+                    img{
+                        background-color: white;
+                        width: 40px;
+                        height: 16.8px;
+                    }
+                }
+                #containerLinkPartLeft{
+                    display: flex;
+                    width: 100%;
+                    margin-left: 5%;
+                }
+            }
+            #containerPartRightNav{
+                display: flex;
+                flex-direction: row-reverse;
+                img{
+                    margin-left: 10px;
+                    cursor: pointer;
+                }
+                img:nth-child(1){
+                    width: 20px;
+                    height: 24.6px;
+                }
+                img:nth-child(2){
+                    width: 20px;
+                    height: 21.7px;
+                }
+                img:nth-child(3){
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+    
+}
+
+@media screen and (min-width: 400px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    a{
+                        font-size: 10px;
+                        transform: translateY(2px);
+                    }
+                }
+            }
+        }   
+    }
+}
+@media screen and (min-width: 500px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    #containerLogo{
+                        img{
+                            width: 50px;
+                            height: 21px;
+                        }
+                    }
+                    a{
+                        font-size: 12px;
+                        transform: translateY(2px);
+                    }
+                }
+            }
+        }   
+    }
+}
+@media screen and (min-width: 600px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    width: 100%;
+                    #containerLogo{
+                        img{
+                            width: 60px;
+                            height: 25.2px;
+                        }
+                    }
+                    a{
+                        font-size: 14px;
+                        transform: translateY(2px);
+                    }
+                }
+                #containerPartRightNav{
+                    img:nth-child(1){
+                        width: 25px;
+                        height: 30.7px;
+                    }
+                    img:nth-child(2){
+                        width: 25px;
+                        height: 27.125px;
+                    }
+                    img:nth-child(3){
+                        width: 25px;
+                        height: 25px;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+@media screen and (min-width: 800px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    #containerLogo{
+                        img{
+                            width: 70px;
+                            height: 29.4px;
+                        }
+                    }
+                    a{
+                        font-size: 16px;
+                        transform: translateY(5px);
+                    }
+                    #containerLinkPartLeft{
+                        margin-left: 40px;
+                        a:nth-child(2){
+                            margin-left: 20px;
+                        }
+                    }
+                }
+                #containerPartRightNav{
+                    img:nth-child(1){
+                        width: 30px;
+                        height: 36.84px;
+                    }
+                    img:nth-child(2){
+                        width: 30px;
+                        height: 32.55px;
+                    }
+                    img:nth-child(3){
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+
+@media screen and (min-width: 1000px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    #containerLogo{
+                        img{
+                            width: 90px;
+                            height: 37.8px;
+                        }
+                    }
+                    a{
+                        font-size: 18px;
+                        transform: translateY(8px);
+                    }
+                    #containerLinkPartLeft{
+                        margin-left: 40px;
+                        a:nth-child(2){
+                            margin-left: 20px;
+                        }
+                    }
+                }
+                #containerPartRightNav{
+                    img{
+                        margin-left: 20px;
+                    }
+                    img:nth-child(1){
+                        width: 35px;
+                        height: 42.98xpx;
+                    }
+                    img:nth-child(2){
+                        width: 35px;
+                        height: 37.975px;
+                    }
+                    img:nth-child(3){
+                        width: 35px;
+                        height: 35px;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+@media screen and (min-width: 1300px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    #containerLogo{
+                        img{
+                            width: 100px;
+                            height: 42px;
+                        }
+                    }
+                    a{
+                        font-size: 20px;
+                        transform: translateY(10px);
+                    }
+                }
+            }
+        }   
+    }
+}
+
+
+
+@media screen and (min-width: 1500px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    #containerLogo{
+                        img{
+                            width: 110px;
+                            height: 46.2px;
+                        }
+                    }
+                    a{
+                        font-size: 22px;
+                        transform: translateY(10px);
+                    }
+                }
+                #containerPartRightNav{
+                    img{
+                        margin-left: 20px;
+                    }
+                    img:nth-child(1){
+                        width: 40px;
+                        height: 49.12xpx;
+                        transform: translateY(5px);
+                    }
+                    img:nth-child(2){
+                        width: 40px;
+                        height: 43.4px;
+                    }
+                    img:nth-child(3){
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+            }
+        }   
+    }
+}
+
+@media screen and (min-width: 1700px){
+    #mainContainerNavIntern{
+        #containerNavIntern{
+            nav{
+                #containerPartLeftNav{
+                    #containerLogo{
+                        img{
+                            width: 120px;
+                            height: 50.4px;
+                        }
+                    }
+                    a{
+                        font-size: 24px;
+                        transform: translateY(8px);
+                    }
+                }
+            }
+        }   
+    }
+}

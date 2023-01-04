@@ -1,4 +1,5 @@
 #mainContainerLogin{
+    padding-top: 10px;
     h1{
         font-size: 20px;
         text-align: center;
@@ -140,6 +141,7 @@
 
 @media screen and (min-width: 500px){
     #mainContainerLogin{
+        padding-top: 30px;
         h1{
             font-size: 25px;
         }
@@ -211,6 +213,7 @@
 
 @media screen and (min-width: 1000px){
     #mainContainerLogin{
+        padding-top: 40px;
         h1{
             font-size: 30px;
         }

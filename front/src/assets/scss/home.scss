@@ -1,0 +1,280 @@
+#mainContainerHome{
+    margin-top: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #F7F7F7;
+    #containerBgImage{
+        margin-left: 10%;
+        img{
+            position: absolute;
+            z-index: 1;
+            height: auto;
+            width: 80%;
+            top: 18%;
+            justify-content: center;
+        }
+    }
+    
+    #containerTitleLogo{
+        position: relative;
+        z-index: 2;
+        img:nth-child(1){
+            position: absolute;
+            left: 5%;
+            width: auto;
+            max-width: 25%;
+            z-index: 2;
+            height: auto;
+        }
+       #containerTitle{
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            h1{
+                font-size: 20px;
+                font-weight: bold;
+            }
+            h3{
+                font-size: 15px;
+                font-weight: bold;
+            }
+            a{
+                text-decoration: none;
+                button{
+                    cursor: pointer;
+                    width: 25%;
+                    background-color: #0066CC;
+                    border-radius: 30px;
+                    padding: 5px 5px 5px 5px;
+                    color: white;
+                    font-size: 10px;
+                    
+                }
+            }
+        }
+    }
+    #containerSubject{
+        margin-top: 30px;
+        div{
+            text-align: center;
+            margin-top: 20px;
+            img{
+                max-width: 80%;
+                height: auto;
+            }
+        }
+        
+    }
+}
+
+@media screen and (min-width: 400px){
+    #mainContainerHome{
+        margin-top: 50px;
+        #containerBgImage{
+            img{
+                top: 20%;
+            }
+        }
+        #containerTitleLogo{
+           #containerTitle{
+                h1{
+                    font-size: 25px;
+                }
+                h3{
+                    font-size: 18px;
+                }
+                a{
+                    button{
+                        width: 25%;
+                        font-size: 12px;
+                        padding: 10px 10px 10px 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 500px){
+    #mainContainerHome{
+        margin-top: 50px;
+        #containerBgImage{
+            img{
+                top: 18%;
+            }
+        }
+        #containerTitleLogo{
+           #containerTitle{
+                h1{
+                    font-size: 28px;
+                }
+                h3{
+                    font-size: 22px;
+                }
+                a{
+                    button{
+                        width: 25%;
+                        font-size: 14px;
+                        padding: 10px 10px 10px 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 700px){
+    #mainContainerHome{
+        margin-top: 60px;
+        #containerTitleLogo{
+           #containerTitle{
+                h1{
+                    font-size: 30px;
+                }
+                h3{
+                    font-size: 24px;
+                }
+                a{
+                    button{
+                        width: 20%;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 800px){
+    #mainContainerHome{
+        margin-top: 60px;
+        #containerTitleLogo{
+            img:nth-child(1){  
+                max-width: 70%;
+            }
+           #containerTitle{
+                h1{
+                    font-size: 32px;
+                }
+                h3{
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 900px){
+    #mainContainerHome{
+        margin-top: 60px;
+        #containerBgImage{
+            margin-left: 15%;
+            img{
+                top: 16%;
+                width: 70%;
+            }
+        }
+        #containerTitleLogo{
+            img:nth-child(1){  
+                width: 140px;
+            }
+           #containerTitle{
+                h1{
+                    font-size: 35px;
+                }
+                h3{
+                    font-size: 28px;
+                }
+                a{
+                    button{
+                        width: 20%;
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 1200px){
+    #mainContainerHome{
+        padding-top: 40px;
+        #containerBgImage{
+            margin-left: 15%;
+            img{
+                top: 18%;
+                width: 70%;
+            }
+        }
+        #containerTitleLogo{
+           #containerTitle{
+                h1{
+                    font-size: 40px;
+                }
+                h3{
+                    font-size: 32px;
+                }
+                a{
+                    button{
+                        width: 15%;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: 1400px){
+    #mainContainerHome{
+        #containerBgImage{
+            margin-left: 20%;
+            img{
+                width: 60%;
+            }
+        }
+        #containerTitleLogo{
+            img:nth-child(1){  
+                width: 200px;
+            }
+           #containerTitle{
+                h1{
+                    font-size: 45px;
+                }
+                h3{
+                    font-size: 34px;
+                }
+                a{
+                    button{
+                        width: 15%;
+                        font-size: 22px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1800px){
+    #mainContainerHome{
+        #containerTitleLogo{
+           #containerTitle{
+                h1{
+                    font-size: 60px;
+                }
+                h3{
+                    font-size: 45px;
+                }
+                a{
+                    button{
+                        width: 15%;
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
