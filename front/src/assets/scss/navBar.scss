@@ -1,0 +1,126 @@
+#mainContainerNav{
+    #containerNav{
+        background-color: black;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1;
+        height: 30px;
+        padding-top: 10px;
+        nav{
+            z-index: 2;
+            a{
+                font-size: 9px;
+                text-decoration: none;
+                color: white;
+            }
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 90%;
+            margin-left: 5%;
+        }
+        #containerPartLeftNav{
+            display: flex;
+            justify-content: space-between;
+            img{
+                background-color: white;
+                width: 50px;
+                height: 21px;
+            }
+            #containerLinkPartLeft{
+                margin-left: 5px;
+                a{
+                    margin-left: 7px;
+                }
+            }
+        }
+        #containerButtonRegister{
+            a{
+                background-color: #777777;
+                cursor: pointer;
+                padding: 5px;
+
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 400px){
+    #mainContainerNav{
+        #containerNav{
+            height: 30px;
+            padding-top: 10px;
+            nav{
+                a{
+                    font-size: 11px;
+                }
+            }
+            #containerPartLeftNav{
+                img{
+                    width: 60px;
+                    height: 25.2px;
+                    transform: translateY(-3px);
+                }
+            }
+        }
+    }   
+}
+
+@media screen and (min-width: 600px){
+    #mainContainerNav{
+        #containerNav{
+            height: 40px;
+            padding-top: 15px;
+            nav{
+                a{
+                    font-size: 13px;
+                }
+            }
+        }
+    }   
+}
+
+@media screen and (min-width: 700px){
+    #mainContainerNav{
+        #containerNav{
+            height: 40px;
+            padding-top: 20px;
+            nav{
+                a{
+                    font-size: 15px;
+                    
+                }
+            }
+            #containerPartLeftNav{
+                img{
+                    width: 70px;
+                    height: 29.4px;
+                    transform: translateY(-5px);
+                }
+            }
+        }
+    }   
+}
+
+@media screen and (min-width: 1000px){
+    #mainContainerNav{
+        #containerNav{
+            height: 40px;
+            padding-top: 20px;
+            nav{
+                a{
+                    font-size: 18px;
+                    
+                }
+            }
+            #containerPartLeftNav{
+                img{
+                    width: 80px;
+                    height: 33.6px;
+                    transform: translateY(-6px);
+                }
+            }
+        }
+    }   
+}

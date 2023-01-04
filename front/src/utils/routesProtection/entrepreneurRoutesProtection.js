@@ -1,25 +1,22 @@
 import { Navigate, Outlet } from "react-router-dom";
 import {getRole} from "../localStorage/useRole.js";
-const ProtectedRoutesAuthentification = ({token,children}) => {
-    if(token && getRole()){
+const ProtectedRoutesEntrepreneur = ({token,children}) => {
+    if(!token || !getRole()){
+      return <Navigate to="/connexion" replace />;
+    }
+    else if(token && getRole() !== "entrepreneur"){
       switch(getRole()){
-        case "admin":
-          return <Navigate to="/adminProfil" replace/>
-          break;
         case "expert":
           return <Navigate to="/profilExpert" replace/>
           break;
         case "investor":
           return <Navigate to="/profilInvestisseur" replace/>
           break;
-        case "entrepreneur": 
-          return <Navigate to="/profilEntrepreneur" replace/>
-          break;
         default: 
           return <Navigate to="/" replace/>
       }
     }
     return children ? children: <Outlet/>;
-  }
-
-  export default ProtectedRoutesAuthentification;
+  };
+  
+  export default ProtectedRoutesEntrepreneur;

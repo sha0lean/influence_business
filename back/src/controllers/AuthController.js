@@ -164,24 +164,33 @@ module.exports = {
                 });
             }
             else{
-                await user.comparePassword(password).then(isMatch => {
-                    if (!isMatch) {
-                        res.status(401).send({
-                            message: "L'utilisateur n'a pas été trouvé. Veuillez réessayer"
-                        });
+                const role = await Role.findOne({
+                    where: {
+                        id_user: user.toJSON().id_user
                     }
-                    else{
-                        const userJson = user.toJSON();
-                        const token = jwtSignUser(userJson);
-                        global.token = token;
-                        res.status(200).send({
-                            token: token,
-                            role: userJson.role,
-                            message: "Vos identifiants sont corrects"
-                        });
-                        
-                    }
-                })   
+                })
+                if(role){
+                    const roleJson = role.toJSON();
+                    await user.comparePassword(password).then(isMatch => {
+                        if (!isMatch) {
+                            res.status(401).send({
+                                message: "L'utilisateur n'a pas été trouvé. Veuillez réessayer"
+                            });
+                        }
+                        else{
+                            const userJson = user.toJSON();
+                            const token = jwtSignUser(userJson);
+                            global.token = token;
+                            
+                            res.status(200).send({
+                                token: token,
+                                role: roleJson.role_name,
+                                message: "Vos identifiants sont corrects"
+                            });
+                            
+                        }
+                    }) 
+                }  
             }
         }catch(err){
             res.status(500).send({
