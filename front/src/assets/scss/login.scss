@@ -21,9 +21,10 @@
                 justify-content: space-between;
                 flex-direction: row;
                 margin-top: 10px;
-                p{
+                a{
                     font-size: 12px;
                     margin-top: 25px;
+                    text-decoration: underline;
                 }
                 .button-form{
                     background-color: #005AD4;
@@ -148,7 +149,7 @@
                     font-size: 14px;
                 }
                 #containerLogin{
-                    p{
+                    a{
                         font-size: 16px;
                     }
                     .button-form{
@@ -223,7 +224,7 @@
                 #containerLogin{
                     width: 80%;
                     margin-left: 10%;
-                    p{
+                    a{
                         font-size: 20px;
                     }
                     .button-form{

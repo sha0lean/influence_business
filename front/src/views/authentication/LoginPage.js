@@ -76,9 +76,9 @@ function LoginPage({changeSetRole,setToken}){
                     </div>
                     {errorMessage && <p className="lato" id="errorMessage">{errorMessage}</p>}
                     <div id="containerLogin">
-                        <p className="lato">
+                        <Link to="/forgot-password" className="lato">
                             Mot de passe oublié ?
-                        </p>
+                        </Link>
                         <ButtonForm  content={"Se connecter"}/>
                     </div>
                 </form>
@@ -96,7 +96,7 @@ function LoginPage({changeSetRole,setToken}){
                     </div>
                 <div id="containerNoAccount">
                     <p className="lato">Vous n'avez pas de compte ?</p>
-                    <Link to="/inscription"><button>S'inscrire</button></Link>
+                    <Link to="/inscription"><button className="lato">S'inscrire</button></Link>
                 </div>
             </div>
         </div>

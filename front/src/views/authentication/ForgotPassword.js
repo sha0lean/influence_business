@@ -18,6 +18,7 @@ async function forgotPassword(credentials){
             },
         })
         .then(({data}) => {
+            console.log("data : ",data);
             return data;
         })
     }
@@ -29,6 +30,7 @@ async function forgotPassword(credentials){
 
 function ForgotPassword(){
     const [errorMessage,setErrorMessage] = useState(null)
+    const [message,setMessage] = useState(null)
     const [email,setUserEmail] = useState(null)
     function handleEmailChange(event){
         const emailContainer = document.getElementById("inputField-email");
@@ -41,26 +43,48 @@ function ForgotPassword(){
         const response = await forgotPassword({
             email: email
         })
+        let errorMessageContainer;
+        let messageContainer;
         //When we receive the response
         if(response){
-            if(response.message === "Email envoyé"){
-                console.log("Le mail a été envoyé")
+            if(response.mailSent){
+                setMessage(response.message)
+                setErrorMessage(null);
+                errorMessageContainer = document.querySelector("#errorMessage");
+                errorMessageContainer.setAttribute("display:", "none")
+                messageContainer = document.querySelector("#message");
+                messageContainer.setAttribute("display","block")
             }
             else{
-                setErrorMessage(response.message)
-                console.log("errorMessage : ",errorMessage)
+                setMessage(null);
+                setErrorMessage(response.error)
+                messageContainer = document.querySelector("#message");
+                messageContainer.setAttribute("display","none");
+                errorMessageContainer = document.querySelector("#errorMessage");
+                errorMessageContainer.setAttribute("display", "block")
             }
         }
         else{
-            setErrorMessage("Erreur interne");
+            setMessage(null);
+            setErrorMessage("Erreur interne. Veuillez réessayer");
+            messageContainer = document.querySelector("#message");
+            messageContainer.setAttribute("display","none")
+            errorMessageContainer = document.querySelector("#errorMessage");
+            errorMessageContainer.setAttribute("display", "block")
         }
     }
     return(
         <div id="mainContainerResetPassword">
             <h1 className="lato">Reset password</h1>
             <div id="resetPasswordContainer">
+                <p className="lato">Veuillez entrer votre mail afin de réinitialiser votre mot de passe</p>
                 <form id="containerFormResetPassword" onSubmit={handleSubmit}>
                     <InputField  label={"Email"} name={"email"} type={"email"} placeholder={"Email"}  idName={"inputField-email"}   onChange={handleEmailChange}/>
+                    <div id="containerSend">
+                        <ButtonForm  content={"Réinitialisation du mot de passe"}/>
+                    </div>
+                    {errorMessage && <p id="errorMessage">{errorMessage}</p>}
+                    {message && <p id="message">{message}</p>}
                 </form>
             </div>
 
