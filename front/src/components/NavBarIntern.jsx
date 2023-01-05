@@ -55,7 +55,12 @@ function NavBar(){
                             </div>
                             <div id="containerLinkPartLeft">
                                 <Link to="/dashboard" className="lato">Tableau de bord</Link>
-                                <Link to="/role" className="lato">{getRole()}</Link>
+
+                                {getRole() === "entrepreneur" && <Link to="/profilEntrepreneur" className="lato">{getRole()}</Link>}
+                                {getRole() === "expert" && <Link to="/profilExpert" className="lato">{getRole()}</Link>}
+                                {getRole() === "investisseur" && <Link to="/profilInvestisseur" className="lato">{getRole()}</Link>}
+
+
                             </div>
                         </div>
                         <div id="containerPartRightNav">

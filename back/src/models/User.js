@@ -44,7 +44,10 @@ module.exports = (sequelize, DataTypes) => {
         token: {
             type: DataTypes.TEXT('long'),
             unique: false
-        }
+        },
+        profilPicture:{
+            type: DataTypes.BLOB("long"),
+        },
     }, {
         hooks: {
             beforeCreate: hashPassword,

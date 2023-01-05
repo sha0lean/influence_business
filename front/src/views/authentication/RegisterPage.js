@@ -10,12 +10,21 @@ import {
     Link
 } from "react-router-dom";
 async function registerUser(credentials){
+    console.log("credentials : ",credentials)
+    let formData = new FormData();
+    formData.append("email",credentials.email);
+    formData.append("password",credentials.password);
+    formData.append("first_name",credentials.first_name);
+    formData.append("last_name",credentials.last_name);
+    formData.append("role",credentials.role);
+    formData.append("file",credentials.file);
+
     try{
-        return await axios.post(api.url + "/register", credentials, {
+        return await axios.post(api.url + "/register", formData, {
             timeout: 2000,
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json;charset=UTF-8",
+                'content-type': 'multipart/form-data',
             },
         })
         .then(({data}) => {
@@ -45,7 +54,7 @@ function RegisterPage({changeSetRole,setToken}){
     const [last_name,setUserLastName] = useState(null)
     const [role,setUserRole] = useState("entrepreneur")
     const [password,setUserPassword] = useState(null)
-    
+    const [image,setImage] = useState(null)
     function handleEmailChange(event){
         const emailContainer = document.getElementById("inputField-email");
         setUserEmail(emailContainer.value);
@@ -62,7 +71,11 @@ function RegisterPage({changeSetRole,setToken}){
         const lastNameContainer = document.getElementById("inputField-last-name");
         setUserLastName(lastNameContainer.value);
     }
+    function handleChangeProfilPicture(event){
+        setImage(event.target.files[0]);
+    }
     const handleRoleChange = async e => {
+        
         e.preventDefault();
         setUserRole(e.target.value);
     }
@@ -70,12 +83,15 @@ function RegisterPage({changeSetRole,setToken}){
 
     const handleSubmit = async e => {
         e.preventDefault();
+        let formData = new FormData()
+
         const response = await registerUser({
             email: email,
             password: password,
             first_name: first_name,
             last_name: last_name,
-            role: role 
+            role: role,
+            file: image 
         })
 
 
@@ -115,6 +131,9 @@ function RegisterPage({changeSetRole,setToken}){
                     <div id="containerSelectRole">
                         <SelectField name={"selectRole"} idName={"selectField-role"} valuesOption={valuesOption} onChange={handleRoleChange}/>
                     </div>
+                    <div id="containerInputProfilImage">
+                        <input type="file" name="file" id="input-file" onChange={handleChangeProfilPicture}/>
+                    </div> 
                     {errorMessage && <p className="lato" id="errorMessage">{errorMessage}</p>}
                     <ButtonForm  content={"S'inscrire"}/>
                     <div id="containerDemarcation">

@@ -43,9 +43,11 @@ module.exports = {
 
     // Register User
     async register (req, res) {
+
         try{
 
-            const {email,password,first_name,last_name,role} = req.body;   
+            const {email,password,first_name,last_name,role} = req.body;
+            const file = req.file
             let isUserAlreadyExist = true
 
             //Problème
@@ -60,81 +62,92 @@ module.exports = {
                 isUserAlreadyExist = false;
             }            
             if(isUserAlreadyExist == false){
-                //Prevent the user from registering himself as admin
-                role_verify = role                
-                if('expert'.localeCompare(role_verify) === 0){
-                    role_verify = 'expert'
-                }
-                else if('investor'.localeCompare(role_verify) === 0){
-                    role_verify = 'investor'
+                //If the image doesn't exist
+                if(file==undefined){
+                    res.status(500).send({
+                        message: "Vous devez sélectionnez une photo de profil !"
+                    })
                 }
                 else{
-                    role_verify = 'entrepreneur'
-                }                
-                const newUser = await User.create({
-                    email: email,
-                    password: password,
-                    first_name: first_name,
-                    last_name: last_name,
-                    work_status: false
-                })
-               
+                    //Prevent the user from registering himself as admin
+                    role_verify = role                
+                    if('expert'.localeCompare(role_verify) === 0){
+                        role_verify = 'expert'
+                    }
+                    else if('investor'.localeCompare(role_verify) === 0){
+                        role_verify = 'investor'
+                    }
+                    else{
+                        role_verify = 'entrepreneur'
+                    }                
+                    const newUser = await User.create({
+                        email: email,
+                        password: password,
+                        first_name: first_name,
+                        last_name: last_name,
+                        work_status: false,
+                        profilPicture: file 
+                    });
                 
-                const userJson = newUser.toJSON();
-                const token = jwtSignUser(userJson);
-                //We fill the tables specific to the role
-                let roleToJson = "entrepreneur";
-                if(role.localeCompare("investor") === 0){
-                    const investor = await Investor.create({
-                        id_user: userJson.id_user
-                    })
-                    if(investor){
-                        roleToJson = await Role.create({
-                            id_user: userJson.id_user,
-                            role_name: "investor"
-                        })
-                        if(roleToJson){
-                            roleToJson = roleToJson.toJSON();
-                        }
-                    }
-
-                }
-                else if(role.localeCompare("expert") === 0){
-                    const expert = await Expert.create({
-                        id_user: userJson.id_user
-                    })
-                    if(expert){
-                        roleToJson = await Role.create({
-                            id_user: userJson.id_user,
-                            role_name: "expert"
-                        })
-                        if(roleToJson){
-                            roleToJson = roleToJson.toJSON();
-                        }
-                    }
-                }
-                else{
                     
-                    const entrepreneur = await Entrepreneur.create({
-                        id_user: userJson.id_user
-                    })
-                    if(entrepreneur){
-
-                        roleToJson = await Role.create({
-                            id_user: userJson.id_user,
-                            role_name: "entrepreneur"
+                    const userJson = newUser.toJSON();
+                    const token = jwtSignUser(userJson);
+                    //We fill the tables specific to the role
+                    let roleToJson = "entrepreneur";
+                    if(role.localeCompare("investor") === 0){
+                        const investor = await Investor.create({
+                            id_user: userJson.id_user
                         })
-                        if(roleToJson){
-                            roleToJson = roleToJson.toJSON();
+                        if(investor){
+                            roleToJson = await Role.create({
+                                id_user: userJson.id_user,
+                                role_name: "investor"
+                            })
+                            if(roleToJson){
+                                roleToJson = roleToJson.toJSON();
+                            }
+                        }
+
+                    }
+                    else if(role.localeCompare("expert") === 0){
+                        const expert = await Expert.create({
+                            id_user: userJson.id_user
+                        })
+                        if(expert){
+                            roleToJson = await Role.create({
+                                id_user: userJson.id_user,
+                                role_name: "expert"
+                            })
+                            if(roleToJson){
+                                roleToJson = roleToJson.toJSON();
+                            }
                         }
                     }
+                    else{
+                        
+                        const entrepreneur = await Entrepreneur.create({
+                            id_user: userJson.id_user
+                        })
+                        if(entrepreneur){
+
+                            roleToJson = await Role.create({
+                                id_user: userJson.id_user,
+                                role_name: "entrepreneur"
+                            })
+                            if(roleToJson){
+                                roleToJson = roleToJson.toJSON();
+                            }
+                        }
+                    }
+                    global.token = token;
+                    res.status(200).json({
+                        token : token,
+                        role: roleToJson.role_name,
+                        file: userJson.profilPicture,
+                        message: 'Inscription valide'
+                    });
                 }
-                global.token = token;
-                res.status(200).json({
-                    token : token,
-                    role: roleToJson.role_name,
-                    message: 'Inscription valide'
-                });
+                
             }
             else{
                 res.status(500).send({
@@ -185,6 +198,7 @@ module.exports = {
                             res.status(200).send({
                                 token: token,
                                 role: roleJson.role_name,
+                                file: userJson.profilPicture,
                                 message: "Vos identifiants sont corrects"
                             });
                             

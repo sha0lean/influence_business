@@ -15,6 +15,7 @@ import ProfilInvestor from "../views/profil/ProfilInvestor.js";
 import {setToken, getToken,removeToken} from "../utils/localStorage/useToken.js";
 import {setRole,getRole,removeRole} from "../utils/localStorage/useRole.js";
 
+
 let token = getToken();
 const changeSetRole = (value) => {
   setRole(value);
@@ -63,7 +64,7 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <ProfilEntrepreneur/>
+                    element: <ProfilEntrepreneur token={getToken()}/>
                 }
             ]
         },
@@ -83,7 +84,7 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <ProfilExpert/>
+                    element: <ProfilInvestor/>
                 }
             ]
         }
