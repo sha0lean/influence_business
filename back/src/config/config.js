@@ -11,7 +11,7 @@
  * user and password : your credentials to log yourself in the database
  * options : we inform which type of database we use (mysql), which host do we use, and where is stored our database
  */
- module.exports = {
+module.exports = {
 
     port: process.env.PORT || 5000,
     db: {
@@ -25,7 +25,8 @@
             //database host
             host: process.env.HOST,
             //where the db is stored
-            storage: './influenceurbusiness.mysql'
+            storage: './influenceurbusiness.mysql',
+            port: "3308"
         }
     },
     authentication: {
