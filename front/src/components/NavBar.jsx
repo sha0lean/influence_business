@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { api } from "../configApi.js";
 // import "../assets/scss/navBar.scss";
-import "../assets/scss/navBar2.scss";
+import "../assets/scss/layout/navBar2.scss";
 
 import { getToken, removeToken } from "../utils/localStorage/useToken.js";
 import { getRole, removeRole } from "../utils/localStorage/useRole.js";
@@ -87,9 +87,11 @@ function NavBar() {
                     Influenceur business
                 </Link>
                 <nav
-                    className={`${"header__content__nav"} 
-          ${menuOpen && size.width < 768 ? `${"isMenu"}` : ""} 
-          }`}
+                    className={
+                        `${"header__content__nav"} 
+                    ${menuOpen && size.width < 768 ? `${"isMenu"}` : ""} 
+                    }`
+                    }
                 >
                     <ul>
                         <li>

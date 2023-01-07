@@ -10,7 +10,6 @@ const Layout = ({ children }) => {
             {!getToken() && !getRole() && <NavBar />}
             {getToken() && getRole() && <NavBarIntern />}
             <main>{children}</main>
-            allo
             <Footer />
         </div>
     )

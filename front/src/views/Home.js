@@ -1,34 +1,40 @@
 import React from "react";
-import "../assets/scss/home.scss"
-import {
-    Link
-} from "react-router-dom";
+import "../assets/scss/pages/home2.scss";
+import ButtonForm from "../components/ButtonForm.jsx";
+
 function Home() {
     return (
-        <div id="mainContainerHome">
-            <div id="containerBgImage">
-                <img src={require("../assets/images/bg_home.png")} alt="background image home" />
-            </div>
-            <div id="containerTitleLogo">
-                <img src={require("../assets/images/logo_ib.png")} alt="logo influenceur business" />
-                <div id="containerTitle">
-                    <h1 className="lato">Influenceur business</h1>
-                    <h3 className="lato">There is no way you can't trust us.</h3>
-                    <Link to="/inscription"><button className="lato">Join us</button></Link>
+        <header class="call-to-action landing-background">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        Un réseau d'innovation et de réussite collective
+                    </h1>
+                    <p class="text-dark">
+                        "We believe in the power of community to improve your business"
+                    </p>
+                    <button class="">
+                        Get Started
+                    </button>
+                    <div class="my-2">
+                        <p class="header-app-download-title">GET OUR MOBILE APP</p>
+                    </div>
+                    <div>
+                        <ButtonForm content={"Nous rejoindre"} />
+
+                        <button class="btn btn-app-download mr-2">
+                            <img src="assets/images/ios.svg" alt="App store" />
+                        </button>
+                        <button class="btn btn-app-download">
+                            <img src="assets/images/android.svg" alt="play store" />
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://via.placeholder.com/400x550" alt="app" width="388px" class="img-fluid" />
                 </div>
             </div>
-            <div id="containerSubject">
-                <div>
-                    <img src={require("../assets/images/choice_subject.png")} alt="choix du sujet" />
-                </div>
-                <div>
-                    <img src={require("../assets/images/modules.png")} alt="choix des modules" />
-                </div>
-                <div>
-                    <img src={require("../assets/images/organizational_intelligence.png")} alt="organisation" />
-                </div>
-            </div>
-        </div>
+        </header>
     )
 }
 

@@ -1,25 +1,25 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import NavBar from "../../components/NavBar.jsx";
-import {api} from "../../configApi.js";
+import { api } from "../../configApi.js";
 import ButtonForm from "../../components/ButtonForm.jsx";
 import InputField from "../../components/InputField.jsx";
 import SelectField from "../../components/SelectField.jsx";
 import axios from "axios";
-import "../../assets/scss/register.scss"
+import "../../assets/scss/pages/register.scss"
 import {
     Link
 } from "react-router-dom";
-async function registerUser(credentials){
-    console.log("credentials : ",credentials)
+async function registerUser(credentials) {
+    console.log("credentials : ", credentials)
     let formData = new FormData();
-    formData.append("email",credentials.email);
-    formData.append("password",credentials.password);
-    formData.append("first_name",credentials.first_name);
-    formData.append("last_name",credentials.last_name);
-    formData.append("role",credentials.role);
-    formData.append("file",credentials.file);
+    formData.append("email", credentials.email);
+    formData.append("password", credentials.password);
+    formData.append("first_name", credentials.first_name);
+    formData.append("last_name", credentials.last_name);
+    formData.append("role", credentials.role);
+    formData.append("file", credentials.file);
 
-    try{
+    try {
         return await axios.post(api.url + "/register", formData, {
             timeout: 2000,
             headers: {
@@ -27,59 +27,59 @@ async function registerUser(credentials){
                 'content-type': 'multipart/form-data',
             },
         })
-        .then(({data}) => {
-            return data;
-        })
+            .then(({ data }) => {
+                return data;
+            })
     }
-    catch(err){
+    catch (err) {
         return err.response.data
     }
 }
-function hiddenShowPassword(){
+function hiddenShowPassword() {
     const img = document.querySelector("#containerPassword img");
     const input = document.querySelector("#containerPassword .inputField input");
-    if(input.getAttribute("type") === "password"){
-        input.setAttribute("type","text");
+    if (input.getAttribute("type") === "password") {
+        input.setAttribute("type", "text");
     }
-    else{
-        input.setAttribute("type","password");
+    else {
+        input.setAttribute("type", "password");
 
     }
 }
 
-function RegisterPage({changeSetRole,setToken}){
-    const [errorMessage,setErrorMessage] = useState(null)
-    const [email,setUserEmail] = useState(null)
-    const [first_name,setUserFirstName] = useState(null)
-    const [last_name,setUserLastName] = useState(null)
-    const [role,setUserRole] = useState("entrepreneur")
-    const [password,setUserPassword] = useState(null)
-    const [image,setImage] = useState(null)
-    function handleEmailChange(event){
+function RegisterPage({ changeSetRole, setToken }) {
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [email, setUserEmail] = useState(null)
+    const [first_name, setUserFirstName] = useState(null)
+    const [last_name, setUserLastName] = useState(null)
+    const [role, setUserRole] = useState("entrepreneur")
+    const [password, setUserPassword] = useState(null)
+    const [image, setImage] = useState(null)
+    function handleEmailChange(event) {
         const emailContainer = document.getElementById("inputField-email");
         setUserEmail(emailContainer.value);
     }
-    function handlePasswordChange(event){
+    function handlePasswordChange(event) {
         const passwordContainer = document.getElementById("inputField-password");
         setUserPassword(passwordContainer.value);
     }
-    function handleFirstNameChange(event){
+    function handleFirstNameChange(event) {
         const firstNameContainer = document.getElementById("inputField-first-name");
         setUserFirstName(firstNameContainer.value);
     }
-    function handleLastNameChange(event){
+    function handleLastNameChange(event) {
         const lastNameContainer = document.getElementById("inputField-last-name");
         setUserLastName(lastNameContainer.value);
     }
-    function handleChangeProfilPicture(event){
+    function handleChangeProfilPicture(event) {
         setImage(event.target.files[0]);
     }
     const handleRoleChange = async e => {
-        
+
         e.preventDefault();
         setUserRole(e.target.value);
     }
-    
+
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -91,61 +91,61 @@ function RegisterPage({changeSetRole,setToken}){
             first_name: first_name,
             last_name: last_name,
             role: role,
-            file: image 
+            file: image
         })
 
 
-        if(response.message === "Inscription valide"){
+        if (response.message === "Inscription valide") {
 
             setToken(response.token);
             changeSetRole(response.role);
             window.location.reload();
         }
-        else{
+        else {
             setErrorMessage(response.message)
         }
     }
-    const valuesOption = ["entrepreneur","investor","expert"];
-    return(
+    const valuesOption = ["entrepreneur", "investor", "expert"];
+    return (
         <div id="mainContainerRegister">
             <h1 className="lato">Formulaire d'inscription</h1>
             <div id="registerContainer">
                 <form id="containerFormRegister" onSubmit={handleSubmit}>
                     <div id="containerFirstLastName">
                         <div id="containerFirstName">
-                            <InputField  label={"Prénom"} name={"firstname"} type={"text"} placeholder={"Prénom"}  idName={"inputField-first-name"}   onChange={handleFirstNameChange}/>
+                            <InputField label={"Prénom"} name={"firstname"} type={"text"} placeholder={"Prénom"} idName={"inputField-first-name"} onChange={handleFirstNameChange} />
                         </div>
                         <div id="containerLastName">
-                            <InputField  label={"Nom"} name={"lastname"} type={"text"} placeholder={"Nom"}  idName={"inputField-last-name"}  onChange={handleLastNameChange}/>
+                            <InputField label={"Nom"} name={"lastname"} type={"text"} placeholder={"Nom"} idName={"inputField-last-name"} onChange={handleLastNameChange} />
                         </div>
                     </div>
                     <div id="containerEmailPassword">
                         <div id="containerEmail">
-                            <InputField  label={"Adresse mail"} name={"email"} type={"email"} placeholder={"Adresse mail"}  idName={"inputField-email"}  onChange={handleEmailChange}/>
+                            <InputField label={"Adresse mail"} name={"email"} type={"email"} placeholder={"Adresse mail"} idName={"inputField-email"} onChange={handleEmailChange} />
                         </div>
                         <div id="containerPassword">
-                            <img src={require("../../assets/images/oeil.png")} alt="logo oeil" onMouseDown={(hiddenShowPassword)} onMouseUp={(hiddenShowPassword)}/>
-                            <InputField label={"Mot de passe"} name={"password"} type={"password"} placeholder={"Mot de passe"}  idName={"inputField-password"}  onChange={handlePasswordChange}/>
+                            <img src={require("../../assets/images/oeil.png")} alt="logo oeil" onMouseDown={(hiddenShowPassword)} onMouseUp={(hiddenShowPassword)} />
+                            <InputField label={"Mot de passe"} name={"password"} type={"password"} placeholder={"Mot de passe"} idName={"inputField-password"} onChange={handlePasswordChange} />
                         </div>
                     </div>
                     <div id="containerSelectRole">
-                        <SelectField name={"selectRole"} idName={"selectField-role"} valuesOption={valuesOption} onChange={handleRoleChange}/>
+                        <SelectField name={"selectRole"} idName={"selectField-role"} valuesOption={valuesOption} onChange={handleRoleChange} />
                     </div>
                     <div id="containerInputProfilImage">
-                        <input type="file" name="file" id="input-file" onChange={handleChangeProfilPicture}/>
-                    </div> 
+                        <input type="file" name="file" id="input-file" onChange={handleChangeProfilPicture} />
+                    </div>
                     {errorMessage && <p className="lato" id="errorMessage">{errorMessage}</p>}
-                    <ButtonForm  content={"S'inscrire"}/>
+                    <ButtonForm content={"S'inscrire"} />
                     <div id="containerDemarcation">
-                        <hr/>
+                        <hr />
                         <p className="lato">OU</p>
                     </div>
                     <div id="containerGoogle">
-                        <img src={require("../../assets/images/google.png")} alt="logo google"/>
+                        <img src={require("../../assets/images/google.png")} alt="logo google" />
                         <p className="lato">S'inscrire avec google</p>
                     </div>
                     <div id="containerLinkedin">
-                        <img src={require("../../assets/images/linkedin.png")} alt="logo linkedin"/>
+                        <img src={require("../../assets/images/linkedin.png")} alt="logo linkedin" />
                         <p className="lato">S'inscrire avec linkedin</p>
                     </div>
                 </form>
