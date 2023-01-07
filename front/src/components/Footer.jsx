@@ -22,22 +22,21 @@ function Footer() {
 			<span class="border-shape"></span>
 			<div class="bottom_content">
 				<section>
-					<a href="#"><i class="fa fa-facebook"></i></a>
-					<a href="#"><i class="fa fa-instagram"></i></a>
-					<a href="#"><i class="fa fa-twitter"></i></a>
-					<a href="#"><i class="fa fa-telegram"></i></a>
+					<a href="/fb"><i class="fa fa-facebook"></i></a>
+					<a href="/ig"><i class="fa fa-instagram"></i></a>
+					<a href="/tw"><i class="fa fa-twitter"></i></a>
+					<a href="/tg"><i class="fa fa-telegram"></i></a>
 				</section>
 				<section>
 					<a href="/">Home</a>
-					<a href="#">About us</a>
-					<a href="#">Member</a>
-					<a href="/contact">Contact Us</a>
+					<a href="/about">About us</a>
+					<a href="/contact">Contact</a>
 				</section>
 			</div>
 			<div class="copyright">
 				Copyright © 2021 Influenceur Business — All rights reserved
 			</div>
-		</footer >
+		</footer>
 	)
 }
 export default Footer;
