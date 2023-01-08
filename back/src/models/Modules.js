@@ -6,24 +6,12 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        slider1: {
-            type: DataTypes.INTEGER,
+        sliders: {
+            type: DataTypes.STRING(250),
             unique: false
         },
-        slider2: {
-            type: DataTypes.INTEGER,
-            unique: false
-        },
-        slider3: {
-            type: DataTypes.INTEGER,
-            unique: false
-        },
-        slider4: {
-            type: DataTypes.INTEGER,
-            unique: false
-        },
-        slider5: {
-            type: DataTypes.INTEGER,
+        name_sliders: {
+            type: DataTypes.STRING(250),
             unique: false
         }
     }, {

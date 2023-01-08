@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { User, Investor, Expert, Entrepreneur, Role } = require('../models')
+const { User, Investor, Expert, Entrepreneur, Role, Project, Modules } = require('../models')
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto")
 const bcrypt = require('bcrypt');
@@ -44,14 +44,20 @@ module.exports = {
 
     // Register User
     async register(req, res) {
+        if (req.body.role === "entrepreneur") {
+            var { email, password, first_name, last_name, role, projectName, description, themeProject, descriptionProject, sensProject, value, montantInvestissement, nameModules, noteModules } = req.body;
+            var { filename } = req.file;
+        }
+        else if (req.body.role === "investor") {
+            var { email, password, first_name, last_name, role, themeProject, company, description } = req.body;
+            var { filename } = req.file;
+        }
+        else if (req.body.role === "expert") {
+            var { email, password, first_name, last_name, role, presentation, experiences, work, diplomes } = req.body;
+            var { filename } = req.file;
+        }
         try {
-
-            const { email, password, first_name, last_name, role } = req.body;
-            const { filename } = req.file;
-            console.log("filename : ", filename)
             let isUserAlreadyExist = true
-            //Problème
-
             const fetchUser = await User.findOne({
                 where: {
                     email: email,
@@ -95,49 +101,80 @@ module.exports = {
                     const userJson = newUser.toJSON();
                     const token = jwtSignUser(userJson);
                     //We fill the tables specific to the role
-                    let roleToJson = "entrepreneur";
                     if (role.localeCompare("investor") === 0) {
-                        const investor = await Investor.create({
-                            id_user: userJson.id_user
+                        roleToJson = await Role.create({
+                            id_user: userJson.id_user,
+                            role_name: "investor"
                         })
-                        if (investor) {
-                            roleToJson = await Role.create({
+                        if (roleToJson) {
+                            roleToJson = roleToJson.toJSON();
+                            const investor = await Investor.create({
                                 id_user: userJson.id_user,
-                                role_name: "investor"
+                                theme_interesting: themeProject,
+                                name_company: company,
+                                description: description,
+                                id_role: roleToJson.id_role
                             })
-                            if (roleToJson) {
-                                roleToJson = roleToJson.toJSON();
-                            }
                         }
+
 
                     }
                     else if (role.localeCompare("expert") === 0) {
-                        const expert = await Expert.create({
-                            id_user: userJson.id_user
+                        var { email, password, first_name, last_name, role, presentation, experiences, work, diplomes, themeProjectExpert } = req.body;
+                        roleToJson = await Role.create({
+                            id_user: userJson.id_user,
+                            role_name: "expert"
                         })
-                        if (expert) {
-                            roleToJson = await Role.create({
-                                id_user: userJson.id_user,
-                                role_name: "expert"
+                        if (roleToJson) {
+                            roleToJson = roleToJson.toJSON();
+                            const expert = await Expert.create({
+                                id_role: roleToJson.id_role,
+                                presentation: presentation,
+                                experiences: experiences,
+                                work: work,
+                                diplomes: diplomes,
+                                theme_interesting: themeProjectExpert
                             })
-                            if (roleToJson) {
-                                roleToJson = roleToJson.toJSON();
-                            }
                         }
+
                     }
                     else {
 
-                        const entrepreneur = await Entrepreneur.create({
-                            id_user: userJson.id_user
-                        })
-                        if (entrepreneur) {
 
-                            roleToJson = await Role.create({
-                                id_user: userJson.id_user,
-                                role_name: "entrepreneur"
+                        role = await Role.create({
+                            id_user: userJson.id_user,
+                            role_name: "entrepreneur"
+                        })
+
+                        if (role) {
+                            roleToJson = role.toJSON()
+                            const entrepreneur = await Entrepreneur.create({
+                                id_role: roleToJson.id_role,
+                                description: description
                             })
+                            const entrepreneurJson = entrepreneur.toJSON()
+
                             if (roleToJson) {
-                                roleToJson = roleToJson.toJSON();
+                                var { email, password, first_name, last_name, role, projectName, description, themeProject, descriptionProject, sensProject, value, montantInvestissement, nameModules, noteModules } = req.body;
+
+
+                                const modules = await Modules.create({
+                                    sliders: noteModules,
+                                    name_sliders: nameModules
+                                })
+                                if (modules) {
+                                    const modulesJson = modules.toJSON()
+                                    const project = await Project.create({
+                                        project_name: projectName,
+                                        id_entrepreneur: entrepreneurJson.id_entrepreneur,
+                                        description: descriptionProject,
+                                        motivation_IB: sensProject,
+                                        id_modules: modulesJson.id_modules,
+                                        montant_investissement: montantInvestissement,
+                                        project_value: value,
+                                        project_type: themeProject
+                                    })
+                                }
                             }
                         }
                     }
@@ -161,6 +198,7 @@ module.exports = {
                 message: "Une erreur interne est survenue. Veuillez réessayer : " + err
             })
         }
+
     },
 
     // Login User

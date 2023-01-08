@@ -34,6 +34,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(50),
             unique: false
         },
+        project_value: {
+            type: DataTypes.STRING(250),
+            unique: false
+        },
+        montant_investissement: {
+            type: DataTypes.STRING(50),
+            unique: false
+        },
+        project_name: {
+            type: DataTypes.STRING(100),
+            unique: false
+        }
     }, {
         //don't add the attributes createdAt and updatedAt
         timestamps: false,

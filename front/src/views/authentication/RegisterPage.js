@@ -11,14 +11,49 @@ import {
     Link
 } from "react-router-dom";
 async function registerUser(credentials) {
-    console.log("credentials : ", credentials)
+    const nameModules = "Renforcement personnel,Stratégie d'entreprise,Influenceur Marketing,Communication digitale et physique,Financement"
     let formData = new FormData();
-    formData.append("email", credentials.email);
-    formData.append("password", credentials.password);
-    formData.append("first_name", credentials.first_name);
-    formData.append("last_name", credentials.last_name);
-    formData.append("role", credentials.role);
-    formData.append("file", credentials.file);
+    if (credentials.role === "entrepreneur") {
+        formData.append("email", credentials.email);
+        formData.append("password", credentials.password);
+        formData.append("first_name", credentials.first_name);
+        formData.append("last_name", credentials.last_name);
+        formData.append("role", credentials.role);
+        formData.append("file", credentials.file);
+        formData.append("projectName", credentials.projectName);
+        formData.append("description", credentials.description);
+        formData.append("themeProject", credentials.themeProject);
+        formData.append("descriptionProject", credentials.descriptionProject);
+        formData.append("sensProject", credentials.sensProject);
+        formData.append("value", credentials.value);
+        formData.append("montantInvestissement", credentials.montantInvestissement);
+        formData.append("nameModules", credentials.montantInvestissement);
+        formData.append("noteModules", credentials.noteModules);
+    }
+    else if (credentials.role === "investor") {
+        formData.append("email", credentials.email);
+        formData.append("password", credentials.password);
+        formData.append("first_name", credentials.first_name);
+        formData.append("last_name", credentials.last_name);
+        formData.append("role", credentials.role);
+        formData.append("file", credentials.file);
+        formData.append("themeProject", credentials.themeProject);
+        formData.append("company", credentials.company);
+        formData.append("description", credentials.description);
+    }
+    else if (credentials.role === "expert") {
+        formData.append("email", credentials.email);
+        formData.append("password", credentials.password);
+        formData.append("first_name", credentials.first_name);
+        formData.append("last_name", credentials.last_name);
+        formData.append("role", credentials.role);
+        formData.append("file", credentials.file);
+        formData.append("presentation", credentials.presentation);
+        formData.append("experiences", credentials.experiences);
+        formData.append("work", credentials.work);
+        formData.append("diplomes", credentials.diplomes);
+        formData.append("themeProjectExpert", credentials.themeProjectExpert);
+    }
 
     try {
         return await axios.post(api.url + "/register", formData, {
@@ -60,6 +95,7 @@ function RegisterPage({ changeSetRole, setToken }) {
     const [project, setProject] = useState(null)
     const [pitchProject, setPitchProject] = useState(null)
     const [themeProject, setThemeProject] = useState([])
+    const [themeProjectExpert, setThemeProjectExpert] = useState([])
     const [sensProject, setSensProject] = useState(null)
     const [proposeValue, setProposeValue] = useState(null)
     const [montantInvestissement, setMontantInvestissement] = useState(null)
@@ -69,24 +105,25 @@ function RegisterPage({ changeSetRole, setToken }) {
     const [communicationDigitalePhysique, setCommunicationDigitalePhysique] = useState(50)
     const [financement, setFinancement] = useState(50)
     const [presentationExpert, setPresentationExpert] = useState(null);
+    const [experiencesExpert, setExperiencesExpert] = useState(null);
+    const [workExpert, setWorkExpert] = useState(null);
+    const [diplomesExpert, setDiplomesExpert] = useState(null);
+    const [companyInvestor, setCompanyInvestor] = useState(null);
+    const [descriptionInvestor, setDescriptionInvestor] = useState(null);
 
 
     const [counter, setCounter] = useState(0);
-    function handleEmailChange(event) {
-        const emailContainer = document.getElementById("inputField-email");
-        setUserEmail(emailContainer.value);
+    function handleEmailChange(e) {
+        setUserEmail(e.target.value);
     }
-    function handlePasswordChange(event) {
-        const passwordContainer = document.getElementById("inputField-password");
-        setUserPassword(passwordContainer.value);
+    function handlePasswordChange(e) {
+        setUserPassword(e.target.value);
     }
-    function handleFirstNameChange(event) {
-        const firstNameContainer = document.getElementById("inputField-first-name");
-        setUserFirstName(firstNameContainer.value);
+    function handleFirstNameChange(e) {
+        setUserFirstName(e.target.value);
     }
-    function handleLastNameChange(event) {
-        const lastNameContainer = document.getElementById("inputField-last-name");
-        setUserLastName(lastNameContainer.value);
+    function handleLastNameChange(e) {
+        setUserLastName(e.target.value);
     }
     function handleChangeProfilPicture(event) {
         setImage(event.target.files[0]);
@@ -95,25 +132,21 @@ function RegisterPage({ changeSetRole, setToken }) {
         setCounter(counter + 1);
     }
     const handleRoleChange = async e => {
-        setUserRole(e.target.value);
+        setUserRole(e.target.innerHTML);
     }
     const handleNameProjectChange = async e => {
-        const projectName = document.getElementById("inputField-name-project");
-        setProject(projectName.value)
+        setProject(e.target.value)
     }
 
     const handleDescriptionChange = async e => {
-        const description = document.getElementById("inputField-description");
-        setDescription(description.value)
+        setDescription(e.target.value)
     }
 
     const handleMontantInvestissement = async e => {
-        const montantInvestissement = document.getElementById("inputField-montant-investissement");
-        setMontantInvestissement(montantInvestissement.innerHTML);
+        setMontantInvestissement(e.target.value)
     }
     const handleProposeValue = async e => {
-        const proposeValue = document.getElementById("inputField-propose-value");
-        setProposeValue(proposeValue.innerHTML)
+        setProposeValue(e.target.value)
     }
     const handlePresentation = async e => {
         setPresentationExpert(e.target.value);
@@ -139,18 +172,43 @@ function RegisterPage({ changeSetRole, setToken }) {
         else {
             delete themeProject[index]
         }
-        console.log("theme : ", themeProject)
+        /*Use Object.keys(themeProject) in order to retrieve the keys of the array without
+        taking the empty slots*/
+    }
+    const handleListThemeExpert = async e => {
+        let elementPresent = false
+        let i = 0;
+        let index = 0;
+        while (i < themeProjectExpert.length) {
+            if (e.target.innerHTML === themeProjectExpert[i]) {
+                elementPresent = true
+                i = themeProjectExpert.length;
+            }
+            else {
+                i += 1;
+                index += 1;
+            }
+        }
+
+        if (!elementPresent) {
+            //setThemeProjectExpert([...themeProjectExpert,e.target.innerHTML])
+            themeProjectExpert.push(e.target.innerHTML)
+
+        }
+        else {
+            delete themeProjectExpert[index]
+        }
+        /*Use Object.keys(themeProjectExpert) in order to retrieve the keys of the array without
+        taking the empty slots*/
     }
 
 
     const handleSensProject = async e => {
-        const sensProject = document.getElementById("inputField-sens-project");
-        setSensProject(sensProject.innerHTML)
+        setSensProject(e.target.value)
     }
 
     const handlePitchProject = async e => {
-        const pitchProject = document.getElementById("inputField-pitch-project");
-        setPitchProject(pitchProject.value);
+        setPitchProject(e.target.value);
     }
     const handleModulePersonnel = async e => {
         setRenforcementPersonnel(e.target.value);
@@ -167,19 +225,91 @@ function RegisterPage({ changeSetRole, setToken }) {
     const handleFinancement = async e => {
         setFinancement(e.target.value);
     }
+
+    const handleExperiencesExpert = async e => {
+        setExperiencesExpert(e.target.value);
+    }
+    const handleWorkExpert = async e => {
+        setWorkExpert(e.target.value);
+    }
+    const handleDiplomesExpert = async e => {
+        setDiplomesExpert(e.target.value);
+    }
     const handleSubmit = async e => {
         e.preventDefault();
-        let formData = new FormData()
 
-        const response = await registerUser({
-            email: email,
-            password: password,
-            first_name: first_name,
-            last_name: last_name,
-            role: role,
-            file: image
-        })
-
+        var response;
+        if (role === "entrepreneur") {
+            let themeProjectString = ""
+            for (let i = 0; i < Object.keys(themeProject).length; i++) {
+                if (themeProject[i]) {
+                    themeProjectString += themeProject[i] + ","
+                }
+            }
+            //We remove the last character which is ","
+            themeProjectString = themeProjectString.substring(0, (themeProjectString.length) - 2)
+            let noteModules = renforcementPersonnel + "," + strategieEntreprise + "," + influenceurMarketing + "," + communicationDigitalePhysique;
+            response = await registerUser({
+                email: email,
+                password: password,
+                first_name: first_name,
+                last_name: last_name,
+                role: role,
+                file: image,
+                projectName: project,
+                description: description,
+                themeProject: themeProjectString,
+                descriptionProject: pitchProject,
+                sensProject: sensProject,
+                value: proposeValue,
+                montantInvestissement: montantInvestissement,
+                noteModules: noteModules
+            })
+        }
+        else if (role === "investor") {
+            let themeProjectString = ""
+            for (let i = 0; i < Object.keys(themeProject).length; i++) {
+                if (themeProject[i]) {
+                    themeProjectString += themeProject[i] + ","
+                }
+            }
+            //We remove the last character which is ","
+            themeProjectString = themeProjectString.substring(0, (themeProjectString.length) - 2)
+            response = await registerUser({
+                email: email,
+                password: password,
+                first_name: first_name,
+                last_name: last_name,
+                role: role,
+                file: image,
+                themeProject: themeProjectString,
+                company: companyInvestor,
+                description: descriptionInvestor
+            })
+        }
+        else if (role === "expert") {
+            let themeProjectString = ""
+            for (let i = 0; i < Object.keys(themeProject).length; i++) {
+                if (themeProject[i]) {
+                    themeProjectString += themeProject[i] + ","
+                }
+            }
+            //We remove the last character which is ","
+            themeProjectString = themeProjectString.substring(0, (themeProjectString.length) - 2)
+            response = await registerUser({
+                email: email,
+                password: password,
+                first_name: first_name,
+                last_name: last_name,
+                role: role,
+                file: image,
+                presentation: presentationExpert,
+                experiences: experiencesExpert,
+                work: workExpert,
+                diplomes: diplomesExpert,
+                themeProjectExpert: themeProjectExpert
+            })
+        }
 
         if (response.message === "Inscription valide") {
 
@@ -190,9 +320,19 @@ function RegisterPage({ changeSetRole, setToken }) {
         else {
             setErrorMessage(response.message)
         }
+
+
+    }
+    const handleCompanyInvestor = async e => {
+        setCompanyInvestor(e.target.value);
+    }
+
+    const handleDescriptionInvestor = async e => {
+        setDescriptionInvestor(e.target.value);
     }
     const valuesOption = ["expert", "investor", "entrepreneur"];
     const valuesTheme = ["Communication Services", "Consumer Discretionary", "Consumer Staples", "Energy", "Financials", "FinTech", "Health Care", "Industrials", "Information Technology", "Materials", "Real Estate"]
+    const valuesThemeExpert = ["Renforcement personnel", "Stratégie d'entreprise", "Influenceur marketing", "Communication digitale et physique", "Financement"]
     return (
         <div id="mainContainerRegister">
             <h1 className="lato">Formulaire d'inscription</h1>
@@ -219,7 +359,7 @@ function RegisterPage({ changeSetRole, setToken }) {
                             </div>
                             <div id="containerInputList">
                                 <p className="lato">Quelle est votre position au sein d'influenceur business</p>
-                                <InputList type={"radio"} name={"inputList-role"} valuesOption={valuesOption} onChange={handleRoleChange} />
+                                <InputList type={"radio"} name={"inputList-role"} valuesOption={valuesOption} onClick={handleRoleChange} />
                             </div>
                             <p id="buttonNext" onClick={showNext}>Suivant</p>
                         </div>
@@ -298,6 +438,47 @@ function RegisterPage({ changeSetRole, setToken }) {
                             <div id="containerPresentation">
                                 <InputField label={"Qui êtes vous ?"} name={"identite"} type={"textarea"} placeholder={"Présentez-vous"} idName={"inputField-presentation"} onChange={handlePresentation} />
                             </div>
+                            <div id="containerThemeProjectExpert">
+                                <p>Quel est le thème de votre projet ?</p>
+                                <UnordonedList valuesOption={valuesThemeExpert} onClick={handleListThemeExpert} />
+                            </div>
+                            <div id="containerInputProfilImageExpert">
+                                <label className="lato">Photo de profil</label>
+                                <input type="file" name="file" id="input-file-expert" onChange={handleChangeProfilPicture} />
+                            </div>
+                            <div id="containerExperiencesExpert">
+                                <InputField label={"Présentez vos expérience?"} name={"indentityExpert"} type={"textarea"} placeholder={"Présentez-vous"} idName={"inputField-experiences-expert"} onChange={handleExperiencesExpert} />
+                            </div>
+                            <div id="containerDiplomesExpert">
+                                <InputField label={"Présentez vos diplomes"} name={"diplomesExpert"} type={"textarea"} placeholder={"Vos diplomes"} idName={"inputField-diplomes-expert"} onChange={handleDiplomesExpert} />
+                            </div>
+                            <div id="containerActualWork">
+                                <InputField label={"Présentez votre travail"} name={"workExpert"} type={"textarea"} placeholder={"Votre travail"} idName={"inputField-work-expert"} onChange={handleWorkExpert} />
+                            </div>
+                            <ButtonForm content={"S'inscrire"} />
+                        </div>
+                    }
+                    {counter === 1 && role === "investor" &&
+                        <div>
+                            <div id="containerLeftInvestor">
+                                <div id="containerNameCompany">
+                                    <InputField label={"Comment s'appelle votre organisation ?"} name={"companyInvestor"} type={"text"} placeholder={"Votre organisation"} idName={"inputField-company-investor"} onChange={handleCompanyInvestor} />
+                                </div>
+                                <div id="containerInputProfilImageInvestor">
+                                    <label className="lato">Photo de profil</label>
+                                    <input type="file" name="file" id="input-file-investor" onChange={handleChangeProfilPicture} />
+                                </div>
+                                <div id="containerNameCompany">
+                                    <InputField label={"Parlez-nous de vous, qui vous êtes, vos expériences passées et votre ambition prochaine à IB ?"} name={"descriptionInvestor"} type={"textarea"} placeholder={"Description"} idName={"inputField-description-investor"} onChange={handleDescriptionInvestor} />
+                                </div>
+                            </div>
+                            <div id="containerRightInvestor">
+                                <div id="containerThemeProjectInvestor">
+                                    <p>Quel thème vous intéresse ?</p>
+                                    <UnordonedList valuesOption={valuesTheme} onClick={handleListTheme} />
+                                </div>
+                            </div>
+                            <ButtonForm content={"S'inscrire"} />
                         </div>
                     }
                     {errorMessage && <p className="lato" id="errorMessage">{errorMessage}</p>}
@@ -315,7 +496,6 @@ function RegisterPage({ changeSetRole, setToken }) {
                         <img src={require("../../assets/images/linkedin.png")} alt="logo linkedin"/>
                         <p className="lato">S'inscrire avec linkedin</p>
                     </div> */}
-
 
                 </form>
             </div>

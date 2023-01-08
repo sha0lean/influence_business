@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         id_role: {
             type: DataTypes.INTEGER,
             unique: true
+        },
+        description: {
+            type: DataTypes.TEXT('long'),
+            unique: false
         }
     }, {
         //don't add the attributes createdAt and updatedAt
