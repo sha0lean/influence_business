@@ -1,6 +1,6 @@
 import Home from "../views/Home.js"
 import LoginPage from "../views/authentication/LoginPage.js"
-import RegisterPage from "../views/authentication/RegisterPageEZ.js";
+import RegisterPage from "../views/authentication/RegisterPage.js";
 import ForgotPassword from "../views/authentication/ForgotPassword.js";
 import ProtectedRoutesAuthentication from "../utils/routesProtection/authenticationRoutesProtection";
 import ProtectedRoutesExpert from "../utils/routesProtection/expertRoutesProtection";

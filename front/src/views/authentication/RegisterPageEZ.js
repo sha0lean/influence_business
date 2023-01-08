@@ -13,6 +13,7 @@ function Register() {
                 <div class="register__content">
                     <form action="#">
                         <div class="register__details">
+
                             <div class="input-box">
                                 <span class="details">Nom</span>
                                 <input type="text" placeholder="Entrez votre nom" required />
@@ -31,23 +32,23 @@ function Register() {
                             </div>
 
                         </div>
-                        <div class="gender-details">
-                            <input type="radio" name="gender" id="dot-1" />
-                            <input type="radio" name="gender" id="dot-2" />
-                            <input type="radio" name="gender" id="dot-3" />
-                            <span class="gender-title">Genre</span>
+                        <div class="role-details">
+                            <input type="radio" name="role" id="dot-1" />
+                            <input type="radio" name="role" id="dot-2" />
+                            <input type="radio" name="role" id="dot-3" />
+                            <span class="role-title">Rôle</span>
                             <div class="category">
                                 <label for="dot-1">
                                     <span class="dot one"></span>
-                                    <span class="gender">Homme</span>
+                                    <span class="role">Expert</span>
                                 </label>
                                 <label for="dot-2">
                                     <span class="dot two"></span>
-                                    <span class="gender">Femme</span>
+                                    <span class="role">Entrepreneur</span>
                                 </label>
                                 <label for="dot-3">
                                     <span class="dot three"></span>
-                                    <span class="gender">Je ne le préciserais pas</span>
+                                    <span class="role">Investisseur</span>
                                 </label>
                             </div>
                         </div>
