@@ -25,11 +25,10 @@ function ProfilEntrepreneur(token) {
     return (
         <div id="mainContainerProfilEntrepreneur">
             <h1>Page profil entrepreneur</h1>
+            <img src={`http://localhost:5000/uploads/${profilPicture}`} alt="profil picture" />
         </div>
 
     )
-
-
 }
 
 export default ProfilEntrepreneur

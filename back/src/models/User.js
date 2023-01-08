@@ -5,14 +5,14 @@ const bcrypt = require('bcrypt');
 // Functions
 function hashPassword(user, options) {
     const SALT_FACTOR = 8;
-    if(!user.changed('password')) {
+    if (!user.changed('password')) {
         return;
     }
     return bcrypt.genSalt(SALT_FACTOR)
-    .then(salt => bcrypt.hash(user.password, salt, null))
-    .then(hash => {
-        user.setDataValue('password', hash);
-    });
+        .then(salt => bcrypt.hash(user.password, salt, null))
+        .then(hash => {
+            user.setDataValue('password', hash);
+        });
 }
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         password: {
-            type:  DataTypes.TEXT('long'),
+            type: DataTypes.TEXT('long'),
             unique: false
         },
         work_status: {
@@ -45,8 +45,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT('long'),
             unique: false
         },
-        profilPicture:{
-            type: DataTypes.BLOB("long"),
+        fileName: {
+            type: DataTypes.TEXT("long"),
         },
     }, {
         hooks: {
@@ -55,10 +55,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
 
-    User.prototype.comparePassword = function(password) {
+    User.prototype.comparePassword = function (password) {
         return bcrypt.compare(password, this.password);
     }
-    
+
 
     return User;
 };

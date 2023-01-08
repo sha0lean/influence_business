@@ -7,18 +7,18 @@ import ProtectedRoutesExpert from "../utils/routesProtection/expertRoutesProtect
 import ProtectedRoutesEntrepreneur from "../utils/routesProtection/entrepreneurRoutesProtection";
 import ProtectedRoutesInvestor from "../utils/routesProtection/investorRoutesProtection";
 
-import ProfilEntrepreneur from "../views/profil/ProfilEntrepreneur.js";
-import ProfilExpert from "../views/profil/ProfilExpert.js";
-import ProfilInvestor from "../views/profil/ProfilInvestor.js";
+import ProfilEntrepreneur from "../views/profiles/ProfilEntrepreneur.js";
+import ProfilExpert from "../views/profiles/ProfilExpert.js";
+import ProfilInvestor from "../views/profiles/ProfilInvestor.js";
 
 
-import {setToken, getToken,removeToken} from "../utils/localStorage/useToken.js";
-import {setRole,getRole,removeRole} from "../utils/localStorage/useRole.js";
+import { setToken, getToken, removeToken } from "../utils/localStorage/useToken.js";
+import { setRole, getRole, removeRole } from "../utils/localStorage/useRole.js";
 
 
 let token = getToken();
 const changeSetRole = (value) => {
-  setRole(value);
+    setRole(value);
 }
 
 const MainRoutes = {
@@ -26,65 +26,65 @@ const MainRoutes = {
     children: [
         {
             path: "/",
-            element: <Home/>
+            element: <Home />
         },
         {
             path: "connexion",
-            element: <ProtectedRoutesAuthentication token={getToken()}/>,
+            element: <ProtectedRoutesAuthentication token={getToken()} />,
             children: [
                 {
                     path: "",
-                    element: <LoginPage changeSetRole={changeSetRole} setToken={setToken}/>
+                    element: <LoginPage changeSetRole={changeSetRole} setToken={setToken} />
                 }
             ]
         },
         {
             path: "inscription",
-            element: <ProtectedRoutesAuthentication token={getToken()}/>,
+            element: <ProtectedRoutesAuthentication token={getToken()} />,
             children: [
                 {
                     path: "",
-                    element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken}/>
+                    element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken} />
                 }
             ]
         },
         {
             path: "forgot-password",
-            element: <ProtectedRoutesAuthentication token={getToken()}/>,
+            element: <ProtectedRoutesAuthentication token={getToken()} />,
             children: [
                 {
                     path: "",
-                    element: <ForgotPassword/>
+                    element: <ForgotPassword />
                 }
             ]
         },
         {
             path: "profilEntrepreneur",
-            element: <ProtectedRoutesEntrepreneur token={getToken()}/>,
+            element: <ProtectedRoutesEntrepreneur token={getToken()} />,
             children: [
                 {
                     path: "",
-                    element: <ProfilEntrepreneur token={getToken()}/>
+                    element: <ProfilEntrepreneur token={getToken()} />
                 }
             ]
         },
         {
             path: "profilExpert",
-            element: <ProtectedRoutesExpert token={getToken()}/>,
+            element: <ProtectedRoutesExpert token={getToken()} />,
             children: [
                 {
                     path: "",
-                    element: <ProfilExpert/>
+                    element: <ProfilExpert />
                 }
             ]
         },
         {
             path: "profilInvestisseur",
-            element: <ProtectedRoutesInvestor token={getToken()}/>,
+            element: <ProtectedRoutesInvestor token={getToken()} />,
             children: [
                 {
                     path: "",
-                    element: <ProfilInvestor/>
+                    element: <ProfilInvestor />
                 }
             ]
         }

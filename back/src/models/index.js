@@ -1,10 +1,13 @@
+require('dotenv').config()
 const fs = require("fs")
 const path = require("path")
 const Sequelize = require("sequelize")
 const config = require("../config/config");
 
 const db = {}
-
+console.log("database : mysql")
+console.log("vzfjoife")
+console.log("config db database : ", config.db.database)
 /* Connexion of the libary sequelize to the database using the config variables.*/
 const sequelize = new Sequelize(
     config.db.database,

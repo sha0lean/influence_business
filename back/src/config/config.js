@@ -1,3 +1,4 @@
+require('dotenv').config()
 /**
  * We've created a file called config.js, which contains all the config variables
  * such as the database crendentials and the database which we're using in this project
@@ -13,23 +14,30 @@
  */
 module.exports = {
 
-    port: process.env.PORT || 5000,
+    //port: process.env.PORT || 5000,
+    port: 5000,
     db: {
 
-        database: process.env.DB_NAME,
-        user: process.env.DB_USER, /* You have to enter your database username in the file .env*/
-        password: process.env.DB_PASS, /* You have to enter your database password in the file .env*/
+        //database: process.env.DB_NAME,
+        database: 'influenceurBusiness',
+        user: 'root',
+        //user: process.env.DB_USER, /* You have to enter your database username in the file .env*/
+        //password: process.env.DB_PASS, /* You have to enter your database password in the file .env*/
+        password: 'root',
         options: {
             //database type
-            dialect: process.env.DIALECT,
+            //dialect: process.env.DIALECT,
+            dialect: 'mysql',
             //database host
-            host: process.env.HOST,
+            //host: process.env.HOST,
+            host: 'host.docker.internal',
             //where the db is stored
             storage: './influenceurbusiness.mysql',
-            port: "3308"
+            port: '3306'
         }
     },
     authentication: {
-        jwtSecret: process.env.JWT_SECRET,
+        //jwtSecret: process.env.JWT_SECRET,
+        jwtSecret: 'very_secret_name_influenceur_business'
     }
 }

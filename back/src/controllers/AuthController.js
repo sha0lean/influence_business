@@ -1,9 +1,10 @@
 require('dotenv').config()
-const { User,Investor,Expert,Entrepreneur,Role } = require('../models')
+const { User, Investor, Expert, Entrepreneur, Role } = require('../models')
 const jwt = require('jsonwebtoken');
 const crypto = require("crypto")
 const bcrypt = require('bcrypt');
 let nodemailer = require("nodemailer");
+const moment = require("moment")
 // -- Functions -- //
 // jwt token
 
@@ -15,13 +16,13 @@ function jwtSignUser(user) {
         firstname: user.first_name,
         lastname: user.last_name
     },
-    secretKey,{
+        secretKey, {
         expiresIn: "24h"
     })
-    if(token){
+    if (token) {
         // We create the hash sha256 using the TOKEN_KEY
-        const sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET);
-        if(sha256Hasher){
+        const sha256Hasher = crypto.createHmac("sha256", process.env.JWT_SECRET);
+        if (sha256Hasher) {
             //We hash our token
             const tokenHashed = sha256Hasher.update(token).digest("hex");
             user = User.update({
@@ -31,7 +32,7 @@ function jwtSignUser(user) {
                     email: user.email,
                 }
             })
-            if(user){
+            if (user) {
                 return token
             }
         }
@@ -42,14 +43,13 @@ function jwtSignUser(user) {
 module.exports = {
 
     // Register User
-    async register (req, res) {
+    async register(req, res) {
+        try {
 
-        try{
-
-            const {email,password,first_name,last_name,role} = req.body;
-            const file = req.file
+            const { email, password, first_name, last_name, role } = req.body;
+            const { filename } = req.file;
+            console.log("filename : ", filename)
             let isUserAlreadyExist = true
-
             //Problème
 
             const fetchUser = await User.findOne({
@@ -57,132 +57,133 @@ module.exports = {
                     email: email,
                 }
             })
-            if(!fetchUser){
+            if (!fetchUser) {
 
                 isUserAlreadyExist = false;
-            }            
-            if(isUserAlreadyExist == false){
+            }
+            if (isUserAlreadyExist == false) {
                 //If the image doesn't exist
-                if(file==undefined){
+                if (filename == undefined) {
                     res.status(500).send({
                         message: "Vous devez sélectionnez une photo de profil !"
                     })
                 }
-                else{
+                else {
                     //Prevent the user from registering himself as admin
-                    role_verify = role                
-                    if('expert'.localeCompare(role_verify) === 0){
+                    role_verify = role
+                    if ('expert'.localeCompare(role_verify) === 0) {
                         role_verify = 'expert'
                     }
-                    else if('investor'.localeCompare(role_verify) === 0){
+                    else if ('investor'.localeCompare(role_verify) === 0) {
                         role_verify = 'investor'
                     }
-                    else{
+                    else {
                         role_verify = 'entrepreneur'
-                    }                
+                    }
+
+                    //Creation file name 
                     const newUser = await User.create({
                         email: email,
                         password: password,
                         first_name: first_name,
                         last_name: last_name,
                         work_status: false,
-                        profilPicture: file 
+                        fileName: filename
                     });
-                
-                    
+
+
                     const userJson = newUser.toJSON();
                     const token = jwtSignUser(userJson);
                     //We fill the tables specific to the role
                     let roleToJson = "entrepreneur";
-                    if(role.localeCompare("investor") === 0){
+                    if (role.localeCompare("investor") === 0) {
                         const investor = await Investor.create({
                             id_user: userJson.id_user
                         })
-                        if(investor){
+                        if (investor) {
                             roleToJson = await Role.create({
                                 id_user: userJson.id_user,
                                 role_name: "investor"
                             })
-                            if(roleToJson){
+                            if (roleToJson) {
                                 roleToJson = roleToJson.toJSON();
                             }
                         }
 
                     }
-                    else if(role.localeCompare("expert") === 0){
+                    else if (role.localeCompare("expert") === 0) {
                         const expert = await Expert.create({
                             id_user: userJson.id_user
                         })
-                        if(expert){
+                        if (expert) {
                             roleToJson = await Role.create({
                                 id_user: userJson.id_user,
                                 role_name: "expert"
                             })
-                            if(roleToJson){
+                            if (roleToJson) {
                                 roleToJson = roleToJson.toJSON();
                             }
                         }
                     }
-                    else{
-                        
+                    else {
+
                         const entrepreneur = await Entrepreneur.create({
                             id_user: userJson.id_user
                         })
-                        if(entrepreneur){
+                        if (entrepreneur) {
 
                             roleToJson = await Role.create({
                                 id_user: userJson.id_user,
                                 role_name: "entrepreneur"
                             })
-                            if(roleToJson){
+                            if (roleToJson) {
                                 roleToJson = roleToJson.toJSON();
                             }
                         }
                     }
                     global.token = token;
                     res.status(200).json({
-                        token : token,
+                        token: token,
                         role: roleToJson.role_name,
-                        file: userJson.profilPicture,
                         message: 'Inscription valide'
                     });
                 }
-                
+
             }
-            else{
+            else {
                 res.status(500).send({
                     message: "Cet email existe déjà. Veuillez en utiliser un autre"
                 })
             }
         }
-        catch(err){
+        catch (err) {
             res.status(500).send({
-                message: "Une erreur interne est survenue. Veuillez réessayer : "  + err  
+                message: "Une erreur interne est survenue. Veuillez réessayer : " + err
             })
         }
-    }, 
+    },
 
     // Login User
-    async login (req, res) {
-       try{
+    async login(req, res) {
+        try {
             const { email, password } = req.body;
             const user = await User.findOne({
                 where: {
                     email: email,
                 }
-            }) 
+            })
             if (!user) {
                 res.status(401).send({
                     message: "L'utilisateur n'a pas été trouvé. Veuillez réessayer"
                 });
             }
-            else{
+            else {
                 const role = await Role.findOne({
                     where: {
                         id_user: user.toJSON().id_user
                     }
                 })
-                if(role){
+                if (role) {
                     const roleJson = role.toJSON();
                     await user.comparePassword(password).then(isMatch => {
                         if (!isMatch) {
@@ -190,98 +191,98 @@ module.exports = {
                                 message: "L'utilisateur n'a pas été trouvé. Veuillez réessayer"
                             });
                         }
-                        else{
+                        else {
                             const userJson = user.toJSON();
                             const token = jwtSignUser(userJson);
                             global.token = token;
-                            
+
                             res.status(200).send({
                                 token: token,
                                 role: roleJson.role_name,
-                                file: userJson.profilPicture,
+                                filename: userJson.fileName,
                                 message: "Vos identifiants sont corrects"
                             });
-                            
+
                         }
-                    }) 
-                }  
+                    })
+                }
             }
-        }catch(err){
+        } catch (err) {
             res.status(500).send({
-                message: "Une erreur interne est survenue. Veuillez réessayer" 
+                message: "Une erreur interne est survenue. Veuillez réessayer"
             });
         };
-        
+
     },
-    async logout (req,res){
-        try{
+    async logout(req, res) {
+        try {
             const token = global.token;
             const user = await User.findOne({
-                where:{
+                where: {
                     token: token
                 }
             })
-            if(user){
-                const userJson = user.toJSON(); 
+            if (user) {
+                const userJson = user.toJSON();
                 await User.update({
                     token: jwtSignUser(userJson)
                 },
-                {
-                    where: {
-                        id_user: userJson.id_user
-                    }   
-                }).then(() => {
-                    res.status(200).send({
-                        message: "The user has been disconnected"
+                    {
+                        where: {
+                            id_user: userJson.id_user
+                        }
+                    }).then(() => {
+                        res.status(200).send({
+                            message: "The user has been disconnected"
+                        })
                     })
-                })
             }
-            else{
+            else {
                 res.status(404).send({
                     message: "The user has not been found"
                 })
             }
         }
-        catch(err){
+        catch (err) {
             res.status(500).send({
-                message: "Une erreur interne est survenue. Veuillez réessayer" 
+                message: "Une erreur interne est survenue. Veuillez réessayer"
             })
         }
     },
-    async forgotPassword(req,res){
-        const {email} = req.body;
-        try{
+    async forgotPassword(req, res) {
+        const { email } = req.body;
+        try {
             const user = await User.findOne({
                 where: {
                     email: email
                 }
             })
-            if(!user){
+            if (!user) {
                 res.status(404).send({
                     error: "L'utilisateur n'a pas été trouvé. Veuillez réessayer",
                     message: "",
                     mailSent: false
                 })
             }
-            else{
+            else {
                 const token = jwtSignUser(user);
                 const link = `http://localhost:5000/reset-password/${user.id_user}/${token}`;
                 var transporter = nodemailer.createTransport({
                     service: "gmail",
                     auth: {
-                      user: "influenceur.business@gmail.com",
-                      pass: "bmxjrpsnoxuxxkcf",
+                        user: "influenceur.business@gmail.com",
+                        pass: "bmxjrpsnoxuxxkcf",
                     },
-                  });
-              
-                  var mailOptions = {
+                });
+
+                var mailOptions = {
                     from: "influenceur.business@gmail.com",
                     to: user.toJSON().email,
                     subject: "Réinitialisation de mot de passe",
                     text: link,
-                  };
-              
-                  transporter.sendMail(mailOptions, function (error, info) {
+                };
+
+                transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
                         res.status(500).send({
                             error: "Une erreur est survenue. Veuillez réessayer",
@@ -295,10 +296,10 @@ module.exports = {
                             mailSent: true
                         })
                     }
-                  });
+                });
             }
         }
-        catch(err){
+        catch (err) {
             res.status(500).send({
                 error: "Une erreur est survenue. Veuillez réessayer",
                 message: "",
@@ -306,95 +307,95 @@ module.exports = {
             })
         }
     },
-    async resetPasswordForm(req,res){
-        const {id_user,token} = req.params;
+    async resetPasswordForm(req, res) {
+        const { id_user, token } = req.params;
         //Verification of the token
-        try{
-            const sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET);
-            if(sha256Hasher){
+        try {
+            const sha256Hasher = crypto.createHmac("sha256", process.env.JWT_SECRET);
+            if (sha256Hasher) {
                 const tokenHashed = sha256Hasher.update(token).digest("hex");
                 const user = await User.findOne({
-                    where:{
+                    where: {
                         token: tokenHashed
                     }
                 })
-                if(user){
+                if (user) {
                     const userJson = user.toJSON();
-                    res.render("index",{errorMessage:""})
+                    res.render("index", { errorMessage: "" })
                 }
-                else{
+                else {
                     res.status(404).send({
                         message: "L'utilisateur n'a pas été trouvé"
                     })
-                    
+
                 }
             }
-            else{
+            else {
                 res.status(500).send({
-                    message: "Une erreur interne est survenue. Veuillez réessayer" 
+                    message: "Une erreur interne est survenue. Veuillez réessayer"
                 })
             }
-            
+
         }
-        catch(err){
+        catch (err) {
             res.status(500).send({
                 message: "Une erreur interne est survenue. Veuillez réessayer"
             })
         }
     },
-    async resetPassword(req,res){
-        const {id_user,token} = req.params;
-        const {password,confirmPassword} = req.body;
+    async resetPassword(req, res) {
+        const { id_user, token } = req.params;
+        const { password, confirmPassword } = req.body;
 
 
         //Verification of the token
-        try{
-            if(password != confirmPassword){
-                res.render("index",{errorMessage:"Les deux mots de passe sont différents. Veuillez réessayer"})
+        try {
+            if (password != confirmPassword) {
+                res.render("index", { errorMessage: "Les deux mots de passe sont différents. Veuillez réessayer" })
             }
-            else{
-                let sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET);
-                if(sha256Hasher){
+            else {
+                let sha256Hasher = crypto.createHmac("sha256", process.env.JWT_SECRET);
+                if (sha256Hasher) {
                     const tokenHashed = sha256Hasher.update(token).digest("hex");
                     const user = await User.findOne({
-                        where:{
+                        where: {
                             token: tokenHashed
                         }
                     })
-                    if(user){
+                    if (user) {
                         const userJson = user.toJSON();
                         const token = jwtSignUser(userJson);
-                        sha256Hasher = crypto.createHmac("sha256",process.env.JWT_SECRET)
+                        sha256Hasher = crypto.createHmac("sha256", process.env.JWT_SECRET)
                         const tokenHashed = sha256Hasher.update(token).digest("hex");
                         await User.update({
                             password: password,
                             token: tokenHashed
                         },
-                        {
-                            where: {
-                                id_user: userJson.id_user
-                            },
-                            individualHooks: true
-                        })
+                            {
+                                where: {
+                                    id_user: userJson.id_user
+                                },
+                                individualHooks: true
+                            })
                         res.render("success")
                     }
-                    else{
+                    else {
                         res.status(404).send({
                             message: "L'utilisateur n'a pas été trouvé"
                         })
-                        
+
                     }
                 }
-                else{
+                else {
                     res.status(500).send({
-                        message: "Une erreur interne est survenue. Veuillez réessayer" 
+                        message: "Une erreur interne est survenue. Veuillez réessayer"
                     })
                 }
             }
-            
-            
+
+
         }
-        catch(err){
+        catch (err) {
             res.status(500).send({
                 message: "Une erreur interne est survenue. Veuillez réessayer : " + err
             })

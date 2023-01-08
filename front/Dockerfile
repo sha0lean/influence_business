@@ -1,0 +1,14 @@
+FROM node:18 AS front
+
+ENV NODE_ENV apiIB
+
+WORKDIR /usr/src/influenceur_business/front
+
+COPY package.json .
+COPY package-lock.json .
+
+RUN npm install
+
+COPY . .
+
+CMD ["sh", "-c", "npm start"]
