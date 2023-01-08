@@ -33,7 +33,7 @@ module.exports = {
             host: 'localhost',
             //where the db is stored
             storage: './influenceurbusiness.mysql',
-            port: '3306'
+            port: '3308'
         }
     },
     authentication: {

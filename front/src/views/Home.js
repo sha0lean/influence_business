@@ -111,23 +111,21 @@ function Home() {
                 </div>
             </section>
 
-            <section class="presentation-background">
-            </section>
+            <section class="down-background">
+                <div class="block presentation row around-md">
+                    <h2 class="presentation__title row center-md">
+                        Section 3
+                    </h2>
 
-
-            <div class="block presentation row around-md">
-                <h2 class="presentation__title row center-md">
-                    Section 3
-                </h2>
-
-                <div class="presentation__card">
-                    <div class="card__content">
-                        <div class="card__img">
-                            <img src={illustaff} alt="" />
+                    <div class="presentation__card">
+                        <div class="card__content">
+                            <div class="card__img">
+                                <img src={illustaff} alt="" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </container>
     )
 }
