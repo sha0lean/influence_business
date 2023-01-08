@@ -1,40 +1,38 @@
 import React from "react";
 import "../assets/scss/pages/home2.scss";
 import ButtonForm from "../components/ButtonForm.jsx";
+import abstractpurpleia from "../assets/images/abstract-IA.png";
+import illubrain from "../assets/images/abstract_brain.png";
 
 function Home() {
     return (
-        <header class="call-to-action landing-background">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1>
-                        Un réseau d'innovation et de réussite collective
-                    </h1>
-                    <p class="text-dark">
-                        "We believe in the power of community to improve your business"
-                    </p>
-                    <button class="">
-                        Get Started
-                    </button>
-                    <div class="my-2">
-                        <p class="header-app-download-title">GET OUR MOBILE APP</p>
-                    </div>
-                    <div>
-                        <ButtonForm content={"Nous rejoindre"} />
-
-                        <button class="btn btn-app-download mr-2">
-                            <img src="assets/images/ios.svg" alt="App store" />
-                        </button>
-                        <button class="btn btn-app-download">
-                            <img src="assets/images/android.svg" alt="play store" />
+        <container>
+            <section class="landing-background">
+                <div class="block calltoaction row">
+                    <div class="col-md-6 col-xs-12">
+                        <h1 class="calltoaction__title">
+                            Un réseau d'innovation <br />
+                            et de réussite collective.
+                        </h1>
+                        <p class="calltoaction__subtitle">
+                            "We believe in the power of community <br />
+                            to improve your business."
+                        </p>
+                        <button class="calltoaction__button center">
+                            Get Started
                         </button>
                     </div>
+                    <div class="col-md-6 calltoaction__img">
+                        <img src={illubrain} alt="app" class="" />
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <img src="https://via.placeholder.com/400x550" alt="app" width="388px" class="img-fluid" />
+            </section>
+            <section class="">
+                <div class="block">
+                    section 2
                 </div>
-            </div>
-        </header>
+            </section>
+        </container>
     )
 }
 
