@@ -63,7 +63,12 @@ function RegisterPage({ changeSetRole, setToken }) {
     const [sensProject, setSensProject] = useState(null)
     const [proposeValue, setProposeValue] = useState(null)
     const [montantInvestissement, setMontantInvestissement] = useState(null)
-    const [renforcementPersonnel, setRenforcementPersonnel] = useState(null)
+    const [renforcementPersonnel, setRenforcementPersonnel] = useState(50)
+    const [strategieEntreprise, setStrategieEntreprise] = useState(50)
+    const [influenceurMarketing, setInfluenceurMarketing] = useState(50)
+    const [communicationDigitalePhysique, setCommunicationDigitalePhysique] = useState(50)
+    const [financement, setFinancement] = useState(50)
+    const [presentationExpert, setPresentationExpert] = useState(null);
 
 
     const [counter, setCounter] = useState(0);
@@ -110,6 +115,9 @@ function RegisterPage({ changeSetRole, setToken }) {
         const proposeValue = document.getElementById("inputField-propose-value");
         setProposeValue(proposeValue.innerHTML)
     }
+    const handlePresentation = async e => {
+        setPresentationExpert(e.target.value);
+    }
     const handleListTheme = async e => {
         let elementPresent = false
         let i = 0;
@@ -145,7 +153,19 @@ function RegisterPage({ changeSetRole, setToken }) {
         setPitchProject(pitchProject.value);
     }
     const handleModulePersonnel = async e => {
-        console.log("e target : ", e.target.value)
+        setRenforcementPersonnel(e.target.value);
+    }
+    const handleStategieEntreprise = async e => {
+        setStrategieEntreprise(e.target.value);
+    }
+    const handleInfluenceurMarketing = async e => {
+        setInfluenceurMarketing(e.target.value);
+    }
+    const handleCommunicationDigitalePhysique = async e => {
+        setCommunicationDigitalePhysique(e.target.value);
+    }
+    const handleFinancement = async e => {
+        setFinancement(e.target.value);
     }
     const handleSubmit = async e => {
         e.preventDefault();
@@ -201,7 +221,10 @@ function RegisterPage({ changeSetRole, setToken }) {
                                 <p className="lato">Quelle est votre position au sein d'influenceur business</p>
                                 <InputList type={"radio"} name={"inputList-role"} valuesOption={valuesOption} onChange={handleRoleChange} />
                             </div>
-                        </div>}
+                            <p id="buttonNext" onClick={showNext}>Suivant</p>
+                        </div>
+
+                    }
                     {counter == 1 && role === "entrepreneur" &&
                         <div>
                             <div id="containerNameProject">
@@ -239,35 +262,46 @@ function RegisterPage({ changeSetRole, setToken }) {
                                         <label for="renforcement-personnel">Renforcement personnel</label>
                                         <input type="range" id="renforcement-personnel" name="renforcement-personnel"
                                             min="0" max="100" step="1" onChange={handleModulePersonnel} />
+                                        <p className="lato">{renforcementPersonnel}</p>
                                     </div>
                                     <div>
                                         <label for="strategie-entreprise">Stratégie d'entreprise</label>
                                         <input type="range" id="strategie-entreprise" name="strategie-entreprise"
-                                            min="0" max="100" step="1" />
+                                            min="0" max="100" step="1" onChange={handleStategieEntreprise} />
+                                        <p className="lato">{strategieEntreprise}</p>
                                     </div>
                                     <div>
                                         <label for="influenceur-marketing">Influenceur Marketing</label>
                                         <input type="range" id="influenceur-marketing" name="influenceur-marketing"
-                                            min="0" max="100" step="1" />
+                                            min="0" max="100" step="1" onChange={handleInfluenceurMarketing} />
+                                        <p className="lato">{influenceurMarketing}</p>
                                     </div>
                                     <div>
                                         <label for="communication-digitale-physique">Communication digitale et physique</label>
                                         <input type="range" id="communication-digitale-physique" name="communication-digitale-physique"
-                                            min="0" max="100" step="1" />
+                                            min="0" max="100" step="1" onChange={handleCommunicationDigitalePhysique} />
+                                        <p className="lato">{communicationDigitalePhysique}</p>
                                     </div>
                                     <div>
                                         <label for="financement">Financement</label>
                                         <input type="range" id="financement" name="financement"
-                                            min="0" max="100" step="1" />
+                                            min="0" max="100" step="1" onChange={handleFinancement} />
+                                        <p className="lato">{financement}</p>
                                     </div>
                                 </div>
                             </div>
-
+                            <ButtonForm content={"S'inscrire"} />
+                        </div>
+                    }
+                    {counter === 1 && role === "expert" &&
+                        <div>
+                            <div id="containerPresentation">
+                                <InputField label={"Qui êtes vous ?"} name={"identite"} type={"textarea"} placeholder={"Présentez-vous"} idName={"inputField-presentation"} onChange={handlePresentation} />
+                            </div>
                         </div>
                     }
                     {errorMessage && <p className="lato" id="errorMessage">{errorMessage}</p>}
-                    <p id="buttonNext" onClick={showNext}>Suivant</p>
-                    {/* <ButtonForm  content={"S'inscrire"}/>
+                    {/*
                     <div id="containerDemarcation">
                         <hr/>
                         <p className="lato">OU</p>
