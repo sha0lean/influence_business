@@ -1,33 +1,39 @@
-#mainContainerLogin{
+#mainContainerLogin {
     padding-top: 10px;
-    h1{
+
+    h1 {
         font-size: 20px;
         text-align: center;
     }
-    #loginContainer{
+
+    #loginContainer {
         width: 80%;
         margin-left: 10%;
         border-radius: 20px;
         padding-bottom: 20px;
         margin-bottom: 20px;
-        #containerFormLogin{
-            #errorMessage{
+
+        #containerFormLogin {
+            #errorMessage {
                 color: red;
                 font-size: 12px;
                 margin-left: 10%;
                 font-weight: bold;
             }
-            #containerLogin{
+
+            #containerLogin {
                 display: flex;
                 justify-content: space-between;
                 flex-direction: row;
                 margin-top: 10px;
-                a{
+
+                a {
                     font-size: 12px;
                     margin-top: 25px;
                     text-decoration: underline;
                 }
-                .button-form{
+
+                .button-form {
                     background-color: #005AD4;
                     color: white;
                     border-radius: 2px;
@@ -38,59 +44,68 @@
                     cursor: pointer;
                 }
             }
-            #containerEmail,#containerPassword{
-                .inputField{
+
+            #containerEmail,
+            #containerPassword {
+                .inputField {
                     display: flex;
                     flex-direction: column;
                     width: 80%;
                     margin-left: 10%;
                     margin-top: 12px;
-                    label{
+
+                    label {
                         font-size: 10px;
                         color: #afbdcf;
                         padding: 15px 15px 15px 15px;
                         position: absolute;
-                        transition:0.2s ease all; 
-                        -moz-transition:0.2s ease all; 
-                        -webkit-transition:0.2s ease all;
+                        transition: 0.2s ease all;
+                        -moz-transition: 0.2s ease all;
+                        -webkit-transition: 0.2s ease all;
                         pointer-events: none;
                     }
-                    
-                    input::placeholder{
+
+                    input::placeholder {
                         opacity: 0;
                     }
-                    input:not(:placeholder-shown) + label{
+
+                    input:not(:placeholder-shown)+label {
                         transform: translateY(-12px);
                         padding: 0px 5px 0px 5px;
                         margin-left: 5px;
                     }
-                    input:focus + label{
+
+                    input:focus+label {
                         transform: translateY(-8px);
                         background: #ffffff;
                         padding: 0px 5px 0px 5px;
                         margin-left: 5px;
-                        color:#2296EB;
+                        color: #2296EB;
                     }
-                    input{
+
+                    input {
                         border: 1px solid #E2E2E2;
-                        border-style:solid;
+                        border-style: solid;
                         padding: 10px 10px 10px 10px;
                         font-size: 12px;
                         height: 20px;
                     }
+
                     input[type="text"]:focus {
                         border-color: #2296EB;
                         outline: none;
                     }
                 }
             }
-            
+
         }
-        #containerNoAccount{
-            p{
+
+        #containerNoAccount {
+            p {
                 font-size: 14px;
             }
-            button{
+
+            button {
                 background-color: #005AD4;
                 color: white;
                 border-radius: 2px;
@@ -102,9 +117,11 @@
                 cursor: pointer;
             }
         }
-        #containerDemarcation{
+
+        #containerDemarcation {
             margin-top: 20px;
-            p{
+
+            p {
                 font-size: 15px;
                 background-color: white;
                 position: absolute;
@@ -113,7 +130,9 @@
                 padding: 5px;
             }
         }
-        #containerGoogle, #containerLinkedin{
+
+        #containerGoogle,
+        #containerLinkedin {
             display: flex;
             width: 80%;
             margin-left: 10%;
@@ -121,87 +140,104 @@
             cursor: pointer;
             padding: 10px 0 0 15px;
             margin-top: 20px;
-            img{
+
+            img {
                 max-height: 20px;
                 width: auto;
                 height: auto;
-                max-width: 10%;  
+                max-width: 10%;
                 transform: translateY(5px);
 
             }
-            p{
+
+            p {
                 font-size: 12px;
                 transform: translateY(-4px);
                 margin-left: 7px;
-            
+
             }
         }
     }
 }
 
-@media screen and (min-width: 500px){
-    #mainContainerLogin{
+@media screen and (min-width: 500px) {
+    #mainContainerLogin {
         margin-top: 90px;
-        h1{
+
+        h1 {
             font-size: 25px;
         }
-        #loginContainer{
-            #containerFormLogin{
-                #errorMessage{
+
+        #loginContainer {
+            #containerFormLogin {
+                #errorMessage {
                     font-size: 14px;
                 }
-                #containerLogin{
-                    a{
+
+                #containerLogin {
+                    a {
                         font-size: 16px;
                     }
-                    .button-form{
+
+                    .button-form {
                         font-size: 16px;
                     }
                 }
-                #containerEmail,#containerPassword{
-                    .inputField{
-                        label{
+
+                #containerEmail,
+                #containerPassword {
+                    .inputField {
+                        label {
                             font-size: 14px;
                         }
-                        input:not(:placeholder-shown) + label{
+
+                        input:not(:placeholder-shown)+label {
                             transform: translateY(-16px);
                             padding: 0px 5px 0px 5px;
                             margin-left: 5px;
                         }
-                        input{
+
+                        input {
                             padding: 12px 12px 12px 12px;
                             font-size: 14px;
                         }
                     }
                 }
-                
+
             }
-            #containerNoAccount{
-                p{
+
+            #containerNoAccount {
+                p {
                     font-size: 16px;
                 }
-                button{
+
+                button {
                     font-size: 16px;
                     padding: 10px;
                     width: 50%;
                 }
             }
-            #containerDemarcation{
-                p{
+
+            #containerDemarcation {
+                p {
                     font-size: 20px;
                     transform: translateY(-48px);
                 }
             }
-            #containerGoogle, #containerLinkedin{
+
+            #containerGoogle,
+            #containerLinkedin {
                 padding: 15px 0 0 20px;
-                img{
+
+                img {
                     max-height: 25px;
                     width: auto;
                     height: auto;
-                    max-width: 12%;  
+                    max-width: 12%;
                     transform: translateY(2px);
                 }
-                p{
+
+                p {
                     font-size: 14px;
                     transform: translateY(-7px);
                     margin-left: 10px;
@@ -211,87 +247,108 @@
     }
 }
 
-@media screen and (min-width: 1000px){
-    #mainContainerLogin{
+@media screen and (min-width: 1000px) {
+    #mainContainerLogin {
         margin-top: 90px;
-        h1{
+
+        h1 {
             font-size: 30px;
         }
-        #loginContainer{
+
+        #loginContainer {
             width: 60%;
             margin-left: 20%;
-            #containerFormLogin{
-                #errorMessage{
+
+            #containerFormLogin {
+                #errorMessage {
                     font-size: 18px;
                 }
-                #containerLogin{
+
+                #containerLogin {
                     width: 80%;
                     margin-left: 10%;
-                    a{
+
+                    a {
                         font-size: 20px;
                     }
-                    .button-form{
+
+                    .button-form {
                         font-size: 20px;
                     }
                 }
-                #containerEmail,#containerPassword{
-                    .inputField{
+
+                #containerEmail,
+                #containerPassword {
+                    .inputField {
                         margin-top: 30px;
-                        label{
+
+                        label {
                             font-size: 20px;
                             transform: translateY(12px);
                         }
-                        input:not(:placeholder-shown) + label{
+
+                        input:not(:placeholder-shown)+label {
                             transform: translateY(-23px);
                         }
-                        input{
+
+                        input {
                             padding: 25px 25px 25px 25px;
                             font-size: 20px;
                             height: 30px;
                         }
-                        input:focus + label{
+
+                        input:focus+label {
                             transform: translateY(-10px);
                         }
-                        
+
 
                     }
                 }
-                
+
             }
-            #containerNoAccount{
+
+            #containerNoAccount {
                 margin-top: 30px;
-                p{
+
+                p {
                     font-size: 20px;
                     margin-left: 10%;
                 }
-                button{
+
+                button {
                     font-size: 20px;
                     padding: 15px;
                     width: 45%;
                     margin-left: 27.5%;
                 }
             }
-            #containerDemarcation{
+
+            #containerDemarcation {
                 width: 80%;
                 margin-left: 10%;
                 margin-top: 30px;
-                p{
+
+                p {
                     font-size: 25px;
                     transform: translateY(-55px);
                     margin-left: 23%;
                 }
             }
-            #containerGoogle, #containerLinkedin{
+
+            #containerGoogle,
+            #containerLinkedin {
                 width: 50%;
                 padding: 20px 0 0 25px;
-                img{
+
+                img {
                     max-height: 30px;
                     width: auto;
                     height: auto;
-                    max-width: 15%;  
+                    max-width: 15%;
                     transform: translateY(5px);
                 }
-                p{
+
+                p {
                     font-size: 20px;
                     transform: translateY(-10px);
                     margin-left: 15px;
