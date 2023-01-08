@@ -30,7 +30,7 @@ module.exports = {
             dialect: 'mysql',
             //database host
             //host: process.env.HOST,
-            host: 'host.docker.internal',
+            host: 'localhost',
             //where the db is stored
             storage: './influenceurbusiness.mysql',
             port: '3306'
