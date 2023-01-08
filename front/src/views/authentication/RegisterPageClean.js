@@ -1,6 +1,5 @@
 import React from "react";
-// import "../../assets/scss/pages/register.scss"
-import "../../assets/scss/pages/registerEZ.scss"
+import "../../assets/scss/pages/registerClean.scss"
 import {
     Link
 } from "react-router-dom";
