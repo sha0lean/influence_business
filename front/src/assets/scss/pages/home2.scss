@@ -21,6 +21,13 @@ html {
     padding-bottom: 5vh;
 }
 
+.presentation-background {
+    background-image: url('../../images/bg4.png');
+    background-repeat: no-repeat;
+    background-size: 250px;
+    background-position: 124% top;
+}
+
 .down-background {
     background-image: url('../../images/bg3.png');
     background-image: url(http://localhost:3000/static/media/bg3.8314ba6d18a873db6df4.png);
@@ -79,12 +86,6 @@ html {
     }
 }
 
-.presentation-background {
-    background-image: url('../../images/devopsweb.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
 
 .presentation {
     padding: 2vw 0 2vw 0;
