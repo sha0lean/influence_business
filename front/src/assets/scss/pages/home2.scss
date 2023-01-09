@@ -22,13 +22,13 @@ html {
 }
 
 .down-background {
-    // background-image: url('../../images/bg3.svg');
     background-image: url('../../images/bg3.png');
+    background-image: url(http://localhost:3000/static/media/bg3.8314ba6d18a873db6df4.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-size: 340px;
+    background-size: 500px;
     background-position: -7% bottom;
-    // transform: scaleY(-1);
+    padding: 0 0 10vh;
 }
 
 .calltoaction {
@@ -61,16 +61,20 @@ html {
 
     .calltoaction__button {
         cursor: pointer;
-        color: #ffffff;
+        color: white;
         background-color: #480080;
         border-color: #480080;
         padding: 16px 20px;
         line-height: 1;
         font-weight: 700;
         border-radius: 0.25rem;
+        -webkit-box-shadow: 3px 3px 8px 2px rgba(0, 0, 0, 0.3), 3px 3px 8px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 3px 3px 8px 2px rgba(0, 0, 0, 0.3), 3px 3px 8px 2px rgba(0, 0, 0, 0.3);
 
         &:hover {
-            background-color: #480080;
+            color: #000000;
+            background-color: #a2a2f6;
+            border-color: #a2a2f6;
         }
     }
 }

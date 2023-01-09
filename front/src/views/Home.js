@@ -1,6 +1,8 @@
 import React from "react";
 import "../assets/scss/pages/home2.scss";
+import "../assets/scss/comp/Modules.scss";
 import ButtonForm from "../components/ButtonForm.jsx";
+import ModulesShowCase from "../components/ModulesShowCase.jsx";
 import abstractpurpleia from "../assets/images/abstract-IA.png";
 import illubrain from "../assets/images/abstract_brain.png";
 import illuentreprenor from "../assets/images/entreprenor.jpg";
@@ -11,6 +13,7 @@ import illustaff from "../assets/images/staff.jpg";
 function Home() {
     return (
         <container>
+
             <section class="landing-background">
                 <div class="block calltoaction row">
                     <div class="col-md-6 col-xs-12">
@@ -33,11 +36,11 @@ function Home() {
             </section>
 
 
+
             <section class="presentation-background">
                 <div class="block presentation row around-md">
                     <h2 class="presentation__title row center-md">
-                        Les maillons forts <br />
-                        et leur point de vue.
+                        Les maillons forts et leur point de vue.
                     </h2>
 
                     <div class="presentation__card">
@@ -111,7 +114,8 @@ function Home() {
                 </div>
             </section>
 
-            <section class="down-background">
+
+            <section>
                 <div class="block presentation row around-md">
                     <h2 class="presentation__title row center-md">
                         Section 3
@@ -126,6 +130,13 @@ function Home() {
                     </div>
                 </div>
             </section>
+
+
+
+            <section class="down-background">
+                <ModulesShowCase />
+            </section>
+
         </container>
     )
 }
