@@ -9,6 +9,7 @@ import illuentreprenor from "../assets/images/entreprenor.jpg";
 import illuexpert from "../assets/images/expert.jpg";
 import illuinvestor from "../assets/images/investor.jpg";
 import illustaff from "../assets/images/staff.jpg";
+import WordFlick from "../components/WordFlick.jsx";
 
 function Home() {
     return (
@@ -18,16 +19,18 @@ function Home() {
                 <div class="block calltoaction row">
                     <div class="col-md-6 col-xs-12">
                         <h1 class="calltoaction__title">
-                            Un réseau d'innovation <br />
+                            Un réseau d'innovation
                             et de réussite collective.
                         </h1>
-                        <p class="calltoaction__subtitle">
-                            "We believe in the power of community <br />
-                            to improve your business."
-                        </p>
+                        <br />
                         <button class="calltoaction__button center">
                             Get Started
                         </button>
+                        <br />
+                        <br />
+                        <p class="calltoaction__subtitle">
+                            <WordFlick />
+                        </p>
                     </div>
                     <div class="col-md-6 calltoaction__img">
                         <img src={illubrain} alt="app" class="" />
