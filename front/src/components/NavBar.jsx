@@ -48,7 +48,7 @@ function NavBar() {
     }, []);
 
     useEffect(() => {
-        if (size.width > 768 && menuOpen) {
+        if (size.width > 1024 && menuOpen) {
             setMenuOpen(false);
         }
     }, [size.width, menuOpen]);
@@ -84,12 +84,12 @@ function NavBar() {
         <header className="header lato">
             <div className="header__content">
                 <Link to="/" className="header__content__logo">
-                    Influenceur business
+                    {/* Influenceur business */}
                 </Link>
                 <nav
                     className={
                         `${"header__content__nav"} 
-                    ${menuOpen && size.width < 768 ? `${"isMenu"}` : ""} 
+                    ${menuOpen && size.width < 1024 ? `${"isMenu"}` : ""} 
                     }`
                     }
                 >

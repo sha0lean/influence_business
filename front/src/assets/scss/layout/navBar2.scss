@@ -2,7 +2,7 @@
     @if $point ==md {
 
         // 768px
-        @media (min-width: 48em) {
+        @media (min-width: 64em) {
             @content;
         }
     }
@@ -17,7 +17,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 3;
+    z-index: 5;
 
     @include breakpoint(md) {
         padding: 0 3rem;
@@ -35,7 +35,7 @@
         align-items: center;
         justify-content: space-between;
         position: relative;
-        z-index: 100;
+        z-index: 1;
 
         &__logo {
             font-size: 2rem;
@@ -87,6 +87,7 @@
 
                 li {
                     margin-right: 12px;
+
                     &:not(:last-child) {
                         margin-bottom: 32px;
 
@@ -133,7 +134,7 @@
                     border-color: rgb(162, 162, 246);
                     background: rgba(rgb(162, 162, 246), 0.1);
                     color: rgb(255, 255, 255);
-                    
+
                 }
 
                 &:active {
