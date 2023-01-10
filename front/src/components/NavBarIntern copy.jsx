@@ -8,9 +8,8 @@ import {
     Link,
     useNavigate
 } from "react-router-dom";
-
 import { api } from "../configApi.js";
-// import "../assets/scss/navBar.scss";
+import "../assets/scss/layout/navBarIntern.scss";
 import "../assets/scss/layout/navBar2.scss";
 
 import { getToken, removeToken } from "../utils/localStorage/useToken.js";
@@ -27,6 +26,8 @@ async function logoutUser(credentials) {
     })
         .then(data => data.json());
 }
+
+
 
 function NavBar() {
     // ——————————————————————————————————————————
@@ -49,7 +50,7 @@ function NavBar() {
     }, []);
 
     useEffect(() => {
-        if (size.width > 1024 && menuOpen) {
+        if (size.width > 768 && menuOpen) {
             setMenuOpen(false);
         }
     }, [size.width, menuOpen]);
@@ -82,32 +83,34 @@ function NavBar() {
     const [role, setRole] = useState(getRole())
 
     return (
-        <header className="header lato">
-            <div className="header__content">
-                <Link to="/" className="header__content__logo">
-                    {/* Influenceur business */}
-                </Link>
-                <nav
-                    className={
-                        `${"header__content__nav"} 
-                    ${menuOpen && size.width < 1024 ? `${"isMenu"}` : ""} 
+        <div id="mainContainerNavIntern">
+            <header className="header lato">
+                <div className="header__content">
+                    <Link to="/" className="header__content__logo">
+                        Influenceur business
+                    </Link>
+                    <nav
+                        className={
+                            `${"header__content__nav"} 
+                    ${menuOpen && size.width < 768 ? `${"isMenu"}` : ""} 
                     }`
-                    }
-                >
-                    <ul>
-                        <li>
-                            <Link to="/">Accueil</Link>
-                        </li>
-                        <li>
-                            <Link to="/contact">Contact</Link>
-                        </li>
+                        }
+                    >
+                        <ul>
+                            <li>
+                                <Link to="/">Accueil</Link>
+                            </li>
 
+                            <li>
+                                <Link to="/dashboard">Tableau de bord</Link>
+                                {getRole() === "entrepreneur" && <Link to="/profilEntrepreneur" className="lato">{getRole()}</Link>}
+                                {getRole() === "expert" && <Link to="/profilExpert" className="lato">{getRole()}</Link>}
+                                {getRole() === "investisseur" && <Link to="/profilInvestisseur" className="lato">{getRole()}</Link>}
+                            </li>
 
-                        <Link to="/inscription">
-                            <button className="btn lato">Inscription</button>
-                        </Link>
-                        <Link to="/login">
-
+                            <li>
+                                <Link to="/contact">Contact</Link>
+                            </li>
 
                             {!token && <Link to="/connexion">
                                 <button className="btn btn__login">
@@ -119,18 +122,18 @@ function NavBar() {
                                     Deconnexion
                                 </button>
                             </Link>}
-                        </Link>
-                    </ul>
-                </nav>
-                <div className="header__content__toggle">
-                    {!menuOpen ? (
-                        <BiMenuAltRight onClick={menuToggleHandler} />
-                    ) : (
-                        <AiOutlineClose onClick={menuToggleHandler} />
-                    )}
+                        </ul>
+                    </nav>
+                    <div className="header__content__toggle">
+                        {!menuOpen ? (
+                            <BiMenuAltRight onClick={menuToggleHandler} />
+                        ) : (
+                            <AiOutlineClose onClick={menuToggleHandler} />
+                        )}
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        </div>
     )
 }
 export default NavBar;

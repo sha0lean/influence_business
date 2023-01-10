@@ -1,4 +1,4 @@
-// Model
+// Model Contact
 module.exports = (sequelize, DataTypes) => {
     const Contact = sequelize.define('Contact', {
         id_first_role: {

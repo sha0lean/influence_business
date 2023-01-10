@@ -11,10 +11,8 @@ import {
 import { api } from "../configApi.js";
 import "../assets/scss/layout/navBarIntern.scss";
 import "../assets/scss/layout/navBar2.scss";
-
 import { getToken, removeToken } from "../utils/localStorage/useToken.js";
 import { getRole, removeRole } from "../utils/localStorage/useRole.js";
-
 
 async function logoutUser(credentials) {
     return fetch(api.url + "/logout", {
@@ -26,8 +24,6 @@ async function logoutUser(credentials) {
     })
         .then(data => data.json());
 }
-
-
 
 function NavBar() {
     // ——————————————————————————————————————————
@@ -45,21 +41,17 @@ function NavBar() {
             });
         };
         window.addEventListener("resize", handleResize);
-
         return () => window.removeEventListener("resize", handleResize);
     }, []);
-
     useEffect(() => {
         if (size.width > 768 && menuOpen) {
             setMenuOpen(false);
         }
     }, [size.width, menuOpen]);
-
     const menuToggleHandler = () => {
         setMenuOpen((p) => !p);
     };
     // ——————————————————————————————————————————
-
     const logout = async e => {
         e.preventDefault();
 
@@ -81,7 +73,6 @@ function NavBar() {
     }
     const [token, setToken] = useState(getToken())
     const [role, setRole] = useState(getRole())
-
     return (
         <div id="mainContainerNavIntern">
             <header className="header lato">

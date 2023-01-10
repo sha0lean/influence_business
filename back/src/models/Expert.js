@@ -1,4 +1,4 @@
-// Model
+// Model Expert
 module.exports = (sequelize, DataTypes) => {
     const Expert = sequelize.define('Expert', {
         id_expert: {

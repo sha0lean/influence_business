@@ -1,4 +1,4 @@
-// Model
+// Model Investor
 module.exports = (sequelize, DataTypes) => {
     const Investor = sequelize.define('Investor', {
         id_investor: {

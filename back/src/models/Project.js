@@ -1,4 +1,4 @@
-// Model
+// Model Project
 module.exports = (sequelize, DataTypes) => {
     const Project = sequelize.define('Project', {
         id_project: {

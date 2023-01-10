@@ -1,4 +1,4 @@
-// Model
+// Model Admin
 module.exports = (sequelize, DataTypes) => {
     const Admin = sequelize.define('Admin', {
         id_admin: {

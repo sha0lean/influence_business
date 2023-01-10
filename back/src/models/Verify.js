@@ -1,4 +1,4 @@
-// Model
+// Model Verify
 module.exports = (sequelize, DataTypes) => {
     const Verify = sequelize.define('Verify', {
         id_verify: {

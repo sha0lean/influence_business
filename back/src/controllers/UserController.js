@@ -1,15 +1,15 @@
 require('dotenv').config()
-const {Entrepreneur,Project,Modules,User} = require('../models')
+const { Entrepreneur, Project, Modules, User } = require('../models')
 
 module.exports = {
-    async deleteUser(req,res){
-        try{
+    async deleteUser(req, res) {
+        try {
             const user = await User.findOne({
                 where: {
                     token: global.token
                 }
             })
-            if(user){
+            if (user) {
                 const userJson = user.toJSON()
                 //We're searching if the user is an entrepreneur in order to delete all its projects
                 const entrepreneur = await Entrepreneur.findOne({
@@ -17,7 +17,7 @@ module.exports = {
                         id_user: userJson.id_user
                     }
                 })
-                if(entrepreneur){
+                if (entrepreneur) {
                     const entrepreneurJson = entrepreneur.toJSON()
                     await Project.findAll({
                         raw: true,
@@ -25,7 +25,7 @@ module.exports = {
                             id_entrepreneur: entrepreneurJson.id_entrepreneur
                         }
                     }).then((projects) => {
-                        for(let i = 0;i<projects.length;i+=1){
+                        for (let i = 0; i < projects.length; i += 1) {
                             Project.destroy({
                                 where: {
                                     id_project: projects[i].id_project
@@ -44,13 +44,39 @@ module.exports = {
                     })
                 })
             }
-            else{
+            else {
                 res.status(404).send({
                     message: "User not found"
                 })
             }
         }
-        catch(err){
+        catch (err) {
+            res.status(500).send({
+                message: "Internal error"
+            })
+        }
+    },
+    async getUsername(req, res) {
+        try {
+            const user = await User.findOne({
+                where: {
+                    token: global.token
+                }
+            })
+            if (user) {
+                userJson = user.toJSON()
+                const username = userJson.first_name + " " + userJson.last_name;
+                res.status(200).send({
+                    username: username
+                })
+            }
+            else {
+                res.status(404).send({
+                    message: "User not found"
+                })
+            }
+        }
+        catch (err) {
             res.status(500).send({
                 message: "Internal error"
             })
