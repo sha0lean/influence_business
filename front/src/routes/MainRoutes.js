@@ -1,6 +1,8 @@
 import Home from "../views/Home.js"
-import LoginPage from "../views/authentication/LoginPageClean.js"
-import RegisterPage from "../views/authentication/RegisterPageClean.js";
+import Login from "../views/authentication/LoginPage.js"
+import LoginClean from "../views/authentication/LoginPageClean.js"
+import Register from "../views/authentication/RegisterPage.js";
+import RegisterClean from "../views/authentication/RegisterPageClean.js";
 import ForgotPassword from "../views/authentication/ForgotPassword.js";
 import ProtectedRoutesAuthentication from "../utils/routesProtection/authenticationRoutesProtection";
 import ProtectedRoutesExpert from "../utils/routesProtection/expertRoutesProtection";
@@ -29,12 +31,32 @@ const MainRoutes = {
             element: <Home />
         },
         {
+            path: "connexionback",
+            element: <ProtectedRoutesAuthentication token={getToken()} />,
+            children: [
+                {
+                    path: "",
+                    element: <Login changeSetRole={changeSetRole} setToken={setToken} />
+                }
+            ]
+        },
+        {
             path: "connexion",
             element: <ProtectedRoutesAuthentication token={getToken()} />,
             children: [
                 {
                     path: "",
-                    element: <LoginPage changeSetRole={changeSetRole} setToken={setToken} />
+                    element: <LoginClean changeSetRole={changeSetRole} setToken={setToken} />
+                }
+            ]
+        },
+        {
+            path: "inscriptionback",
+            element: <ProtectedRoutesAuthentication token={getToken()} />,
+            children: [
+                {
+                    path: "",
+                    element: <Register changeSetRole={changeSetRole} setToken={setToken} />
                 }
             ]
         },
@@ -44,7 +66,7 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <RegisterPage changeSetRole={changeSetRole} setToken={setToken} />
+                    element: <RegisterClean changeSetRole={changeSetRole} setToken={setToken} />
                 }
             ]
         },

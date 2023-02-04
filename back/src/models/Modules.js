@@ -1,4 +1,4 @@
-// Model
+// Model Modules
 module.exports = (sequelize, DataTypes) => {
     const Modules = sequelize.define('Modules', {
         id_modules: {

@@ -1,12 +1,32 @@
+import { FormControl, InputLabel, TextField } from "@mui/material";
 import React from "react";
 
-
-function InputField({label, name,type,placeholder,onChange,idName}){
+function InputField({
+    value,
+    label,
+    name,
+    type,
+    placeholder,
+    onChange,
+    idName,
+    multiline = false,
+}) {
     return (
-        <div class="inputField">
-            <input className="lato" onChange={onChange} type={type} name={name} placeholder={placeholder} id={idName}/>
-            <label className="lato" for={name}>{label}</label>
-        </div>
-    )
+        <TextField
+            sx={{
+                width: "100%",
+                marginBottom: "1rem",
+            }}
+            id={idName}
+            label={label}
+            name={name}
+            value={value}
+            type={type}
+            placeholder={placeholder}
+            onChange={onChange}
+            multiline={multiline}
+            rows={multiline ? 4 : 1}
+        />
+    );
 }
 export default InputField;

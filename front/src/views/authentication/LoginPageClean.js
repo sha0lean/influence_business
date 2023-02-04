@@ -1,25 +1,32 @@
 import React from "react";
-import "../../assets/scss/pages/loginClean.scss"
 import {
     Link
 } from "react-router-dom";
+import "../../assets/scss/pages/loginClean.scss"
+
 function LoginPage() {
     return (
 
         <div class="login">
             <div class="login__container">
-                <div class="login__title">Connexion</div>
+                <Link to="/connexionback">
+                    <div class="login__title">
+                        Connexion
+                    </div>
+                </Link>
                 <div class="login__content">
                     <form action="#">
                         <div class="login__details">
 
                             <div class="input-box">
                                 <span class="details">Email</span>
-                                <input type="text" placeholder="Entrez votre Email" required />
+                                <input type="text" placeholder="Entrez votre Email" />
+                                {/* <input type="text" placeholder="Entrez votre Email" required /> */}
                             </div>
                             <div class="input-box">
                                 <span class="details">Mot de Passe</span>
-                                <input type="text" placeholder="Entrez votre Mot de Passe" required />
+                                <input type="text" placeholder="Entrez votre Mot de Passe" />
+                                {/* <input type="text" placeholder="Entrez votre Mot de Passe" required /> */}
                             </div>
 
                         </div>

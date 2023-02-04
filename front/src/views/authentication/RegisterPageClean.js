@@ -8,7 +8,12 @@ function Register() {
 
         <div class="register">
             <div class="register__container">
-                <div class="register__title">Formulaire d'inscription</div>
+                <Link to="/inscriptionback">
+                    <div class="register__title">
+                        Formulaire d'inscription
+                    </div>
+                </Link>
+
                 <div class="register__content">
                     <form action="#">
                         <div class="register__details">

@@ -1,19 +1,33 @@
 import React from "react";
 
-function InputList({ type, name, valuesOption, onClick }) {
-	return (
-		<div class="inputListContainer">
-			{valuesOption.map((value) =>
-				<div class="elementInputListContainer ">
-					<input type={type} className="inputList lato" checked id={value} name={name} value={value} />
-					<label for={value} onClick={onClick}>{value}</label>
-				</div>
+import {
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Radio,
+    RadioGroup,
+} from "@mui/material";
 
-
-
-			)}
-
-		</div>
-	)
+function InputList({ valuesOption, value, handleChange, label }) {
+    return (
+        <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">{label}</FormLabel>
+            <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                name="radio-buttons-group"
+                onChange={handleChange}
+                value={value}
+            >
+                {valuesOption.map((item, index) => (
+                    <FormControlLabel
+                        key={index}
+                        value={item}
+                        control={<Radio />}
+                        label={item}
+                    />
+                ))}
+            </RadioGroup>
+        </FormControl>
+    );
 }
 export default InputList;

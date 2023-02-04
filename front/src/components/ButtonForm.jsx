@@ -1,8 +1,25 @@
+import { Button } from "@mui/material";
 import React from "react";
 
-function ButtonForm({content}){
+function ButtonForm({
+    content,
+    onClick,
+    size = "medium",
+    variant = "contained",
+    sx = {},
+}) {
     return (
-        <input className="button-form lato" type="submit" value={content}/>
-    )
+        <Button
+            size={size}
+            variant={variant}
+            color="primary"
+            type="submit"
+            value={content}
+            onClick={onClick}
+            sx={sx}
+        >
+            {content}
+        </Button>
+    );
 }
 export default ButtonForm;

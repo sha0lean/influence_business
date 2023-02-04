@@ -1,33 +1,28 @@
-import React, {
-    useState,
-    useEffect
-} from "react";
+import React, { useState, useEffect } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import {
-    Link,
-    useNavigate
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import { api } from "../configApi.js";
 // import "../assets/scss/navBar.scss";
 import "../assets/scss/layout/navBar2.scss";
 
 import { getToken, removeToken } from "../utils/localStorage/useToken.js";
 import { getRole, removeRole } from "../utils/localStorage/useRole.js";
-
+import { AppBar, Button, IconButton } from "@mui/material";
+import { DarkModeRounded, LightMode } from "@mui/icons-material";
 
 async function logoutUser(credentials) {
     return fetch(api.url + "/logout", {
-        method: 'POST',
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json());
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
 }
 
-function NavBar() {
+function NavBar({ handleThemeChange, mode }) {
     // ——————————————————————————————————————————
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
@@ -58,40 +53,36 @@ function NavBar() {
     };
     // ——————————————————————————————————————————
 
-    const logout = async e => {
+    const logout = async (e) => {
         e.preventDefault();
 
         const response = await logoutUser({
-            token: getToken()
-        })
+            token: getToken(),
+        });
         if (response.message === "The user has been disconnected") {
-            removeToken()
-            removeRole()
+            removeToken();
+            removeRole();
             window.location.reload().then(() => {
-                setToken(getToken(null))
-                setRole(getRole(null))
+                setToken(getToken(null));
+                setRole(getRole(null));
             });
-
+        } else {
+            alert("Mauvais identifiants");
         }
-        else {
-            alert("Mauvais identifiants")
-        }
-    }
-    const [token, setToken] = useState(getToken())
-    const [role, setRole] = useState(getRole())
+    };
+    const [token, setToken] = useState(getToken());
+    const [role, setRole] = useState(getRole());
 
     return (
-        <header className="header lato">
+        <AppBar>
             <div className="header__content">
                 <Link to="/" className="header__content__logo">
                     {/* Influenceur business */}
                 </Link>
                 <nav
-                    className={
-                        `${"header__content__nav"} 
+                    className={`${"header__content__nav"} 
                     ${menuOpen && size.width < 1024 ? `${"isMenu"}` : ""} 
-                    }`
-                    }
+                    }`}
                 >
                     <ul>
                         <li>
@@ -101,24 +92,32 @@ function NavBar() {
                             <Link to="/contact">Contact</Link>
                         </li>
 
-
                         <Link to="/inscription">
                             <button className="btn lato">Inscription</button>
                         </Link>
                         <Link to="/login">
-
-
-                            {!token && <Link to="/connexion">
-                                <button className="btn btn__login">
-                                    Connexion
-                                </button>
-                            </Link>}
-                            {token && <Link to="/connexion" onClick={(logout)}>
-                                <button className="btn btn__login">
-                                    Deconnexion
-                                </button>
-                            </Link>}
+                            {!token && (
+                                <Link to="/connexion">
+                                    <button className="btn btn__login">
+                                        Connexion
+                                    </button>
+                                </Link>
+                            )}
+                            {token && (
+                                <Link to="/connexion" onClick={logout}>
+                                    <button className="btn btn__login">
+                                        Deconnexion
+                                    </button>
+                                </Link>
+                            )}
                         </Link>
+                        <IconButton>
+                            {mode === "light" ? (
+                                <LightMode onClick={handleThemeChange} />
+                            ) : (
+                                <DarkModeRounded onClick={handleThemeChange} />
+                            )}
+                        </IconButton>
                     </ul>
                 </nav>
                 <div className="header__content__toggle">
@@ -129,7 +128,7 @@ function NavBar() {
                     )}
                 </div>
             </div>
-        </header>
-    )
+        </AppBar>
+    );
 }
 export default NavBar;
