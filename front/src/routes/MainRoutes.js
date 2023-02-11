@@ -1,6 +1,6 @@
-import Home from "../views/Home.js"
-import Login from "../views/authentication/LoginPage.js"
-import LoginClean from "../views/authentication/LoginPageClean.js"
+import Home from "../views/Home.js";
+import Login from "../views/authentication/LoginPage.js";
+import LoginClean from "../views/authentication/LoginPageClean.js";
 import Register from "../views/authentication/RegisterPage.js";
 import RegisterClean from "../views/authentication/RegisterPageClean.js";
 import ForgotPassword from "../views/authentication/ForgotPassword.js";
@@ -13,22 +13,30 @@ import ProfilEntrepreneur from "../views/profiles/ProfilEntrepreneur.js";
 import ProfilExpert from "../views/profiles/ProfilExpert.js";
 import ProfilInvestor from "../views/profiles/ProfilInvestor.js";
 
-
-import { setToken, getToken, removeToken } from "../utils/localStorage/useToken.js";
+import {
+    setToken,
+    getToken,
+    removeToken,
+} from "../utils/localStorage/useToken.js";
 import { setRole, getRole, removeRole } from "../utils/localStorage/useRole.js";
-
+import { Navigate } from "react-router-dom";
 
 let token = getToken();
 const changeSetRole = (value) => {
     setRole(value);
-}
+};
 
 const MainRoutes = {
     path: "",
     children: [
         {
             path: "/",
-            element: <Home />
+            element:
+                getToken() && getRole() ? (
+                    <Navigate to="/profilExpert" />
+                ) : (
+                    <Home />
+                ),
         },
         {
             path: "connexionback",
@@ -36,9 +44,14 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <Login changeSetRole={changeSetRole} setToken={setToken} />
-                }
-            ]
+                    element: (
+                        <Login
+                            changeSetRole={changeSetRole}
+                            setToken={setToken}
+                        />
+                    ),
+                },
+            ],
         },
         {
             path: "connexion",
@@ -46,9 +59,14 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <LoginClean changeSetRole={changeSetRole} setToken={setToken} />
-                }
-            ]
+                    element: (
+                        <LoginClean
+                            changeSetRole={changeSetRole}
+                            setToken={setToken}
+                        />
+                    ),
+                },
+            ],
         },
         {
             path: "inscriptionback",
@@ -56,9 +74,14 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <Register changeSetRole={changeSetRole} setToken={setToken} />
-                }
-            ]
+                    element: (
+                        <Register
+                            changeSetRole={changeSetRole}
+                            setToken={setToken}
+                        />
+                    ),
+                },
+            ],
         },
         {
             path: "inscription",
@@ -66,9 +89,14 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <RegisterClean changeSetRole={changeSetRole} setToken={setToken} />
-                }
-            ]
+                    element: (
+                        <RegisterClean
+                            changeSetRole={changeSetRole}
+                            setToken={setToken}
+                        />
+                    ),
+                },
+            ],
         },
         {
             path: "forgot-password",
@@ -76,9 +104,9 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <ForgotPassword />
-                }
-            ]
+                    element: <ForgotPassword />,
+                },
+            ],
         },
         {
             path: "profilEntrepreneur",
@@ -86,9 +114,9 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <ProfilEntrepreneur token={getToken()} />
-                }
-            ]
+                    element: <ProfilEntrepreneur token={getToken()} />,
+                },
+            ],
         },
         {
             path: "profilExpert",
@@ -96,9 +124,9 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <ProfilExpert />
-                }
-            ]
+                    element: <ProfilExpert />,
+                },
+            ],
         },
         {
             path: "profilInvestisseur",
@@ -106,11 +134,11 @@ const MainRoutes = {
             children: [
                 {
                     path: "",
-                    element: <ProfilInvestor />
-                }
-            ]
-        }
-    ]
-}
+                    element: <ProfilInvestor />,
+                },
+            ],
+        },
+    ],
+};
 
 export default MainRoutes;
