@@ -50,6 +50,8 @@ module.exports = (app) => {
 
     // ——— user —————————————————————————————————————————————————————————————————————
     app.post("/expert", verifyToken, UserController.getExpert);
+    app.post("/entrepreneur", verifyToken, UserController.getEntrepreneur);
+    app.post("/investisseur", verifyToken, UserController.getInvestisseur)
     app.post("/user", verifyToken, UserController.getUser);
     app.post("/getUsername", verifyToken, UserController.getUsername);
     app.post("/deleteUser", verifyToken, UserController.deleteUser);

@@ -6,6 +6,7 @@ const {
     User,
     Expert,
     Role,
+    Investor,
 } = require("../models");
 
 module.exports = {
@@ -133,6 +134,94 @@ module.exports = {
                     } else {
                         res.status(404).send({
                             message: "Expert not found",
+                        });
+                    }
+                } else {
+                    res.status(404).send({
+                        message: "Role not found",
+                    });
+                }
+            } else {
+                res.status(404).send({
+                    message: "User not found",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Internal error",
+            });
+        }
+    },
+
+    async getEntrepreneur(req, res) {
+        try {
+            const user = await User.findOne({
+                where: {
+                    token: global.token,
+                },
+            });
+            if (user) {
+                const role = await Role.findOne({
+                    where: {
+                        id_user: user.id_user,
+                    },
+                });
+                if (role) {
+                    const entrepreneur = await Entrepreneur.findOne({
+                        where: {
+                            id_role: role.id_role,
+                        },
+                    });
+                    if (entrepreneur) {
+                        const entrepreneurJson = entrepreneur.toJSON();
+                        res.status(200).send(entrepreneurJson);
+                    } else {
+                        res.status(404).send({
+                            message: "Entrepreneur not found",
+                        });
+                    }
+                } else {
+                    res.status(404).send({
+                        message: "Role not found",
+                    });
+                }
+            } else {
+                res.status(404).send({
+                    message: "User not found",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Internal error",
+            });
+        }
+    },
+
+    async getInvestisseur(req, res) {
+        try {
+            const user = await User.findOne({
+                where: {
+                    token: global.token,
+                },
+            });
+            if (user) {
+                const role = await Role.findOne({
+                    where: {
+                        id_user: user.id_user,
+                    },
+                });
+                if (role) {
+                    const investisseur = await Investor.findOne({
+                        where: {
+                            id_role: role.id_role,
+                        },
+                    });
+                    if (investisseur) {
+                        const entrepreneurJson = investisseur.toJSON();
+                        res.status(200).send(entrepreneurJson);
+                    } else {
+                        res.status(404).send({
+                            message: "Entrepreneur not found",
                         });
                     }
                 } else {

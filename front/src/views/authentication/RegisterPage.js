@@ -45,12 +45,12 @@ function RegisterPage({ changeSetRole, setToken }) {
     const [communicationDigitalePhysique, setCommunicationDigitalePhysique] =
         useState(50);
     const [financement, setFinancement] = useState(50);
-    const [presentationExpert, setPresentationExpert] = useState(null);
+    const [presentationExpert, setPresentationExpert] = useState("");
     const [experiencesExpert, setExperiencesExpert] = useState([]);
     const [workExpert, setWorkExpert] = useState([]);
     const [diplomesExpert, setDiplomesExpert] = useState([]);
     const [companyInvestor, setCompanyInvestor] = useState(null);
-    const [descriptionInvestor, setDescriptionInvestor] = useState(null);
+    const [descriptionInvestor, setDescriptionInvestor] = useState("");
 
     const [counter, setCounter] = useState(0);
     function handleEmailChange(e) {
@@ -103,7 +103,7 @@ function RegisterPage({ changeSetRole, setToken }) {
     const objectToString = (object) => {
         let string = "";
         for (let key in object) {
-            string += object[key] + " ";
+            string += object[key] + "^";
         }
         return string;
     };
@@ -111,16 +111,19 @@ function RegisterPage({ changeSetRole, setToken }) {
     const handleSubmit = async (e) => {
         console.log("submit clicked");
         e.preventDefault();
+        if (image) {
+            let reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = () => {
+                setImage(reader.result);
+            };
+        }
         var response;
         let themeProjectString = "";
         themeProject.map((theme) => {
             themeProjectString += theme + ",";
         });
-        //We remove the last character which is ","
-        themeProjectString = themeProjectString.substring(
-            0,
-            themeProjectString.length - 2
-        );
+
         if (role === "entrepreneur") {
             let noteModules =
                 renforcementPersonnel +
@@ -141,7 +144,7 @@ function RegisterPage({ changeSetRole, setToken }) {
                 role: role,
                 file: image,
                 projectName: project,
-                description: description,
+                presentation: description,
                 themeProject: themeProjectString,
                 descriptionProject: pitchProject,
                 sensProject: sensProject,
@@ -149,6 +152,7 @@ function RegisterPage({ changeSetRole, setToken }) {
                 montantInvestissement: montantInvestissement,
                 noteModules: noteModules,
             });
+
             response = await registerUser({
                 email: email,
                 password: password,
@@ -157,7 +161,7 @@ function RegisterPage({ changeSetRole, setToken }) {
                 role: role,
                 file: image,
                 projectName: project,
-                description: description,
+                presentation: description,
                 themeProject: themeProjectString,
                 descriptionProject: pitchProject,
                 sensProject: sensProject,
@@ -182,46 +186,15 @@ function RegisterPage({ changeSetRole, setToken }) {
             selectedThemesExpert.map((theme) => {
                 selectedThemesExpertString += theme + ",";
             });
-            //We remove the last character which is ","
-            selectedThemesExpertString = selectedThemesExpertString.substring(
-                0,
-                selectedThemesExpertString.length - 2
-            );
 
             let experiencesExpertString = "";
             experiencesExpert.map((experience) => {
-                experiencesExpertString += objectToString(experience) + ",";
+                experiencesExpertString += objectToString(experience) + "|";
             });
-
-            //We remove the last character which is ","
-            experiencesExpertString = experiencesExpertString.substring(
-                0,
-                experiencesExpertString.length - 2
-            );
 
             let diplomesExpertString = "";
             diplomesExpert.map((diplome) => {
-                diplomesExpertString += objectToString(diplome) + ",";
-            });
-
-            //We remove the last character which is ","
-            diplomesExpertString = diplomesExpertString.substring(
-                0,
-                diplomesExpertString.length - 2
-            );
-
-            console.log({
-                email: email,
-                password: password,
-                first_name: firstName,
-                last_name: lastName,
-                role: role,
-                file: image,
-                presentation: presentationExpert,
-                experiences: experiencesExpertString,
-                work: workExpert,
-                diplomes: diplomesExpertString,
-                selectedThemesExpert: selectedThemesExpertString,
+                diplomesExpertString += objectToString(diplome) + "|";
             });
 
             response = await registerUser({
@@ -235,7 +208,7 @@ function RegisterPage({ changeSetRole, setToken }) {
                 experiences: experiencesExpertString,
                 work: workExpert,
                 diplomes: diplomesExpertString,
-                selectedThemesExpert: selectedThemesExpertString,
+                theme_interesting: selectedThemesExpertString,
             });
         }
 

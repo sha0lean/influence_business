@@ -17,18 +17,17 @@ const App = () => {
             palette: {
                 mode,
                 primary: {
-                    main: "#985F99",
+                    main: "#C88EC9",
                 },
                 secondary: {
                     main: "#F2F2F2",
                 },
                 background: {
-                    default: mode === "dark" ? "#1E1E1E" : "#F2F2F2",
-                    paper: mode === "dark" ? "#1E1E1E" : "#F2F2F2",
+                    default: mode === "dark" ? "#272127" : "#F2F2F2",
+                    paper: mode === "dark" ? "#272127" : "#F2F2F2",
                 },
                 text: {
                     primary: mode === "dark" ? "#F2F2F2" : "#1E1E1E",
-                    secondary: mode === "dark" ? "#F2F2F2" : "#1E1E1E",
                 },
             },
 
@@ -37,6 +36,15 @@ const App = () => {
                     styleOverrides: {
                         root: {
                             textTransform: "none",
+                        },
+                    },
+                },
+
+                MuiDrawer: {
+                    styleOverrides: {
+                        paper: {
+                            backgroundColor:
+                                mode === "dark" ? "#161216" : "#F8E7F8",
                         },
                     },
                 },

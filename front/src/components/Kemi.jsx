@@ -7,7 +7,7 @@ function Kemi() {
 export default Kemi;
 
 /*
-    <div class="kontent">
+    <div className="kontent">
             <h2>Influenceur B</h2>
             <h2>Influenceur B</h2>
         </div>)

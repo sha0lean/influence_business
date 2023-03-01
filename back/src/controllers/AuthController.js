@@ -66,17 +66,15 @@ module.exports = {
                 first_name,
                 last_name,
                 role,
+                presentation,
+                theme_interesting,
                 projectName,
-                description,
-                themeProject,
-                descriptionProject,
-                sensProject,
-                value,
+                projectTheme,
+                projectValue,
+                projectDescription,
                 montantInvestissement,
-                nameModules,
-                noteModules,
+                modulesValues,
             } = req.body;
-            var { filename } = req.file;
         } else if (req.body.role === "investor") {
             var {
                 email,
@@ -88,7 +86,6 @@ module.exports = {
                 company,
                 description,
             } = req.body;
-            var { filename } = req.file;
         } else if (req.body.role === "expert") {
             var {
                 email,
@@ -102,8 +99,8 @@ module.exports = {
                 diplomes,
                 theme_interesting,
             } = req.body;
-            var { filename } = req.file;
         }
+        var { filename } = req.file;
         try {
             let isUserAlreadyExist = true;
             const fetchUser = await User.findOne({
@@ -198,31 +195,21 @@ module.exports = {
                             roleToJson = role.toJSON();
                             const entrepreneur = await Entrepreneur.create({
                                 id_role: roleToJson.id_role,
-                                description: description,
+                                presentation: presentation,
+                                theme_interesting: theme_interesting,
+                                projectName: projectName,
+                                projectTheme: projectTheme,
+                                projectValue: projectValue,
+                                projectDescription: projectDescription,
+                                montantInvestissement: montantInvestissement,
+                                modulesValues: modulesValues,
                             });
                             const entrepreneurJson = entrepreneur.toJSON();
 
                             if (roleToJson) {
-                                var {
-                                    email,
-                                    password,
-                                    first_name,
-                                    last_name,
-                                    role,
-                                    projectName,
-                                    description,
-                                    themeProject,
-                                    descriptionProject,
-                                    sensProject,
-                                    value,
-                                    montantInvestissement,
-                                    nameModules,
-                                    noteModules,
-                                } = req.body;
-
                                 const modules = await Modules.create({
-                                    sliders: noteModules,
-                                    name_sliders: nameModules,
+                                    sliders: modulesValues,
+                                    //name_sliders: nameModules,
                                 });
                                 if (modules) {
                                     const modulesJson = modules.toJSON();
@@ -230,13 +217,13 @@ module.exports = {
                                         project_name: projectName,
                                         id_entrepreneur:
                                             entrepreneurJson.id_entrepreneur,
-                                        description: descriptionProject,
-                                        motivation_IB: sensProject,
+                                        description: projectDescription,
+                                        //motivation_IB: projectTheme,
                                         id_modules: modulesJson.id_modules,
                                         montant_investissement:
                                             montantInvestissement,
-                                        project_value: value,
-                                        project_type: themeProject,
+                                        project_value: projectValue,
+                                        project_type: projectTheme,
                                     });
                                 }
                             }

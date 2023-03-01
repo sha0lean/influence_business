@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
                 unique: false,
             },
             description: {
-                type: DataTypes.STRING(250),
+                type: DataTypes.TEXT('long'),
+                unique: false
             },
         },
         {
