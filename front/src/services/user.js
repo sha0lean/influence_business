@@ -4,8 +4,19 @@ import { getRole, removeRole } from "../utils/localStorage/useRole.js";
 
 const api = "http://localhost:5000";
 
-const nameModules =
-    "Renforcement personnel,Stratégie d'entreprise,Influenceur Marketing,Communication digitale et physique,Financement";
+const allEntrepreneurs = [];
+
+export const getEntrepreneurFromId = (id) => {
+    return allEntrepreneurs.find((entrepreneur) => entrepreneur.id_role === id);
+};
+
+export const nameModules = [
+    "Renforcement personnel",
+    "Stratégie d'entreprise",
+    "Influenceur Marketing",
+    "Communication digitale et physique",
+    "Financement",
+];
 export const registerUser = async (credentials) => {
     let formData = new FormData();
     if (credentials.role === "entrepreneur") {
@@ -187,18 +198,29 @@ export const getEntrepreneur = async (credentials) => {
             return data;
         })
     );
+    userInfos.id_role = user.id_role;
     userInfos.description = user.presentation;
     userInfos.projectName = user.projectName;
     userInfos.projectDescription = user.projectDescription;
     userInfos.projectValue = user.projectValue;
     userInfos.projectTheme = user.projectTheme;
     userInfos.projectInvestment = user.montantInvestissement;
-    userInfos.projectModules = user.theme_interesting.split(",").slice(0, -1);
-    userInfos.projectNotes = user.modulesValues
-        .split(",")
-        .map((item) => parseInt(item));
+    userInfos.interests = user.theme_interesting.split(",").slice(0, -1);
+    userInfos.projectNotes = user.modulesValues.split(",");
+    userInfos.projectModules = nameModules;
 
     return userInfos;
+};
+
+export const getAllEntrepreneurs = async (credentials) => {
+    const entrepreneurs = await fetch(api + "/entrepreneurs", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    return entrepreneurs;
 };
 
 export const getInvestisseur = async (credentials) => {
@@ -226,4 +248,48 @@ export const getInvestisseur = async (credentials) => {
     userInfos.company = user.name_company;
     userInfos.interests = user.theme_interesting.split(",").slice(0, -1);
     return userInfos;
+};
+
+export const addCompetence = async (credentials) => {
+    const response = await fetch(api + "/addCompetence", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    return response;
+};
+
+export const addSousCompetence = async (credentials) => {
+    const response = await fetch(api + "/addSousCompetence", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    return response;
+};
+
+export const getEntrepreneurCompetences = async (credentials) => {
+    const response = await fetch(api + "/entrepreneurCompetences", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    return response;
+};
+
+export const getEntrepreneurSousCompetences = async (credentials) => {
+    const response = await fetch(api + "/entrepreneurSousCompetences", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    return response;
 };
