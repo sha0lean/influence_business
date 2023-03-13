@@ -2,14 +2,12 @@ import { useState } from "react";
 import {
     Avatar,
     Box,
-    Button,
     Divider,
     Drawer,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
-    TextField,
     Typography,
 } from "@mui/material";
 import { Home, Inbox, Mail } from "@mui/icons-material";
@@ -18,14 +16,16 @@ import { useTheme } from "@mui/material/styles";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import AllInboxRoundedIcon from "@mui/icons-material/AllInboxRounded";
 import FolderRoundedIcon from "@mui/icons-material/FolderRounded";
-
+import NewspaperRoundedIcon from "@mui/icons-material/NewspaperRounded";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import ViewModuleRoundedIcon from "@mui/icons-material/ViewModuleRounded";
 
 import { getToken, removeToken } from "../utils/localStorage/useToken.js";
 import { getRole, removeRole } from "../utils/localStorage/useRole.js";
 import { logout, logoutUser } from "../services/user.js";
 
-const Sidebar = ({ handleLogout, avatar, fullName }) => {
+const Sidebar = ({ handleLogout, avatar, fullName, id }) => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
 
@@ -36,7 +36,21 @@ const Sidebar = ({ handleLogout, avatar, fullName }) => {
         setOpen(!open);
     };
 
+    const isSelected = (path) => {
+        return window.location.pathname.includes(path);
+    };
+
     const drawerList = [
+        {
+            text: "Profil",
+            icon: <PersonRoundedIcon />,
+            path:
+                role === "expert"
+                    ? "/profilExpert"
+                    : role === "entrepreneur"
+                    ? "/profilEntrepreneur"
+                    : "/profilInvestisseur",
+        },
         {
             text: "Tableau de bord",
             icon: <DashboardRoundedIcon />,
@@ -53,6 +67,20 @@ const Sidebar = ({ handleLogout, avatar, fullName }) => {
             path: "/documents",
         },
     ];
+
+    if (role === "expert") {
+        drawerList.splice(1, 0, {
+            text: "Actualités",
+            icon: <NewspaperRoundedIcon />,
+            path: "/actualites",
+        });
+    } else if (role === "entrepreneur") {
+        drawerList.splice(1, 0, {
+            text: "Modules",
+            icon: <ViewModuleRoundedIcon />,
+            path: "/modules/" + id,
+        });
+    }
 
     const user = {
         name: fullName,
@@ -79,6 +107,7 @@ const Sidebar = ({ handleLogout, avatar, fullName }) => {
                             textAlign={"center"}
                             fontWeight={"bold"}
                             textTransform={"uppercase"}
+                            color={"primary"}
                         >
                             Influenceur Business
                         </Typography>
@@ -121,7 +150,6 @@ const Sidebar = ({ handleLogout, avatar, fullName }) => {
                     >
                         {drawerList.map((item, index) => (
                             <ListItem
-                                button
                                 key={index}
                                 component={Link}
                                 to={item.path}
@@ -129,16 +157,14 @@ const Sidebar = ({ handleLogout, avatar, fullName }) => {
                                     borderRadius: 2,
                                     color: theme.palette.text.primary,
                                     "&.Mui-selected": {
+                                        borderLeftColor:
+                                            theme.palette.primary.light,
+                                        borderLeftWidth: 10,
+                                        borderLeftStyle: "solid",
                                         backgroundColor:
-                                            theme.palette.primary.main,
+                                            theme.palette.primary.light,
                                         color: theme.palette.primary
                                             .contrastText,
-                                        "&:hover": {
-                                            backgroundColor:
-                                                theme.palette.primary.main,
-                                            color: theme.palette.primary
-                                                .contrastText,
-                                        },
                                     },
                                     "&:hover": {
                                         backgroundColor:
@@ -147,6 +173,7 @@ const Sidebar = ({ handleLogout, avatar, fullName }) => {
                                             .contrastText,
                                     },
                                 }}
+                                selected={isSelected(item.path)}
                             >
                                 <ListItemIcon>{item.icon}</ListItemIcon>
                                 <ListItemText primary={item.text} />
