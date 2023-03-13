@@ -53,273 +53,247 @@ function ProfilExpert() {
     useEffect(() => {}, [user]);
 
     return (
-        <Box>
-            <Sidebar
-                handleLogout={handleLogout}
-                avatar={user.avatar}
-                fullName={user.fullName}
-            />
-            <Box
+        <>
+            <Typography
+                variant="h4"
                 sx={{
-                    marginLeft: "300px",
-                    paddingX: "40px",
+                    marginBottom: "20px",
                 }}
             >
-                <Typography
-                    variant="h4"
-                    sx={{
-                        marginBottom: "20px",
-                    }}
-                >
-                    Profil Expert
-                </Typography>
-                <Card
-                    sx={{
-                        padding: "20px",
-                        marginBottom: "20px",
-                        borderRadius: 4,
-                        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
-                    }}
-                >
-                    {user && (
-                        <>
-                            <Box
+                Profil Expert
+            </Typography>
+            <Card
+                sx={{
+                    padding: "20px",
+                    marginBottom: "20px",
+                    borderRadius: 4,
+                    boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
+                }}
+            >
+                {user && (
+                    <>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "start",
+                            }}
+                        >
+                            <Grid
                                 sx={{
                                     display: "flex",
                                     flexDirection: "row",
-                                    justifyContent: "center",
+                                    justifyContent: "space-between",
                                     alignItems: "start",
                                 }}
+                                container
                             >
                                 <Grid
+                                    item
+                                    xs={12}
+                                    md={4}
                                     sx={{
                                         display: "flex",
-                                        flexDirection: "row",
+                                        flexDirection: "column",
                                         justifyContent: "space-between",
+                                        gap: "20px",
                                         alignItems: "start",
                                     }}
-                                    container
                                 >
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        md={4}
+                                    <Box
                                         sx={{
                                             display: "flex",
-                                            flexDirection: "column",
-                                            justifyContent: "space-between",
-                                            gap: "20px",
-                                            alignItems: "start",
+                                            flexDirection: "row",
+                                            justifyContent: "start",
+                                            alignItems: "center",
                                         }}
                                     >
+                                        <Avatar
+                                            src={user.avatar}
+                                            sx={{
+                                                width: 100,
+                                                height: 100,
+                                                borderRadius: 10,
+                                            }}
+                                        />
                                         <Box
                                             sx={{
-                                                display: "flex",
-                                                flexDirection: "row",
-                                                justifyContent: "start",
-                                                alignItems: "center",
+                                                marginX: "20px",
                                             }}
                                         >
-                                            <Avatar
-                                                src={user.avatar}
-                                                sx={{
-                                                    width: 100,
-                                                    height: 100,
-                                                    borderRadius: 10,
-                                                }}
-                                            />
-                                            <Box
-                                                sx={{
-                                                    marginX: "20px",
-                                                }}
-                                            >
-                                                <Typography
-                                                    variant="h5"
-                                                    color="primary"
-                                                >
-                                                    {user.fullName}
-                                                </Typography>
-                                                <Typography variant="body1">
-                                                    {user.email}
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                        <Box>
-                                            <Typography variant="h6">
-                                                A propos :
-                                            </Typography>
                                             <Typography
-                                                variant="body1"
-                                                color="text.secondary"
+                                                variant="h5"
+                                                color="primary"
                                             >
-                                                {user.description}
+                                                {user.fullName}
+                                            </Typography>
+                                            <Typography variant="body1">
+                                                {user.email}
                                             </Typography>
                                         </Box>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        md={4}
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                    >
+                                    </Box>
+                                    <Box>
                                         <Typography variant="h6">
-                                            Diplômes
+                                            A propos :
                                         </Typography>
-                                        <List>
-                                            {user.diplomes &&
-                                                user.diplomes.map(
-                                                    (diplome, index) => (
-                                                        <ListItem
-                                                            key={index}
-                                                            sx={{
-                                                                display: "flex",
-                                                                flexDirection:
-                                                                    "column",
-                                                                justifyContent:
-                                                                    "center",
-                                                                alignItems:
-                                                                    "start",
-                                                            }}
-                                                        >
-                                                            <Typography
-                                                                variant="h6"
-                                                                fontWeight={
-                                                                    "bold"
-                                                                }
-                                                            >
-                                                                {diplome.ecole}
-                                                            </Typography>
-                                                            <Typography variant="body1">
-                                                                {
-                                                                    diplome.diplome
-                                                                }
-                                                            </Typography>
-                                                            <Typography variant="body1">
-                                                                {diplome.date}
-                                                            </Typography>
-                                                            <Typography
-                                                                variant="body2"
-                                                                color={
-                                                                    "text.secondary"
-                                                                }
-                                                            >
-                                                                {
-                                                                    diplome.description
-                                                                }
-                                                            </Typography>
-                                                        </ListItem>
-                                                    )
-                                                )}
-                                        </List>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        md={4}
-                                        sx={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Typography variant="h6">
-                                            Expériences
+                                        <Typography
+                                            variant="body1"
+                                            color="text.secondary"
+                                        >
+                                            {user.description}
                                         </Typography>
-                                        <List>
-                                            {user.experiences &&
-                                                user.experiences.map(
-                                                    (experience, index) => (
-                                                        <ListItem
-                                                            key={index}
-                                                            sx={{
-                                                                display: "flex",
-                                                                flexDirection:
-                                                                    "column",
-                                                                justifyContent:
-                                                                    "center",
-                                                                alignItems:
-                                                                    "start",
-                                                            }}
-                                                        >
-                                                            <Typography
-                                                                variant="h6"
-                                                                fontWeight={
-                                                                    "bold"
-                                                                }
-                                                            >
-                                                                {
-                                                                    experience.name
-                                                                }
-                                                            </Typography>
-                                                            <Typography
-                                                                variant="body1"
-                                                                fontWeight={
-                                                                    "bold"
-                                                                }
-                                                            >
-                                                                {
-                                                                    experience.position
-                                                                }
-                                                            </Typography>
-                                                            <Typography variant="body1">
-                                                                {
-                                                                    experience.date
-                                                                }
-                                                            </Typography>
-                                                            <Typography
-                                                                variant="body2"
-                                                                color={
-                                                                    "text.secondary"
-                                                                }
-                                                            >
-                                                                {
-                                                                    experience.description
-                                                                }
-                                                            </Typography>
-                                                        </ListItem>
-                                                    )
-                                                )}
-                                        </List>
-                                    </Grid>
-                                    <Grid item xs={12} md={4}>
-                                        <Typography variant="h6">
-                                            Interêts
-                                        </Typography>
-                                        <List>
-                                            {user.interests &&
-                                                user.interests.map(
-                                                    (interest, index) => (
-                                                        <ListItem key={index}>
-                                                            <Chip
-                                                                color="primary"
-                                                                label={interest}
-                                                                sx={{
-                                                                    borderRadius:
-                                                                        "10px",
-
-                                                                    "&:hover": {
-                                                                        cursor: "pointer",
-                                                                    },
-                                                                }}
-                                                            />
-                                                        </ListItem>
-                                                    )
-                                                )}
-                                        </List>
-                                    </Grid>
+                                    </Box>
                                 </Grid>
-                            </Box>
-                        </>
-                    )}
-                </Card>
-            </Box>
-        </Box>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    md={4}
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Typography variant="h6">
+                                        Diplômes
+                                    </Typography>
+                                    <List>
+                                        {user.diplomes &&
+                                            user.diplomes.map(
+                                                (diplome, index) => (
+                                                    <ListItem
+                                                        key={index}
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "column",
+                                                            justifyContent:
+                                                                "center",
+                                                            alignItems: "start",
+                                                        }}
+                                                    >
+                                                        <Typography
+                                                            variant="h6"
+                                                            fontWeight={"bold"}
+                                                        >
+                                                            {diplome.ecole}
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {diplome.diplome}
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {diplome.date}
+                                                        </Typography>
+                                                        <Typography
+                                                            variant="body2"
+                                                            color={
+                                                                "text.secondary"
+                                                            }
+                                                        >
+                                                            {
+                                                                diplome.description
+                                                            }
+                                                        </Typography>
+                                                    </ListItem>
+                                                )
+                                            )}
+                                    </List>
+                                </Grid>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    md={4}
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Typography variant="h6">
+                                        Expériences
+                                    </Typography>
+                                    <List>
+                                        {user.experiences &&
+                                            user.experiences.map(
+                                                (experience, index) => (
+                                                    <ListItem
+                                                        key={index}
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "column",
+                                                            justifyContent:
+                                                                "center",
+                                                            alignItems: "start",
+                                                        }}
+                                                    >
+                                                        <Typography
+                                                            variant="h6"
+                                                            fontWeight={"bold"}
+                                                        >
+                                                            {experience.name}
+                                                        </Typography>
+                                                        <Typography
+                                                            variant="body1"
+                                                            fontWeight={"bold"}
+                                                        >
+                                                            {
+                                                                experience.position
+                                                            }
+                                                        </Typography>
+                                                        <Typography variant="body1">
+                                                            {experience.date}
+                                                        </Typography>
+                                                        <Typography
+                                                            variant="body2"
+                                                            color={
+                                                                "text.secondary"
+                                                            }
+                                                        >
+                                                            {
+                                                                experience.description
+                                                            }
+                                                        </Typography>
+                                                    </ListItem>
+                                                )
+                                            )}
+                                    </List>
+                                </Grid>
+                                <Grid item xs={12} md={4}>
+                                    <Typography variant="h6">
+                                        Interêts
+                                    </Typography>
+                                    <List>
+                                        {user.interests &&
+                                            user.interests.map(
+                                                (interest, index) => (
+                                                    <ListItem key={index}>
+                                                        <Chip
+                                                            color="primary"
+                                                            label={interest}
+                                                            sx={{
+                                                                borderRadius:
+                                                                    "10px",
+
+                                                                "&:hover": {
+                                                                    cursor: "pointer",
+                                                                },
+                                                            }}
+                                                        />
+                                                    </ListItem>
+                                                )
+                                            )}
+                                    </List>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </>
+                )}
+            </Card>
+        </>
     );
 }
 

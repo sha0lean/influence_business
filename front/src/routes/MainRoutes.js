@@ -13,15 +13,12 @@ import ProfilEntrepreneur from "../views/profiles/ProfilEntrepreneur.js";
 import ProfilExpert from "../views/profiles/ProfilExpert.js";
 import ProfilInvestor from "../views/profiles/ProfilInvestor.js";
 
-import {
-    setToken,
-    getToken,
-    removeToken,
-} from "../utils/localStorage/useToken.js";
-import { setRole, getRole, removeRole } from "../utils/localStorage/useRole.js";
+import { setToken, getToken } from "../utils/localStorage/useToken.js";
+import { setRole, getRole } from "../utils/localStorage/useRole.js";
 import { Navigate } from "react-router-dom";
+import Feed from "../views/Feed.js";
+import Modules from "../views/Modules.js";
 
-let token = getToken();
 const changeSetRole = (value) => {
     setRole(value);
 };
@@ -116,6 +113,20 @@ const MainRoutes = {
                     path: "",
                     element: <ProfilEntrepreneur token={getToken()} />,
                 },
+                {
+                    path: "modules",
+                    element: <Modules />,
+                },
+            ],
+        },
+        {
+            path: "modules/:id",
+            element: <ProtectedRoutesEntrepreneur token={getToken()} />,
+            children: [
+                {
+                    path: "",
+                    element: <Modules />,
+                },
             ],
         },
         {
@@ -125,6 +136,24 @@ const MainRoutes = {
                 {
                     path: "",
                     element: <ProfilExpert />,
+                },
+            ],
+        },
+        {
+            path: "actualites",
+            element: <ProtectedRoutesExpert token={getToken()} />,
+            children: [
+                {
+                    path: "",
+                    element: <Feed />,
+                },
+                {
+                    path: "project/:id",
+                    element: <ProfilEntrepreneur />,
+                },
+                {
+                    path: "project/:id/modules",
+                    element: <Modules />,
                 },
             ],
         },
