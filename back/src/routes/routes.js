@@ -49,9 +49,26 @@ module.exports = (app) => {
     );
 
     // ——— user —————————————————————————————————————————————————————————————————————
+    app.post(
+        "/addSousCompetence",
+        verifyToken,
+        UserController.addSousCompetence
+    );
+    app.post(
+        "/entrepreneurCompetences",
+        verifyToken,
+        UserController.getEntrepreneurCompetences
+    );
+    app.post(
+        "/entrepreneurSousCompetences",
+        verifyToken,
+        UserController.getEntrepreneurSousCompetences
+    );
+    app.post("/addCompetence", verifyToken, UserController.addCompetence);
+    app.post("/entrepreneurs", verifyToken, UserController.getAllEntrepreneurs);
     app.post("/expert", verifyToken, UserController.getExpert);
     app.post("/entrepreneur", verifyToken, UserController.getEntrepreneur);
-    app.post("/investisseur", verifyToken, UserController.getInvestisseur)
+    app.post("/investisseur", verifyToken, UserController.getInvestisseur);
     app.post("/user", verifyToken, UserController.getUser);
     app.post("/getUsername", verifyToken, UserController.getUsername);
     app.post("/deleteUser", verifyToken, UserController.deleteUser);

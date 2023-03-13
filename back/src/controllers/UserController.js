@@ -7,6 +7,8 @@ const {
     Expert,
     Role,
     Investor,
+    SousCompetence,
+    Competence,
 } = require("../models");
 
 module.exports = {
@@ -197,6 +199,47 @@ module.exports = {
         }
     },
 
+    async getAllEntrepreneurs(req, res) {
+        try {
+            const entrepreneurs = await Entrepreneur.findAll({
+                raw: true,
+            });
+            if (entrepreneurs) {
+                for (let i = 0; i < entrepreneurs.length; i += 1) {
+                    const role = await Role.findOne({
+                        where: {
+                            id_role: entrepreneurs[i].id_role,
+                        },
+                    });
+                    if (role) {
+                        const roleJson = role.toJSON();
+                        const user = await User.findOne({
+                            where: {
+                                id_user: roleJson.id_user,
+                            },
+                        });
+                        if (user) {
+                            const userJson = user.toJSON();
+                            entrepreneurs[i] = {
+                                ...entrepreneurs[i],
+                                ...userJson,
+                            };
+                        }
+                    }
+                }
+                res.status(200).send(entrepreneurs);
+            } else {
+                res.status(404).send({
+                    message: "Entrepreneurs not found",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Internal error",
+            });
+            console.log(err);
+        }
+    },
     async getInvestisseur(req, res) {
         try {
             const user = await User.findOne({
@@ -232,6 +275,156 @@ module.exports = {
             } else {
                 res.status(404).send({
                     message: "User not found",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Internal error",
+            });
+        }
+    },
+
+    async getIdModuleFromIdRoleEntrepreneur(req, res) {
+        console.log(req.body);
+        try {
+            const project = await Project.findOne({
+                where: {
+                    id_entrepreneur: req.body.id_entrepreneur,
+                },
+            });
+            console.log("I am here project");
+            if (project) {
+                const module = await Modules.findOne({
+                    where: {
+                        id_modules: project.id_module,
+                    },
+                });
+                if (module) {
+                    res.status(200).send({
+                        id_modules: module.id_modules,
+                    });
+                } else {
+                    res.status(404).send({
+                        message: "Module not found",
+                    });
+                }
+            } else {
+                res.status(404).send({
+                    message: "Project not found",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Internal error",
+            });
+        }
+    },
+
+    async addCompetence(req, res) {
+        try {
+            const project = await Project.findOne({
+                where: {
+                    id_entrepreneur: req.body.id_entrepreneur,
+                },
+            });
+            if (project) {
+                const module = await Modules.findOne({
+                    where: {
+                        id_modules: project.id_modules,
+                    },
+                });
+                if (module) {
+                    const id_modules = module.id_modules;
+                    const newBody = {
+                        ...req.body,
+                        id_modules,
+                    };
+                    const competence = await Competence.create({
+                        id_entrepreneur: newBody.id_entrepreneur,
+                        id_modules: newBody.id_modules,
+                        name: newBody.name,
+                        value: newBody.value,
+                        order: newBody.order,
+                    });
+                    if (competence) {
+                        res.status(200).send({
+                            competence: competence,
+                        });
+                    }
+                } else {
+                    res.status(404).send({
+                        message: "Module not found",
+                    });
+                }
+            } else {
+                res.status(404).send({
+                    message: "Project not found",
+                });
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(500).send({
+                message: "Internal error",
+            });
+        }
+    },
+
+    async addSousCompetence(req, res) {
+        try {
+            const sousCompetence = await SousCompetence.create({
+                ...req.body,
+                acquisition: 0,
+            });
+            if (sousCompetence) {
+                res.status(200).send({
+                    sousCompetence: sousCompetence,
+                });
+            } else {
+                res.status(404).send({
+                    message: "SousCompetence not found",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Internal error",
+            });
+        }
+    },
+
+    async getEntrepreneurCompetences(req, res) {
+        try {
+            const competences = await Competence.findAll({
+                where: {
+                    id_entrepreneur: req.body.id_entrepreneur,
+                },
+            });
+            if (competences) {
+                res.status(200).send(competences);
+            } else {
+                res.status(404).send({
+                    message: "Competences not found",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Internal error",
+            });
+        }
+    },
+
+    async getEntrepreneurSousCompetences(req, res) {
+        console.log(req.body);
+        try {
+            const sousCompetences = await SousCompetence.findAll({
+                where: {
+                    id_entrepreneur: req.body.id_entrepreneur,
+                },
+            });
+            if (sousCompetences) {
+                res.status(200).send(sousCompetences);
+            } else {
+                res.status(404).send({
+                    message: "Competences not found",
                 });
             }
         } catch (err) {
