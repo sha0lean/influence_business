@@ -178,7 +178,7 @@ function ListItemDiplome({ onClose, onSubmit }) {
 
 const ListItemElement = ({ listItems }) => {
     return (
-        <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+        <List sx={{ width: "100%", bgcolor: "background.default" }}>
             {listItems.map((listItem, index) => (
                 <ListItem
                     key={index}

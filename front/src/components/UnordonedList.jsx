@@ -15,7 +15,7 @@ function UnordonedList({
                 listStyle: "none",
                 p: 0.5,
                 m: 1.5,
-                bgcolor: "background.paper",
+                bgcolor: "background.default",
             }}
         >
             {valuesOption.map((value, index) => (
