@@ -17,14 +17,14 @@ const App = () => {
             palette: {
                 mode,
                 primary: {
-                    main: "#C88EC9",
+                    main: "#a2a2f6",
                 },
                 secondary: {
                     main: "#F2F2F2",
                 },
                 background: {
                     default: mode === "dark" ? "#272127" : "#F2F2F2",
-                    paper: mode === "dark" ? "#272127" : "#F2F2F2",
+                    paper: mode === "dark" ? "#161216" : "#F2F2F2",
                 },
                 text: {
                     primary: mode === "dark" ? "#F2F2F2" : "#1E1E1E",
@@ -44,7 +44,7 @@ const App = () => {
                     styleOverrides: {
                         paper: {
                             backgroundColor:
-                                mode === "dark" ? "#161216" : "#F8E7F8",
+                                mode === "dark" ? "#161216" : "#eee",
                         },
                     },
                 },
