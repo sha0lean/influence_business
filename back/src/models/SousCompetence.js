@@ -15,6 +15,13 @@ module.exports = (sequelize, DataTypes) => {
             id_competence: {
                 type: DataTypes.INTEGER,
                 unique: false,
+                allowNull: false,
+                references: {
+                    model: "Competences",
+                    key: "id_competence",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
             name: {
                 type: DataTypes.STRING(250),

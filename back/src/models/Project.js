@@ -11,10 +11,24 @@ module.exports = (sequelize, DataTypes) => {
             id_modules: {
                 type: DataTypes.INTEGER,
                 unique: true,
+                allowNull: false,
+                references: {
+                    model: "Modules",
+                    key: "id_modules",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
             id_entrepreneur: {
                 type: DataTypes.INTEGER,
                 unique: true,
+                allowNull: false,
+                references: {
+                    model: "Entrepreneurs",
+                    key: "id_entrepreneur",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
             enterprise_status: {
                 type: DataTypes.STRING(50),

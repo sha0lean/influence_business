@@ -13,6 +13,28 @@ const sequelize = new Sequelize(
     config.db.options
 );
 
+const modelOrder = [
+    "User",
+    "Role",
+    "Admin",
+    "Expert",
+    "Entrepreneur",
+    "Investor",
+    "Modules",
+    "Project",
+    "Competence",
+    "SousCompetence",
+    "Verify",
+    "Contact",
+];
+
+modelOrder.forEach((modelName) => {
+    const modelDefiner = require(path.join(__dirname, `${modelName}.js`));
+    const model = modelDefiner(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+});
+
+/*
 fs.readdirSync(__dirname)
     .filter(function (file) {
         return file !== "index.js";
@@ -24,6 +46,7 @@ fs.readdirSync(__dirname)
         );
         db[model.name] = model;
     });
+    */
 Object.keys(db).forEach(function (modelName) {
     if (db[modelName].associate) {
         db[modelName].associate(db);

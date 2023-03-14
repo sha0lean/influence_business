@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
             id_role: {
                 type: DataTypes.INTEGER,
                 unique: false,
+                allowNull: false,
+                references: {
+                    model: "Roles",
+                    key: "id_role",
+                },
+                onUpdate: "CASCADE",
+                onDelete: "CASCADE",
             },
             theme_interesting: {
                 type: DataTypes.TEXT("long"),
@@ -21,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
                 unique: false,
             },
             description: {
-                type: DataTypes.TEXT('long'),
-                unique: false
+                type: DataTypes.TEXT("long"),
+                unique: false,
             },
         },
         {
