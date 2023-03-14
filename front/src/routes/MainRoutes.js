@@ -36,7 +36,7 @@ const MainRoutes = {
                 ),
         },
         {
-            path: "connexionback",
+            path: "connexion",
             element: <ProtectedRoutesAuthentication token={getToken()} />,
             children: [
                 {
@@ -50,36 +50,7 @@ const MainRoutes = {
                 },
             ],
         },
-        {
-            path: "connexion",
-            element: <ProtectedRoutesAuthentication token={getToken()} />,
-            children: [
-                {
-                    path: "",
-                    element: (
-                        <LoginClean
-                            changeSetRole={changeSetRole}
-                            setToken={setToken}
-                        />
-                    ),
-                },
-            ],
-        },
-        {
-            path: "inscriptionback",
-            element: <ProtectedRoutesAuthentication token={getToken()} />,
-            children: [
-                {
-                    path: "",
-                    element: (
-                        <Register
-                            changeSetRole={changeSetRole}
-                            setToken={setToken}
-                        />
-                    ),
-                },
-            ],
-        },
+
         {
             path: "inscription",
             element: <ProtectedRoutesAuthentication token={getToken()} />,
@@ -87,7 +58,7 @@ const MainRoutes = {
                 {
                     path: "",
                     element: (
-                        <RegisterClean
+                        <Register
                             changeSetRole={changeSetRole}
                             setToken={setToken}
                         />

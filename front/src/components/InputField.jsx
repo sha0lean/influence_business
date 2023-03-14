@@ -10,6 +10,7 @@ function InputField({
     onChange,
     idName,
     multiline = false,
+    fullWidth = false,
 }) {
     return (
         <TextField
@@ -26,6 +27,7 @@ function InputField({
             onChange={onChange}
             multiline={multiline}
             rows={multiline ? 4 : 1}
+            fullWidth={fullWidth}
         />
     );
 }
