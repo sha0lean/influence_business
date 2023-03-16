@@ -113,22 +113,6 @@ function Home() {
                 </div>
             </section>
 
-            <section>
-                <div className="block presentation row around-md">
-                    <h2 className="presentation__title row center-md">
-                        Section 3
-                    </h2>
-
-                    <div className="presentation__card">
-                        <div className="card__content">
-                            <div className="card__img">
-                                <img src={illustaff} alt="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <section className="down-background">
                 <ModulesShowCase />
             </section>

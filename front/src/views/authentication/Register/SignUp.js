@@ -79,7 +79,7 @@ const SignUp = ({
 
             <FormControl variant="outlined" fullWidth>
                 <InputLabel htmlFor="outlined-adornment-password">
-                    Password
+                    Mot de passe
                 </InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password"

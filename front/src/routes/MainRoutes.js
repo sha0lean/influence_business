@@ -1,4 +1,5 @@
 import Home from "../views/Home.js";
+import ContactUs from "../views/ContactUs.js";
 import Login from "../views/authentication/LoginPage.js";
 import LoginClean from "../views/authentication/LoginPageClean.js";
 import Register from "../views/authentication/RegisterPage.js";
@@ -36,6 +37,22 @@ const MainRoutes = {
                 ) : (
                     <Home />
                 ),
+        },
+
+        {
+            path: "contact",
+            element: <ProtectedRoutesAuthentication token={getToken()} />,
+            children: [
+                {
+                    path: "",
+                    element:
+                        getToken() && getRole() ? (
+                            <Navigate to="/profilExpert" />
+                        ) : (
+                            <ContactUs />
+                        ),
+                },
+            ],
         },
         {
             path: "connexion",

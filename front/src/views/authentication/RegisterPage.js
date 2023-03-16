@@ -168,7 +168,7 @@ function RegisterPage({ changeSetRole, setToken }) {
                 montantInvestissement: montantInvestissement,
                 noteModules: noteModules,
             });
-        } else if (role === "investor") {
+        } else if (role === "investisseur") {
             response = await registerUser({
                 email: email,
                 password: password,
@@ -226,7 +226,7 @@ function RegisterPage({ changeSetRole, setToken }) {
     const handleDescriptionInvestor = async (e) => {
         setDescriptionInvestor(e.target.value);
     };
-    const valuesOption = ["expert", "investor", "entrepreneur"];
+    const valuesOption = ["expert", "investisseur", "entrepreneur"];
     const valuesTheme = [
         "Communication Services",
         "Consumer Discretionary",
@@ -390,7 +390,7 @@ function RegisterPage({ changeSetRole, setToken }) {
                             />
                         </>
                     )}
-                    {counter === 1 && role === "investor" && (
+                    {counter === 1 && role === "investisseur" && (
                         <>
                             <Typography
                                 variant="h4"
