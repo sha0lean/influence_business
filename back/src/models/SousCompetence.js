@@ -31,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.FLOAT(10, 2),
                 unique: false,
             },
+            // 0 → non acquis
+            // 1 → en cours d'acquisition
+            // 2 → acquis
             acquisition: {
                 type: DataTypes.INTEGER,
                 unique: false,
