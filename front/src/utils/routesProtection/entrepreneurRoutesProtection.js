@@ -46,11 +46,14 @@ const ProtectedRoutesEntrepreneur = ({ token, children }) => {
         return <Navigate to="/connexion" replace />;
     } else if (token && getRole() !== "entrepreneur") {
         switch (getRole()) {
-            case "expert":
-                return <Navigate to="/profilExpert" replace />;
+            case "entrepreneur":
+                return <Navigate to="/profilEntrepreneur" replace />;
                 break;
             case "investor":
                 return <Navigate to="/profilInvestisseur" replace />;
+                break;
+            case "admin":
+                return <Navigate to="/profilAdmin" replace />;
                 break;
             default:
                 return <Navigate to="/" replace />;

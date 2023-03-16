@@ -53,6 +53,9 @@ const ExpertRoutesProtection = ({ token, children }) => {
             case "investor":
                 return <Navigate to="/profilInvestisseur" replace />;
                 break;
+            case "admin":
+                return <Navigate to="/profilAdmin" replace />;
+                break;
             default:
                 return <Navigate to="/" replace />;
         }
