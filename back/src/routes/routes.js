@@ -64,6 +64,16 @@ module.exports = (app) => {
         verifyToken,
         UserController.getEntrepreneurSousCompetences
     );
+    app.post(
+        "/saveSousCompetence",
+        verifyToken,
+        UserController.updateSousCompetence
+    );
+    app.post(
+        "/saveEntrepreneur",
+        verifyToken,
+        UserController.updateEntrepreneur
+    );
     app.post("/addCompetence", verifyToken, UserController.addCompetence);
     app.post("/entrepreneurs", verifyToken, UserController.getAllEntrepreneurs);
     app.post("/expert", verifyToken, UserController.getExpert);

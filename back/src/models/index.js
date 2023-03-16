@@ -52,6 +52,39 @@ Object.keys(db).forEach(function (modelName) {
         db[modelName].associate(db);
     }
 });
+/*
+async function createAdmin() {
+    try {
+        const newUser = await User.create({
+            email: "admin",
+            password: "admin",
+            first_name: "Admin",
+            last_name: "",
+            work_status: false,
+        });
+
+        const userJson = newUser.toJSON();
+        const token = jwtSignUser(userJson);
+        //We fill the tables specific to the role
+        roleToJson = await Role.create({
+            id_user: userJson.id_user,
+            role_name: "admin",
+        });
+        roleToJson = roleToJson.toJSON();
+        const admin = await Admin.create({
+            id_role: roleToJson.id_role,
+        });
+    } catch (err) {
+        console.log("Error:", err);
+    }
+}
+
+sequelize.sync().then(() => {
+    console.log("Database & tables created!");
+    createAdmin();
+});
+
+*/
+
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
 module.exports = db;
