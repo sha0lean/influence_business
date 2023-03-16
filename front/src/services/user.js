@@ -11,12 +11,12 @@ export const getEntrepreneurFromId = (id) => {
 };
 
 export const nameModules = [
-    "Renforcement personnel",
-    "Stratégie d'entreprise",
-    "Influenceur Marketing",
-    "Communication digitale et physique",
-    "Financement",
+    "Définition du projet",
+    "Analyse du projet et choix stratégique",
+    "Plans opérationnels et financiers",
+    "Action de développement",
 ];
+
 export const registerUser = async (credentials) => {
     let formData = new FormData();
     if (credentials.role === "entrepreneur") {
@@ -263,6 +263,28 @@ export const addCompetence = async (credentials) => {
 
 export const addSousCompetence = async (credentials) => {
     const response = await fetch(api + "/addSousCompetence", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    return response;
+};
+
+export const saveSousCompetence = async (credentials) => {
+    const response = await fetch(api + "/saveSousCompetence", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+    }).then((data) => data.json());
+    return response;
+};
+
+export const saveEntrepreneur = async (credentials) => {
+    const response = await fetch(api + "/saveEntrepreneur", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

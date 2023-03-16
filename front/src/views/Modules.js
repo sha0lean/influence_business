@@ -4,6 +4,8 @@ import {
     getEntrepreneurCompetences,
     getEntrepreneurSousCompetences,
     nameModules,
+    saveEntrepreneur,
+    saveUser,
 } from "../services/user";
 import { getToken } from "../utils/localStorage/useToken";
 import { useParams } from "react-router-dom";
@@ -19,30 +21,21 @@ import {
     Divider,
     FormControl,
     FormControlLabel,
-    FormGroup,
     Grid,
-    IconButton,
-    InputLabel,
     LinearProgress,
     List,
     ListItem,
     ListItemSecondaryAction,
     ListItemText,
-    MenuItem,
-    Modal,
     Radio,
     RadioGroup,
-    Select,
     Typography,
     useTheme,
 } from "@mui/material";
-import {
-    CheckBox,
-    DeleteOutline,
-    ExpandMoreRounded,
-} from "@mui/icons-material";
+import { ExpandMoreRounded } from "@mui/icons-material";
 import AddCompetence from "../components/AddCompetence";
 import { getRole } from "../utils/localStorage/useRole";
+import { saveSousCompetence } from "../services/user";
 
 const Modules = () => {
     const theme = useTheme();
@@ -62,6 +55,95 @@ const Modules = () => {
             console.log(item);
         });
     };
+
+    /**
+     * Fonction qui calcule le score de chaque module une fois le staff a validé les compétences
+     */
+    const calculateScore = () => {
+        const moduleMaxScore = 100;
+        const moduleCompetenceLength = user.projectNotes.length;
+        const moduleCompetencesMaxScore = user.projectNotes.map((_, index) => {
+            return (
+                moduleMaxScore /
+                competences.filter((competence) => competence.order === index)
+                    .length
+            );
+        });
+        competences.forEach((competence) => {
+            const sousCompentenceLength = sousCompetences.filter(
+                (sousCompetence) =>
+                    sousCompetence.id_competence === competence.id_competence
+            ).length;
+            const sousCompetenceMaxScore =
+                moduleCompetencesMaxScore[competence.order] /
+                sousCompentenceLength;
+            let competenceScore = 0;
+            sousCompetences.forEach((sousCompetence) => {
+                if (sousCompetence.id_competence === competence.id_competence) {
+                    if (sousCompetence.acquisition === 2) {
+                        sousCompetence.value = sousCompetenceMaxScore;
+                    } else if (sousCompetence.acquisition === 1) {
+                        sousCompetence.value = sousCompetenceMaxScore / 2;
+                    } else {
+                        sousCompetence.value = 0;
+                    }
+                    competenceScore += sousCompetence.value;
+                }
+            });
+            competence.value = competenceScore;
+        });
+        user.projectNotes = user.projectNotes.map((note, index) => {
+            note = 0;
+            competences.forEach((competence) => {
+                if (competence.order === index) {
+                    note += competence.value;
+                }
+            });
+            return note;
+        });
+
+        setCompetences([...competences]);
+        setSousCompetences([...sousCompetences]);
+        setUser({ ...user });
+    };
+
+    const handleSaveChanges = async () => {
+        if (role === "admin") {
+            calculateScore();
+            // save the sousCompetences dans la database
+            sousCompetences.forEach(
+                async (sousCompetence) =>
+                    await saveSousCompetence({
+                        token: getToken(),
+                        name: sousCompetence.name,
+                        id_entrepreneur: sousCompetence.id_entrepreneur,
+                        id_sous_competence: sousCompetence.id_sous_competence,
+                        id_competence: sousCompetence.id_competence,
+                        acquisition: sousCompetence.acquisition,
+                        value: sousCompetence.value,
+                    })
+            );
+
+            // save the user projectNotes dans la database
+            console.log(user.projectNotes);
+            await saveEntrepreneur({
+                token: getToken(),
+                id_entrepreneur: user.id_entrepreneur,
+                id_role: user.id_role,
+                presentation: user.presentation,
+                modulesValues: user.projectNotes.join(","),
+                montantInvestissement: user.projectInvestment,
+                projectName: user.projectName,
+                projectTheme: user.projectTheme,
+                projectDescription: user.projectDescription,
+                projectValue: user.projectValue,
+                theme_interesting: user.theme_interesting,
+            });
+        }
+        window.location.reload();
+        alert("Les modifications ont été enregistrées !");
+    };
+
     const role = getRole();
     useEffect(() => {
         const fetch = async () => {
@@ -102,9 +184,11 @@ const Modules = () => {
         console.log(sousCompetences);
     }, [user, competences, sousCompetences]);
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setUser({ ...user, [name]: value });
+    const handleRadioChange = (event, sousComeptence) => {
+        if (role === "admin") {
+            sousComeptence.acquisition = parseInt(event.target.value);
+            setSousCompetences([...sousCompetences]);
+        }
     };
 
     return (
@@ -324,12 +408,17 @@ const Modules = () => {
                                                                                     <RadioGroup
                                                                                         aria-labelledby="demo-radio-buttons-group-label"
                                                                                         name="radio-buttons-group"
-                                                                                        onChange={
-                                                                                            handleChange
-                                                                                        }
                                                                                         value={
                                                                                             sousCompetence.acquisition
                                                                                         }
+                                                                                        onChange={(
+                                                                                            event
+                                                                                        ) => {
+                                                                                            handleRadioChange(
+                                                                                                event,
+                                                                                                sousCompetence
+                                                                                            );
+                                                                                        }}
                                                                                         sx={{
                                                                                             display:
                                                                                                 "flex",
@@ -374,8 +463,7 @@ const Modules = () => {
                                                         </List>
                                                     </AccordionDetails>
                                                     <AccordionActions>
-                                                        {role ===
-                                                            "entrepreneur" && (
+                                                        {role === "admin" && (
                                                             <Button
                                                                 variant="contained"
                                                                 size="small"
@@ -407,7 +495,7 @@ const Modules = () => {
                                             ))}
                                 </AccordionDetails>
                                 <AccordionActions>
-                                    {role === "entrepreneur" && (
+                                    {role === "admin" && (
                                         <Button
                                             variant="contained"
                                             size="small"
@@ -451,7 +539,19 @@ const Modules = () => {
                         variant="contained"
                         onClick={handleSendMessage}
                     >
-                        Send message
+                        Envoyer un message
+                    </Button>
+                )}
+                {role === "admin" && (
+                    <Button
+                        sx={{
+                            margin: "1rem",
+                        }}
+                        color="primary"
+                        variant="contained"
+                        onClick={handleSaveChanges}
+                    >
+                        Sauvegarder les changements
                     </Button>
                 )}
             </Box>
