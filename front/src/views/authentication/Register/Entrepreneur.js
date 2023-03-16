@@ -17,65 +17,55 @@ const Entrepreneur = ({
     setImage,
     themeProject,
     setThemeProject,
-
+    definitionProjet,
+    setDefinitionProjet,
+    analyseProjetChoixStrategique,
+    setAnalyseProjetChoixStrategique,
+    planOperationnel,
+    setPlanOperationnel,
+    actionDeveloppement,
+    setActionDeveloppement,
     renforcementPersonnel,
-    setRenforcementPersonnel,
-    strategieEntreprise,
-    setStrategieEntreprise,
-    influenceurMarketing,
-    setInfluenceurMarketing,
-    communicationDigitalePhysique,
-    setCommunicationDigitalePhysique,
-    financement,
-    setFinancement,
 
     handleSubmit,
     showPrevious,
 }) => {
     const modules = [
         {
-            label: "Renforcement personnel",
-            state: "renforcementPersonnel",
-            value: renforcementPersonnel,
+            label: "Definition de projet",
+            state: "definitionProjet",
+            value: definitionProjet,
         },
         {
-            label: "Stratégie d'entreprise",
-            state: "strategieEntreprise",
-            value: strategieEntreprise,
+            label: "Analyse du projet et choix stratégique",
+            state: "analyseProjetChoixStrategique",
+            value: analyseProjetChoixStrategique,
         },
         {
-            label: "Influenceur Marketing",
-            state: "influenceurMarketing",
-            value: influenceurMarketing,
+            label: "Plan opérationnel",
+            state: "planOperationnel",
+            value: planOperationnel,
         },
         {
-            label: "Communication digitale et physique",
-            state: "communicationDigitalePhysique",
-            value: communicationDigitalePhysique,
-        },
-        {
-            label: "Financement",
-            state: "financement",
-            value: financement,
+            label: "Action de développement",
+            state: "actionDeveloppement",
+            value: actionDeveloppement,
         },
     ];
 
     const handleSliderChange = (event, newValue, state) => {
         switch (state) {
-            case "renforcementPersonnel":
-                setRenforcementPersonnel(newValue);
+            case "definitionProjet":
+                setDefinitionProjet(newValue);
                 break;
-            case "strategieEntreprise":
-                setStrategieEntreprise(newValue);
+            case "analyseProjetChoixStrategique":
+                setAnalyseProjetChoixStrategique(newValue);
                 break;
-            case "influenceurMarketing":
-                setInfluenceurMarketing(newValue);
+            case "planOperationnel":
+                setPlanOperationnel(newValue);
                 break;
-            case "communicationDigitalePhysique":
-                setCommunicationDigitalePhysique(newValue);
-                break;
-            case "financement":
-                setFinancement(newValue);
+            case "actionDeveloppement":
+                setActionDeveloppement(newValue);
                 break;
             default:
                 break;

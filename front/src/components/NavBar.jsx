@@ -111,11 +111,11 @@ function NavBar({ handleThemeChange, mode }) {
                                 </Link>
                             )}
                         </Link>
-                        <IconButton>
+                        <IconButton onClick={handleThemeChange}>
                             {mode === "light" ? (
-                                <LightMode onClick={handleThemeChange} />
+                                <LightMode />
                             ) : (
-                                <DarkModeRounded onClick={handleThemeChange} />
+                                <DarkModeRounded />
                             )}
                         </IconButton>
                     </ul>

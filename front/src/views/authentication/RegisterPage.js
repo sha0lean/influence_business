@@ -39,12 +39,13 @@ function RegisterPage({ changeSetRole, setToken }) {
     const [sensProject, setSensProject] = useState(null);
     const [proposeValue, setProposeValue] = useState(null);
     const [montantInvestissement, setMontantInvestissement] = useState(null);
-    const [renforcementPersonnel, setRenforcementPersonnel] = useState(50);
-    const [strategieEntreprise, setStrategieEntreprise] = useState(50);
-    const [influenceurMarketing, setInfluenceurMarketing] = useState(50);
-    const [communicationDigitalePhysique, setCommunicationDigitalePhysique] =
+
+    const [definitionProjet, setDefinitionProjet] = useState(50);
+    const [analyseProjetChoixStrategique, setAnalyseProjetChoixStrategique] =
         useState(50);
-    const [financement, setFinancement] = useState(50);
+    const [planOperationnel, setPlanOperationnel] = useState(50);
+    const [actionDeveloppement, setActionDeveloppement] = useState(50);
+
     const [presentationExpert, setPresentationExpert] = useState("");
     const [experiencesExpert, setExperiencesExpert] = useState([]);
     const [workExpert, setWorkExpert] = useState([]);
@@ -126,15 +127,13 @@ function RegisterPage({ changeSetRole, setToken }) {
 
         if (role === "entrepreneur") {
             let noteModules =
-                renforcementPersonnel +
+                definitionProjet +
                 "," +
-                strategieEntreprise +
+                analyseProjetChoixStrategique +
                 "," +
-                influenceurMarketing +
+                planOperationnel +
                 "," +
-                communicationDigitalePhysique +
-                "," +
-                financement;
+                actionDeveloppement;
 
             console.log({
                 email: email,
@@ -242,11 +241,10 @@ function RegisterPage({ changeSetRole, setToken }) {
         "Real Estate",
     ];
     const valuesThemeExpert = [
-        "Renforcement personnel",
-        "Stratégie d'entreprise",
-        "Influenceur marketing",
-        "Communication digitale et physique",
-        "Financement",
+        "Définition du projet",
+        "Analyse du projet et choix stratégique",
+        "Plans opérationnels et financiers",
+        "Action de développement",
     ];
     return (
         <Box
@@ -342,24 +340,18 @@ function RegisterPage({ changeSetRole, setToken }) {
                                 image={image}
                                 setImage={setImage}
                                 handleSubmit={handleSubmit}
-                                renforcementPersonnel={renforcementPersonnel}
-                                setRenforcementPersonnel={
-                                    setRenforcementPersonnel
+                                definitionProjet={definitionProjet}
+                                setDefinitionProjet={setDefinitionProjet}
+                                analyseProjetChoixStrategique={
+                                    analyseProjetChoixStrategique
                                 }
-                                strategieEntreprise={strategieEntreprise}
-                                setStrategieEntreprise={setStrategieEntreprise}
-                                influenceurMarketing={influenceurMarketing}
-                                setInfluenceurMarketing={
-                                    setInfluenceurMarketing
+                                setAnalyseProjetChoixStrategique={
+                                    setAnalyseProjetChoixStrategique
                                 }
-                                communicationDigitalePhysique={
-                                    communicationDigitalePhysique
-                                }
-                                setCommunicationDigitalePhysique={
-                                    setCommunicationDigitalePhysique
-                                }
-                                financement={financement}
-                                setFinancement={setFinancement}
+                                planOperationnel={planOperationnel}
+                                setPlanOperationnel={setPlanOperationnel}
+                                actionDeveloppement={actionDeveloppement}
+                                setActionDeveloppement={setActionDeveloppement}
                                 showPrevious={showPrevious}
                             />
                         </>

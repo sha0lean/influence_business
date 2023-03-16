@@ -41,6 +41,7 @@ function LoginPage({ changeSetRole, setToken }) {
     }
 
     const handleSubmit = async (e) => {
+        console.log("I am called");
         e.preventDefault();
 
         const response = await loginUser({
@@ -103,7 +104,6 @@ function LoginPage({ changeSetRole, setToken }) {
                         justifyContent: "center",
                         width: "100%",
                     }}
-                    onSubmit={handleSubmit}
                 >
                     <InputField
                         label={"Email"}
@@ -123,9 +123,16 @@ function LoginPage({ changeSetRole, setToken }) {
                     />
 
                     {errorMessage && (
-                        <p className="lato" id="errorMessage">
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                paddingTop: "10px",
+                                paddingBottom: "10px",
+                                color: "tomato",
+                            }}
+                        >
                             {errorMessage}
-                        </p>
+                        </Typography>
                     )}
                     <Typography
                         variant="body2"
@@ -145,7 +152,10 @@ function LoginPage({ changeSetRole, setToken }) {
                             Mot de passe oublié ?
                         </Link>
                     </Typography>
-                    <ButtonForm content={"Se connecter"} />
+                    <ButtonForm
+                        content={"Se connecter"}
+                        onClick={handleSubmit}
+                    />
                 </FormControl>
             </Box>
         </Box>

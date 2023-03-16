@@ -284,24 +284,26 @@ function ProfilEntrepreneur({ userInfos }) {
                                                 )
                                             )}
                                     </List>
-                                    {getRole() === "expert" && (
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                        >
-                                            <Link
-                                                to={`modules`}
-                                                style={{
-                                                    textDecoration: "none",
-                                                    "&:hover": {
-                                                        textDecoration: "none",
-                                                    },
-                                                }}
+                                    {getRole() === "expert" ||
+                                        (getRole() === "admin" && (
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
                                             >
-                                                Voir les modules en détails
-                                            </Link>
-                                        </Button>
-                                    )}
+                                                <Link
+                                                    to={`modules`}
+                                                    style={{
+                                                        textDecoration: "none",
+                                                        "&:hover": {
+                                                            textDecoration:
+                                                                "none",
+                                                        },
+                                                    }}
+                                                >
+                                                    Voir les modules en détails
+                                                </Link>
+                                            </Button>
+                                        ))}
                                 </Grid>
                                 <Grid
                                     item

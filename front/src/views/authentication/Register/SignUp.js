@@ -6,18 +6,11 @@ import {
     InputAdornment,
     InputLabel,
     OutlinedInput,
-    TextField,
-    Typography,
-    FormLabel,
-    RadioGroup,
-    Radio,
-    FormControlLabel,
 } from "@mui/material";
 import { VisibilityOffRounded, VisibilityRounded } from "@mui/icons-material";
 import React from "react";
 import InputField from "../../../components/InputField";
 import InputList from "../../../components/InputList";
-import ButtonForm from "../../../components/ButtonForm";
 
 const SignUp = ({
     firstName,
