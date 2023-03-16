@@ -4,13 +4,20 @@ import {
     Box,
     Divider,
     Drawer,
+    IconButton,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
     Typography,
 } from "@mui/material";
-import { Home, Inbox, Mail } from "@mui/icons-material";
+import {
+    Brightness1Outlined,
+    Brightness2Outlined,
+    Home,
+    Inbox,
+    Mail,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
@@ -80,12 +87,26 @@ const Sidebar = ({ handleLogout, avatar, fullName, id }) => {
             icon: <ViewModuleRoundedIcon />,
             path: "/modules/" + id,
         });
+    } else if (role === "admin") {
+        drawerList.splice(1, 0, {
+            text: "Actualités",
+            icon: <NewspaperRoundedIcon />,
+            path: "/actualitesAdmin",
+        });
     }
 
     const user = {
         name: fullName,
         icon: avatar,
         role: getRole().toUpperCase(),
+    };
+
+    const handleThemeChange = () => {
+        if (theme.palette.mode === "light") {
+            theme.palette.mode = "dark";
+        } else {
+            theme.palette.mode = "light";
+        }
     };
 
     const MyDrawer = (
@@ -213,7 +234,6 @@ const Sidebar = ({ handleLogout, avatar, fullName, id }) => {
             >
                 {MyDrawer}
             </Drawer>
-            <button onClick={toggleDrawer}>Open Sidebar</button>
         </>
     );
 };

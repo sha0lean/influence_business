@@ -18,6 +18,8 @@ import { setRole, getRole } from "../utils/localStorage/useRole.js";
 import { Navigate } from "react-router-dom";
 import Feed from "../views/Feed.js";
 import Modules from "../views/Modules.js";
+import ProtectedRoutesAdmin from "../utils/routesProtection/adminRoutesProtection.js";
+import ProfilAdmin from "../views/profiles/ProfilAdmin.js";
 
 const changeSetRole = (value) => {
     setRole(value);
@@ -101,12 +103,40 @@ const MainRoutes = {
             ],
         },
         {
+            path: "profilAdmin",
+            element: <ProtectedRoutesAdmin token={getToken()} />,
+            children: [
+                {
+                    path: "",
+                    element: <ProfilAdmin />,
+                },
+            ],
+        },
+        {
             path: "profilExpert",
             element: <ProtectedRoutesExpert token={getToken()} />,
             children: [
                 {
                     path: "",
                     element: <ProfilExpert />,
+                },
+            ],
+        },
+        {
+            path: "actualitesAdmin",
+            element: <ProtectedRoutesAdmin token={getToken()} />,
+            children: [
+                {
+                    path: "",
+                    element: <Feed />,
+                },
+                {
+                    path: "project/:id",
+                    element: <ProfilEntrepreneur />,
+                },
+                {
+                    path: "project/:id/modules",
+                    element: <Modules />,
                 },
             ],
         },
