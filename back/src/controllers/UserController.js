@@ -433,4 +433,86 @@ module.exports = {
             });
         }
     },
+
+    async updateSousCompetence(req, res) {
+        const { id_entrepreneur, id_sous_competence, acquisition, value } =
+            req.body;
+        try {
+            const sousCompetence = await SousCompetence.update(
+                {
+                    acquisition: acquisition,
+                    value: value,
+                },
+                {
+                    where: {
+                        id_entrepreneur: id_entrepreneur,
+                        id_sous_competence: id_sous_competence,
+                    },
+                }
+            );
+            if (sousCompetence) {
+                res.status(200).send({
+                    message: "La sous compétence a été mise à jour avec succès",
+                });
+            } else {
+                res.status(500).send({
+                    message:
+                        "Une erreur interne est survenue. Veuillez réessayer",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Une erreur interne est survenue. Veuillez réessayer",
+            });
+        }
+    },
+
+    async updateEntrepreneur(req, res) {
+        const {
+            id_entrepreneur,
+            id_role,
+            presentation,
+            modulesValues,
+            montantInvestissement,
+            projectName,
+            projectTheme,
+            projectDescription,
+            projectValue,
+            theme_interesting,
+        } = req.body;
+        try {
+            const entrepreneur = await Entrepreneur.update(
+                {
+                    presentation: presentation,
+                    modulesValues: modulesValues,
+                    montantInvestissement: montantInvestissement,
+                    projectName: projectName,
+                    projectTheme: projectTheme,
+                    projectDescription: projectDescription,
+                    projectValue: projectValue,
+                    theme_interesting: theme_interesting,
+                },
+                {
+                    where: {
+                        id_entrepreneur: id_entrepreneur,
+                        id_role: id_role,
+                    },
+                }
+            );
+            if (entrepreneur) {
+                res.status(200).send({
+                    message: "L'entrepreneur a été mis à jour avec succès",
+                });
+            } else {
+                res.status(500).send({
+                    message:
+                        "Une erreur interne est survenue. Veuillez réessayer",
+                });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Une erreur interne est survenue. Veuillez réessayer",
+            });
+        }
+    },
 };

@@ -7,6 +7,8 @@ const {
     Role,
     Project,
     Modules,
+    Competence,
+    SousCompetence,
 } = require("../models");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
@@ -15,6 +17,85 @@ let nodemailer = require("nodemailer");
 const moment = require("moment");
 // -- Functions -- //
 // jwt token
+
+const staticCompetences = [
+    {
+        module: "Définition du projet",
+        competences: [
+            {
+                name: "Résumé Global & Equipe",
+                subCompetences: ["Résumé global", "Equipe"],
+            },
+            {
+                name: "Modèle économique",
+                subCompetences: ["Modèle économique", "Chiffres clés"],
+            },
+        ],
+    },
+    {
+        module: "Analyse du projet et choix stratégique",
+        competences: [
+            {
+                name: "Votre marché",
+                subCompetences: [
+                    "Analyse du marché",
+                    "Segmentation",
+                    "Positionnement",
+                ],
+            },
+            {
+                name: "Votre marché",
+                subCompetences: [
+                    "Analyse du marché",
+                    "Segmentation",
+                    "Positionnement",
+                ],
+            },
+            {
+                name: "Risques & Opportunités",
+                subCompetences: ["Risques", "Opportunités"],
+            },
+        ],
+    },
+    {
+        module: "Plans opérationnels et financiers",
+        competences: [
+            {
+                name: "Stratégie & Marketing",
+                subCompetences: ["Stratégie", "Marketing"],
+            },
+            {
+                name: "Gestion de projet",
+                subCompetences: ["Gestion de projet", "Planification"],
+            },
+            {
+                name: "Viabilité & Financement",
+                subCompetences: ["Viabilité", "Financement"],
+            },
+        ],
+    },
+    {
+        module: "Action de développement",
+        competences: [
+            {
+                name: "Communication & Relations publiques",
+                subCompetences: [
+                    "Communication",
+                    "Relations publiques",
+                    "Relations presse",
+                ],
+            },
+            {
+                name: "Gestion de la relation client",
+                subCompetences: ["Gestion de la relation client"],
+            },
+            {
+                name: "Gestion des ressources humaines",
+                subCompetences: ["Gestion des ressources humaines"],
+            },
+        ],
+    },
+];
 
 function jwtSignUser(user) {
     const secretKey = process.env.JWT_SECRET;
@@ -57,6 +138,32 @@ function jwtSignUser(user) {
 }
 
 module.exports = {
+    async createAdmin() {
+        try {
+            const newUser = await User.create({
+                email: "admin",
+                password: "admin",
+                first_name: "Admin",
+                last_name: "",
+                work_status: false,
+            });
+
+            const userJson = newUser.toJSON();
+            const token = jwtSignUser(userJson);
+            //We fill the tables specific to the role
+            roleToJson = await Role.create({
+                id_user: userJson.id_user,
+                role_name: "admin",
+            });
+            roleToJson = roleToJson.toJSON();
+            const admin = await Admin.create({
+                id_admin: userJson.id_user,
+                id_role: roleToJson.id_role,
+            });
+        } catch (err) {
+            console.log("Error:", err);
+        }
+    },
     // Register User
     async register(req, res) {
         if (req.body.role === "entrepreneur") {
@@ -225,6 +332,56 @@ module.exports = {
                                         project_value: projectValue,
                                         project_type: projectTheme,
                                     });
+
+                                    staticCompetences.forEach(
+                                        (module, index) => {
+                                            console.log("staticCompetences");
+                                            module.competences.forEach(
+                                                async (competence) => {
+                                                    const newCompetence =
+                                                        await Competence.create(
+                                                            {
+                                                                name: competence.name,
+                                                                id_entrepreneur:
+                                                                    entrepreneurJson.id_entrepreneur,
+                                                                id_modules:
+                                                                    modulesJson.id_modules,
+                                                                order: index,
+                                                                value: 0,
+                                                            }
+                                                        );
+                                                    const newCompetenceJson =
+                                                        newCompetence.toJSON();
+                                                    if (newCompetenceJson) {
+                                                        competence.subCompetences.forEach(
+                                                            async (
+                                                                sousCompetence
+                                                            ) => {
+                                                                const newSousCompetence =
+                                                                    await SousCompetence.create(
+                                                                        {
+                                                                            id_competence:
+                                                                                newCompetenceJson.id_competence,
+                                                                            id_entrepreneur:
+                                                                                entrepreneurJson.id_entrepreneur,
+                                                                            name: sousCompetence,
+                                                                            acquisition: 0,
+                                                                            value: 0,
+                                                                        }
+                                                                    );
+                                                            }
+                                                        );
+                                                    } else {
+                                                        res.status(500).send({
+                                                            message:
+                                                                "Une erreur interne est survenue. Veuillez réessayer : " +
+                                                                err,
+                                                        });
+                                                    }
+                                                }
+                                            );
+                                        }
+                                    );
                                 }
                             }
                         }
@@ -273,6 +430,19 @@ module.exports = {
                 });
                 if (role) {
                     const roleJson = role.toJSON();
+                    if (roleJson.role_name === "admin") {
+                        const userJson = user.toJSON();
+                        const token = jwtSignUser(userJson);
+                        global.token = token;
+
+                        res.status(200).send({
+                            token: token,
+                            role: roleJson.role_name,
+                            filename: userJson.fileName,
+                            message: "Vos identifiants sont corrects",
+                        });
+                    }
+                } else {
                     await user.comparePassword(password).then((isMatch) => {
                         if (!isMatch) {
                             res.status(401).send({
