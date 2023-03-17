@@ -108,7 +108,7 @@ const SignUp = ({
             <Box sx={{ marginY: 2 }}>
                 <InputList
                     label={
-                        " Quelle est votre position au sein d'influenceur business ?"
+                        " Quelle est votre position au sein d'Influence B ?"
                     }
                     value={role}
                     valuesOption={valuesOption}

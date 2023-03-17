@@ -176,14 +176,16 @@ const Modules = () => {
             setSousCompetences(sousCompetences);
         };
         fetch();
-    }, []);
+    }, []); // direct on reload une fois
 
+    //debugg f12
     useEffect(() => {
         console.log(user);
         console.log(competences);
         console.log(sousCompetences);
     }, [user, competences, sousCompetences]);
 
+    // only admins changes
     const handleRadioChange = (event, sousComeptence) => {
         if (role === "admin") {
             sousComeptence.acquisition = parseInt(event.target.value);
@@ -224,6 +226,7 @@ const Modules = () => {
                     backgroundColor: theme.palette.background.default,
                 }}
             >
+                {/* ? : verifie si null */}
                 {user.projectModules?.map((module, moduleIndex) => (
                     <Grid
                         container
@@ -273,7 +276,7 @@ const Modules = () => {
                                                 <LinearProgress
                                                     value={
                                                         user.projectNotes[
-                                                            moduleIndex
+                                                        moduleIndex
                                                         ]
                                                     }
                                                     variant="determinate"
@@ -289,7 +292,7 @@ const Modules = () => {
                                                 >
                                                     {
                                                         user.projectNotes[
-                                                            moduleIndex
+                                                        moduleIndex
                                                         ]
                                                     }
                                                 </Typography>
@@ -476,7 +479,7 @@ const Modules = () => {
                                                                     );
                                                                     console.log(
                                                                         "competenceId : " +
-                                                                            competence.id_competence
+                                                                        competence.id_competence
                                                                     );
                                                                     setCompetenceIndex(
                                                                         competence.id_competence

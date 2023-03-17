@@ -51,7 +51,7 @@ function Footer() {
                 </section>
             </div>
             <div className="copyright">
-                Copyright © 2021 Influenceur Business — All rights reserved
+                Copyright © 2021 Influence B — All rights reserved
             </div>
         </footer>
     );

@@ -12,12 +12,14 @@ const {
 } = require("../models");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+// password hash
 const bcrypt = require("bcrypt");
+// later for contact form
 let nodemailer = require("nodemailer");
+// things like "one hour ago"
 const moment = require("moment");
-// -- Functions -- //
-// jwt token
 
+// autocomplete le projectform
 const staticCompetences = [
     {
         module: "Définition du projet",

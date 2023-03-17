@@ -55,8 +55,8 @@ const Sidebar = ({ handleLogout, avatar, fullName, id }) => {
                 role === "expert"
                     ? "/profilExpert"
                     : role === "entrepreneur"
-                    ? "/profilEntrepreneur"
-                    : "/profilInvestisseur",
+                        ? "/profilEntrepreneur"
+                        : "/profilInvestisseur",
         },
         {
             text: "Tableau de bord",
@@ -130,7 +130,7 @@ const Sidebar = ({ handleLogout, avatar, fullName, id }) => {
                             textTransform={"uppercase"}
                             color={"primary"}
                         >
-                            Influenceur Business
+                            Influence B
                         </Typography>
                     </Box>
                     <Box

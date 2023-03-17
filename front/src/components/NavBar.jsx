@@ -77,7 +77,7 @@ function NavBar({ handleThemeChange, mode }) {
         <AppBar>
             <div className="header__content">
                 <Link to="/" className="header__content__logo">
-                    {/* Influenceur business */}
+                    {/* Influence B */}
                 </Link>
                 <nav
                     className={`${"header__content__nav"} 

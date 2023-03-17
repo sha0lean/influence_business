@@ -17,6 +17,7 @@ export const nameModules = [
     "Action de développement",
 ];
 
+// Tout les appels à l'API dans un seul fichier
 export const registerUser = async (credentials) => {
     let formData = new FormData();
     if (credentials.role === "entrepreneur") {

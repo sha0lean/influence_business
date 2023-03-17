@@ -6,12 +6,15 @@ import Routes from "./routes";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
 const App = () => {
-    const [mode, setMode] = React.useState("dark");
+    // initialise le mode en light
+    const [mode, setMode] = React.useState("light");
 
+    // switcher pour toggle d'un mode à un autre
     const handleThemeChange = () => {
         setMode(mode === "dark" ? "light" : "dark");
     };
 
+    // on configure les couleurs des deux themes
     const theme = useMemo(() =>
         createTheme({
             palette: {
@@ -52,14 +55,16 @@ const App = () => {
         })
     );
 
+    //  "ThemeProvider" : définis le thème à utiliser avec le pp "theme"
+    //    "CssBaseline" : reset le CSS
+    //         "Layout" : composant bateau pour utiliser getToken() et getRole() afin d'afficher les bonnes nav etc
+    //         "Routes" : bateau pour récuperer tout dans MainRoutes.js.
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <div className="App">
-                <Layout mode={mode} handleThemeChange={handleThemeChange}>
-                    <Routes />
-                </Layout>
-            </div>
+            <Layout mode={mode} handleThemeChange={handleThemeChange}>
+                <Routes />
+            </Layout>
         </ThemeProvider>
     );
 };
